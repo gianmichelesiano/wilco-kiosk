@@ -214,6 +214,19 @@ test('a short tap on the talk button keeps listening until the next tap', async 
   assert.equal((await calls()).transcription, 1);
 });
 
+test('Quit Wilco: only from Settings, and only with a second tap', async t => {
+  const {app, page} = await launch(t);
+  await visit(page, 'en');
+  await assert.rejects(page.evaluate(() => window.wilco.quit()), /Locked/);
+  await openSettings(page);
+  await page.click('#settings-quit');
+  assert.equal(await page.textContent('#settings-quit'), 'Tap again to quit Wilco');
+  assert.equal(await mode(page), 'settings');
+  const closed = new Promise(resolve => app.once('close', resolve));
+  await page.click('#settings-quit').catch(() => {}); // The window goes away with the click.
+  await closed;
+});
+
 test('Settings opens only with the staff PIN', async t => {
   const {page} = await launch(t);
   await visit(page, 'en'); // Start in English, whatever the question on screen.

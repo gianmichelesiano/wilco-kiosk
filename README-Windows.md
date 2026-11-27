@@ -41,7 +41,7 @@ Senza `cache\` Wilco prepara le risposte e le voci dal vivo, quindi la prima vol
 
 ## Uso
 
-- Wilco parte a schermo intero. **Alt+F4** lo chiude.
+- Wilco parte a schermo intero. Per chiuderlo: «Settings» > PIN > **Quit Wilco**, poi toccare di nuovo il pulsante per confermare. Con una tastiera basta **Alt+F4**.
 - Pulsante rosso: tenere premuto, parlare, rilasciare. Un tocco breve ascolta fino al tocco successivo o per 20 secondi.
 - «Settings» in alto a sinistra apre il tastierino del PIN.
 - Dopo una modifica a `.env`, chiudere e riaprire Wilco.

@@ -291,3 +291,4 @@ async function prepare(list,rewrite){
 confirmTap($('#prepare-product'),'Tap again to rewrite all its answers',()=>prepare([apps.find(p=>p.id===selected)],true));
 $('#prepare-missing').onclick=()=>prepare(products,false);
 $('#settings-close').onclick=async()=>{products=await api.catalog();endVisit();};
+confirmTap($('#settings-quit'),'Tap again to quit Wilco',()=>api.quit());

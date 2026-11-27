@@ -316,6 +316,7 @@ app.whenReady().then(()=>{
   });
   // Every product, in the kiosk or not: the stand team decides in Settings which ones visitors get.
   handle('apps',staff(()=>knowledge.products(catalog)));
+  handle('quit',staff(()=>app.quit())); // The touch screen has no keyboard for Alt+F4.
   handle('show',staff((id,on)=>{
     if(!catalog.some(p=>p.id===id)) throw Error('Unknown product');
     if(!on && onShow().every(p=>p.id===id)) throw Error('One product must stay in the kiosk.');
