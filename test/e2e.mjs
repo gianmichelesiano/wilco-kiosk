@@ -365,6 +365,16 @@ test('the app tour plays without sound during the overview, and a question takes
   await until(page, () => document.querySelector('#film').hidden);
 });
 
+for (const id of ['techlog', 'audit']) {
+  test(`each card plays its own app tour: ${id} opens the ${id} tour`, async t => {
+    const {page} = await launch(t);
+    await visit(page, 'en');
+    await page.click(`#grid .card:nth-child(${visible.findIndex(product => product.id === id) + 1})`);
+    await until(page, id => !document.querySelector('#film').hidden && document.querySelector('#film').src.endsWith(`/media/intro/${id}.mp4`), id);
+    await until(page, () => document.querySelector('#film').currentTime > 2, null, 8000);
+  });
+}
+
 test('prepared answers play at once and keep working with the network down', async t => {
   const {page, calls, mock, settings} = await launch(t);
   await visit(page, 'en'); // Start in English, whatever the question on screen.
