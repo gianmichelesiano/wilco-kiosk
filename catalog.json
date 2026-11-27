@@ -504,6 +504,7 @@
     "facts": "NGFT DocGen supports writing, reviewing and approving controlled manuals. Compare revisions, link chapters to RegVault articles and publish approved revisions to crews through NGFT Reader.",
     "prompt": "How do I review a changed manual?",
     "url": "https://docgen2.staging.ngft.com/",
+    "intro": "media/intro/docgen.mp4",
     "locales": {
       "it": {
         "area": "Compliance",

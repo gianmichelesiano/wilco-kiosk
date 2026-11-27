@@ -15,6 +15,13 @@ const settingsDir = process.env.WILCO_SETTINGS_DIR
   || (!bundled ? __dirname
     : process.platform === 'darwin' ? path.join(app.getPath('appData'), 'NGFT Wilco')
     : path.dirname(process.execPath)); // Windows portable: next to Wilco.exe.
+// The git clone this copy came from. On the Mac, Build-Wilco-Mac.command builds Wilco.app inside it.
+const clone = bundled && process.platform==='darwin' ? path.resolve(__dirname, '../../../..') : __dirname;
+// The stand: Start-Wilco.cmd runs the clone on Windows, Wilco.app runs on the Mac. Never a development run
+// (npm start, tests): the update would replace the code under it.
+const updater = !fs.existsSync(path.join(clone, '.git')) ? null
+  : process.platform==='win32' && !bundled ? path.join(clone, 'Update-Wilco.cmd')
+  : process.platform==='darwin' && bundled ? path.join(clone, 'Update-Wilco.command') : null;
 const envFiles = [path.join(settingsDir, '.env')];
 // Development copy: the .env beside Wilco.app fills in what the installed file lacks.
 if(bundled && process.platform==='darwin') envFiles.push(path.resolve(__dirname, '../../../../.env'), path.resolve(__dirname, '../../../../wilco-kiosk/.env'));
@@ -370,20 +377,20 @@ app.whenReady().then(()=>{
   // Every product, in the kiosk or not: the stand team decides in Settings which ones visitors get.
   handle('apps',staff(()=>knowledge.products(catalog)));
   handle('quit',staff(()=>app.quit())); // The touch screen has no keyboard for Alt+F4.
-  // Only the git install on Windows has Update-Wilco.cmd: it runs git pull and starts Wilco again.
+  // Update-Wilco.cmd (Windows) and Update-Wilco.command (Mac) run git pull and start Wilco again.
   handle('update',staff(async()=>{
-    if(process.platform!=='win32' || !fs.existsSync(file('.git'))) throw Error('Update works only on the Windows PC installed with git clone.');
-    const error=await shell.openPath(file('Update-Wilco.cmd')); // In its own window: the stand team sees git's answer.
+    if(!updater) throw Error('Update works only in a git clone: Start-Wilco.cmd on Windows, or Wilco.app built inside the clone on the Mac.');
+    const error=await shell.openPath(updater); // In its own window: the stand team sees git's answer.
     if(error) throw Error(error);
     app.quit();
   }));
-  // Settings shows which version runs and whether GitHub has a newer one. Only the git install knows.
+  // Settings shows which version runs and whether GitHub has a newer one. Only a git clone knows.
   handle('version',staff(async()=>{
-    if(!fs.existsSync(file('.git'))) return null;
-    const git=(...args)=>run('git',args,{cwd:__dirname,timeout:15000}).then(result=>result.stdout.trim());
+    if(!fs.existsSync(path.join(clone,'.git'))) return null;
+    const git=(...args)=>run('git',args,{cwd:clone,timeout:15000}).then(result=>result.stdout.trim());
     const date=await git('log','-1','--format=%cd','--date=format:%d %b %Y %H:%M');
-    // Only the stand PC asks GitHub: the tests and the Mac stay offline and compare with the last fetch.
-    const fetched=process.platform==='win32' ? git('fetch','--quiet') : Promise.resolve();
+    // Only the stand asks GitHub: the tests and development runs stay offline and compare with the last fetch.
+    const fetched=updater ? git('fetch','--quiet') : Promise.resolve();
     const behind=await fetched.then(()=>git('rev-list','--count','HEAD..@{u}')).then(Number,()=>null); // Offline: unknown.
     return {date,behind};
   }));

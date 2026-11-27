@@ -399,7 +399,7 @@ test('a camera that cannot be opened also points the stand team at Windows priva
   await until(page, () => /Privacy & security > Camera/.test(document.querySelector('#camera-state').textContent));
 });
 
-test('Update Wilco: only from Settings, and only on the Windows git install', async t => {
+test('Update Wilco: only from Settings, and never from a development run', async t => {
   const {page} = await launch(t);
   await visit(page, 'en');
   await assert.rejects(page.evaluate(() => window.wilco.update()), /Locked/);
@@ -408,7 +408,7 @@ test('Update Wilco: only from Settings, and only on the Windows git install', as
   await page.click('#settings-update');
   assert.equal(await page.textContent('#settings-update'), 'Tap again to update Wilco');
   await page.click('#settings-update');
-  await until(page, () => /Windows PC installed with git clone/.test(document.querySelector('#settings-message').textContent));
+  await until(page, () => /only in a git clone/.test(document.querySelector('#settings-message').textContent));
   assert.equal(await mode(page), 'settings');
 });
 
@@ -537,7 +537,7 @@ test('the app tour plays without sound during the overview, and a question takes
   await until(page, () => document.querySelector('#film').hidden);
 });
 
-for (const id of ['techlog', 'audit', 'sms', 'crew']) {
+for (const id of ['techlog', 'audit', 'sms', 'crew', 'docgen']) {
   test(`each card plays its own app tour: ${id} opens the ${id} tour`, async t => {
     const {page} = await launch(t);
     await visit(page, 'en');
