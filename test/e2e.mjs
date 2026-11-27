@@ -365,7 +365,7 @@ test('the app tour plays without sound during the overview, and a question takes
   await until(page, () => document.querySelector('#film').hidden);
 });
 
-for (const id of ['techlog', 'audit', 'sms', 'crew']) {
+for (const id of ['techlog', 'audit', 'sms', 'crew', 'docgen']) {
   test(`each card plays its own app tour: ${id} opens the ${id} tour`, async t => {
     const {page} = await launch(t);
     await visit(page, 'en');
