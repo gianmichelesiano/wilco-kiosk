@@ -1,0 +1,81 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; media-src 'self' blob:; object-src 'none'"><title>Wilco · NGFT</title><link rel="stylesheet" href="style.css"></head>
+<body data-state="standby" data-mode="attract">
+<aside>
+  <div class="langrow">
+    <!-- Stand team: asks for the PIN, then opens Settings (settings.js). The language buttons need no label. -->
+    <button id="settings-open" class="label" type="button"><span class="ms" aria-hidden="true">build</span>Settings</button>
+    <!-- Visit only: makes the sidebar small, for example to use the live demo, and back. -->
+    <button id="side-toggle" type="button" aria-label="Make Wilco small" aria-expanded="true"><span class="ms" aria-hidden="true">arrow_forward</span></button>
+    <div id="lang" role="group" aria-label="Language">
+      <button data-lang="en" lang="en" aria-label="English">EN</button><button data-lang="fr" lang="fr" aria-label="Français">FR</button><button data-lang="de" lang="de" aria-label="Deutsch">DE</button><button data-lang="it" lang="it" aria-label="Italiano">IT</button>
+    </div>
+  </div>
+  <div class="persona">
+    <button id="core" aria-pressed="false">
+      <svg viewBox="0 0 200 200" aria-hidden="true">
+        <circle class="ring-outer" cx="100" cy="100" r="98"/>
+        <circle class="ring-ticks" cx="100" cy="100" r="91" pathLength="360"/>
+        <circle class="ring-arc a" cx="100" cy="100" r="82" pathLength="100"/>
+        <circle class="ring-seg" cx="100" cy="100" r="74" pathLength="100"/>
+        <circle class="ring-arc b" cx="100" cy="100" r="67" pathLength="100"/>
+        <circle class="ring-inner" cx="100" cy="100" r="60"/>
+      </svg>
+      <span class="pulse"></span>
+      <span class="portrait" aria-hidden="true">
+        <img src="wilco.png" alt="">
+        <svg viewBox="140 0 740 740" class="face">
+          <g transform="translate(330 225)">
+            <defs>
+              <clipPath id="eye-l"><path d="M57 53 Q59 33 80 32 Q97 32 106 50 Q113 78 86 77 Q62 77 57 53Z"/></clipPath>
+              <clipPath id="eye-r"><path d="M168 51 Q171 30 194 30 Q217 29 230 53 Q231 74 200 77 Q175 80 168 51Z"/></clipPath>
+            </defs>
+            <g clip-path="url(#eye-l)"><path class="lid" d="M50 -21 H116 V64 Q84 82 50 61Z"/></g>
+            <g clip-path="url(#eye-r)"><path class="lid" d="M161 -21 H237 V61 Q200 82 161 62Z"/></g>
+            <g id="speaking-mouth" opacity="0">
+              <path class="mouth-inside"/><path class="mouth-teeth"/><path class="mouth-tongue"/>
+            </g>
+          </g>
+        </svg>
+      </span>
+    </button>
+    <strong class="name">Wilco</strong>
+    <span class="state"><span class="dot"></span><span id="statetext">Standby</span></span>
+    <div id="wave" aria-hidden="true"></div>
+  </div>
+  <!-- Attract screen: nobody is at the kiosk. Any touch starts a visit. -->
+  <button id="begin"><span class="ptt"><span class="ms" aria-hidden="true">mic</span></span><span id="begin-label">Touch to start</span></button>
+  <section id="transcript" aria-live="polite"></section>
+  <div id="controls">
+    <button id="home" hidden data-t="home">All products</button>
+    <button id="mic"><span class="ptt"><span class="ms" aria-hidden="true">mic</span></span><span id="miclabel">Hold to talk</span></button>
+    <form><input id="question" maxlength="1500" placeholder="Type your question"><button id="askbtn"><span class="ms" aria-hidden="true">send</span><span data-t="ask">Ask</span></button></form>
+    <div class="foot">
+      <small id="status" role="status"></small>
+      <button id="reset"><span class="ms" aria-hidden="true">logout</span><span data-t="end">End visit</span></button>
+    </div>
+  </div>
+</aside>
+<main>
+  <header><img class="logo" src="ngft-logo.svg" alt="NGFT Solutions"><img class="event" src="er-logo.png" alt="European Rotors"></header>
+  <section id="attract">
+    <button id="teaser"><span id="teaser-question"></span><span class="who"><span class="ms" id="teaser-icon" aria-hidden="true"></span><span id="teaser-name"></span></span></button>
+    <video id="loop" muted playsinline hidden></video>
+  </section>
+  <div id="browse"><h1 data-t="browse">Explore by interest</h1><p class="intro" data-t="intro"></p><div id="grid"></div></div>
+  <article hidden><small id="area"></small><h1 id="name"></h1><p id="facts"></p><div class="actions"><button id="live" data-t="live">Open live demo</button></div><video id="film" controls muted playsinline hidden></video><div id="topics" role="group" hidden></div></article>
+  <section id="settings" lang="en">
+    <div class="bar"><h1>What Wilco knows</h1><p id="last"></p><button id="settings-close" type="button">Close and lock</button></div>
+    <!-- For the whole kiosk, so above the products: one voice for each language, whatever the product. -->
+    <div id="voice"><h2>ElevenLabs voices, the same for all products</h2><p>One voice for each language. «Test» plays the language and says whether ElevenLabs answered. «Standard voice» is the one set in .env.</p><div id="voice-rows"></div><small id="voice-status" role="status"></small></div>
+    <nav id="apps" aria-label="Products"></nav>
+    <div id="workbench">
+      <form id="probe"><label for="probe-question">Test a question</label><div><input id="probe-question" maxlength="1500" placeholder="Type what a visitor would ask about this product"><button id="probe-run">Show guide sections</button></div><ol id="probe-result"></ol></form>
+      <div id="prepare"><p>Prepared answers play at once and without a connection. Writing them uses OpenAI and ElevenLabs.</p><div><button id="prepare-product" type="button">Rewrite this product, 4 languages</button><button id="prepare-missing" type="button">Write what is missing, all products</button></div><small id="prepare-status" role="status"></small></div>
+      <p id="settings-message" role="alert"></p>
+      <p id="shown-language"></p>
+      <div id="context"></div>
+    </div>
+  </section>
+</main>
+<dialog id="pin" lang="en"><h2>Staff PIN</h2><p id="pin-dots" aria-live="polite"></p><p id="pin-message" role="alert"></p><div id="keys"></div><form method="dialog"><button>Cancel</button></form></dialog>
+<script src="strings.js"></script><script src="ui.js"></script><script src="settings.js"></script></body></html>

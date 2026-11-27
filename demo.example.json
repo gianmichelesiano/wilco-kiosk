@@ -1,0 +1,5 @@
+{
+  "urls": {},
+  "loginOrigins": ["https://sso.staging.ngft.com"],
+  "idleSeconds": 90
+}

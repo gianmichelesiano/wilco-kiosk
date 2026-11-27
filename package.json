@@ -1,0 +1,1 @@
+{"name":"ngft-wilco-kiosk","private":true,"version":"0.1.0","main":"main.cjs","scripts":{"start":"electron .","test":"node --test test/check.cjs","e2e":"node --test --test-concurrency=1 test/e2e.mjs"},"dependencies":{"electron":"^42.0.0"}}

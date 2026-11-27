@@ -1,0 +1,693 @@
+[
+  {
+    "id": "ops",
+    "attract": true,
+    "name": "OPS Dispatch",
+    "area": "Flight operations",
+    "facts": "NGFT OPS handles helicopter operations from offer and job through scheduling, crew assignment, flight reporting and invoicing.",
+    "prompt": "Where can we fit a new mission?",
+    "url": "https://ops.staging.ngft.com/",
+    "intro": "media/intro/ops.mp4",
+    "locales": {
+      "it": {
+        "area": "Operazioni di volo",
+        "prompt": "Dove inseriamo una nuova missione?",
+        "facts": "NGFT OPS gestisce le operazioni elicotteristiche dall’offerta e dalla commessa alla pianificazione del volo, all’assegnazione dell’equipaggio, al report e alla fattura.",
+        "questions": [
+          "Come pianifico una nuova missione?",
+          "Come assegno pilota e TSOP?",
+          "Come avviso la crew?",
+          "Cosa succede quando si accetta un’offerta?",
+          "Come sposto un volo su un altro elicottero?",
+          "OPS Agent può preparare il piano del giorno?"
+        ]
+      },
+      "fr": {
+        "area": "Opérations aériennes",
+        "prompt": "Où placer une nouvelle mission ?",
+        "facts": "NGFT OPS gère les opérations héliportées du devis à la facturation en passant par la planification, l’affectation des équipages et le rapport de vol.",
+        "questions": [
+          "Comment planifier une nouvelle mission ?",
+          "Comment affecter un pilote et un TSOP ?",
+          "Comment prévenir l’équipage ?",
+          "Que se passe-t-il quand un devis est accepté ?",
+          "Comment déplacer un vol sur un autre hélicoptère ?",
+          "OPS Agent peut-il préparer le plan du jour ?"
+        ]
+      },
+      "de": {
+        "area": "Flugbetrieb",
+        "prompt": "Wo passt ein neuer Auftrag in den Flugplan?",
+        "facts": "NGFT OPS unterstützt Hubschrauberbetriebe vom Angebot über Einsatzplanung, Besatzungszuweisung und Flugberichte bis zur Rechnungsstellung.",
+        "questions": [
+          "Wie plane ich einen neuen Einsatz?",
+          "Wie teile ich Pilot und TSOP zu?",
+          "Wie benachrichtige ich die Besatzung?",
+          "Was passiert nach Annahme eines Angebots?",
+          "Wie wechsle ich den Hubschrauber eines Flugs?",
+          "Kann OPS Agent den Tagesplan vorbereiten?"
+        ]
+      }
+    },
+    "help": [
+      {
+        "source": "ngft-tutorials/src/eur/01-dispatch.json",
+        "notes": [
+          "In the documented dispatch scenario, open the day in the calendar. Unassigned jobs appear above the aircraft rows. Open the job to check route, load and requested time. Drag it to a free aircraft at that time. Reopen the flight to verify Scheduled, the selected aircraft and assigned pilot. The dispatcher reviews planning warnings."
+        ]
+      },
+      {
+        "source": "ngft-tutorials/eur-2026/README.md",
+        "notes": [
+          "In the fair staging scenario, accepting an offer creates an order and flights. Use the daily plan PDF to share the schedule; the example had empty client, location and fuel columns.",
+          "OPS Agent day-plan demonstration proposes an aircraft and pilot; after confirmation the dispatcher checks the calendar. The recorded feature is restricted to NGFT administrators; do not present it as available to every dispatcher."
+        ]
+      },
+      {
+        "source": "ops/ngft-ops-frontend/WILCO_PRODUCT_GUIDE.md",
+        "notes": [
+          "In OPS a Job is the customer job and may contain multiple Flights. Each Flight is planned on an aircraft.",
+          "Scheduled and Engaged are distinct states. The team notification is associated with Engage, not just putting the flight on the calendar."
+        ]
+      }
+    ],
+    "questions": [
+      "How do I schedule a new mission?",
+      "How do I assign a pilot and TSOP?",
+      "How do I notify the crew?",
+      "What happens when a quote is accepted?",
+      "How do I move a flight to another helicopter?",
+      "Can OPS Agent prepare the day’s plan?"
+    ],
+    "clips": [
+      "media/stories/01-new-mission-silent.mp4",
+      null,
+      null,
+      null,
+      "media/stories/02-switch-aircraft-silent.mp4",
+      "media/stories/19-ops-agent-day-plan-silent.mp4"
+    ]
+  },
+  {
+    "id": "techlog",
+    "name": "TechLog",
+    "area": "Maintenance",
+    "facts": "Digital technical logbook for flight missions, inspections, defects, fluid entries and maintenance. Pilots report defects in the app. In Techlog Admin, Assign links a defect to an HIL item or a maintenance action.",
+    "prompt": "What happens to an open defect?",
+    "url": "https://techlog.staging.ngft.com/",
+    "locales": {
+      "it": {
+        "area": "Manutenzione",
+        "prompt": "Come gestiamo un difetto aperto?",
+        "facts": "Libretto tecnico digitale per missioni, ispezioni, difetti, rifornimenti e manutenzione. Il pilota segnala i difetti nell’app. In Techlog Admin, Assign collega il difetto a un elemento HIL o a un’azione di manutenzione.",
+        "questions": [
+          "Come segnalo un difetto dal tablet?",
+          "Come collego un difetto a un HIL?",
+          "Come chiudo un difetto dopo la riparazione?",
+          "Come firmo l’ispezione pre-volo?"
+        ]
+      },
+      "fr": {
+        "area": "Maintenance",
+        "prompt": "Comment traiter un défaut ouvert ?",
+        "facts": "Carnet technique numérique pour les missions, inspections, défauts, avitaillements et la maintenance. Le pilote signale les défauts dans l’application. Dans Techlog Admin, Assign associe le défaut à un élément HIL ou à une action de maintenance.",
+        "questions": [
+          "Comment signaler un défaut sur tablette ?",
+          "Comment associer un défaut à un HIL ?",
+          "Comment clôturer un défaut après réparation ?",
+          "Comment signer l’inspection avant vol ?"
+        ]
+      },
+      "de": {
+        "area": "Instandhaltung",
+        "prompt": "Wie bearbeiten wir einen offenen Mangel?",
+        "facts": "Digitales technisches Bordbuch für Flüge, Inspektionen, Mängel, Betriebsstoffe und Instandhaltung. Piloten melden Mängel in der App. In Techlog Admin verknüpft Assign einen Mangel mit einem HIL-Eintrag oder einer Instandhaltungsmaßnahme.",
+        "questions": [
+          "Wie melde ich einen Mangel am Tablet?",
+          "Wie verknüpfe ich einen Mangel mit einem HIL-Eintrag?",
+          "Wie schließe ich einen Mangel nach der Reparatur?",
+          "Wie unterschreibe ich die Vorflugkontrolle?"
+        ]
+      }
+    },
+    "help": [
+      {
+        "source": "techlog/WILCO_PRODUCT_GUIDE.md",
+        "notes": [
+          "The Work Order # is a field on the maintenance action. The Assign control in Defects links an existing HIL item or maintenance action. The defect is resolved when its linked maintenance action is completed and signed."
+        ]
+      }
+    ],
+    "questions": [
+      "How do I report an aircraft defect?",
+      "How do I link a defect to an HIL item?",
+      "How do I close a defect after repair?",
+      "How do I sign a preflight inspection?"
+    ]
+  },
+  {
+    "id": "sms",
+    "name": "SMS",
+    "area": "Safety",
+    "facts": "NGFT Safety is the Safety Management System for aviation operators. Collect reports, triage and analyze occurrences, manage risks and mitigations, and track corrective actions and changes.",
+    "prompt": "What should we review at our safety meeting?",
+    "url": "https://sms.staging.ngft.com/",
+    "locales": {
+      "it": {
+        "area": "Safety",
+        "prompt": "Quali rischi esaminiamo in riunione?",
+        "facts": "NGFT Safety è il Safety Management System per operatori aerei. Raccoglie le segnalazioni, supporta triage e analisi, gestisce rischi e mitigazioni e segue azioni correttive e cambiamenti.",
+        "questions": [
+          "Come invio una segnalazione anonima?",
+          "Come fa il Safety Manager il triage?",
+          "Come uso la matrice del Risk Register?",
+          "Come assegno RCA & CAP?"
+        ]
+      },
+      "fr": {
+        "area": "Sécurité",
+        "prompt": "Quels risques examiner en réunion ?",
+        "facts": "NGFT Safety est le système de gestion de la sécurité des opérateurs aériens. Il couvre les signalements, le triage, l’analyse des événements, les risques, les mesures d’atténuation et les actions correctives.",
+        "questions": [
+          "Comment envoyer un signalement anonyme ?",
+          "Comment le Safety Manager trie-t-il un signalement ?",
+          "Comment utiliser la matrice du Risk Register ?",
+          "Comment attribuer le RCA & CAP ?"
+        ]
+      },
+      "de": {
+        "area": "Sicherheit",
+        "prompt": "Welche Risiken besprechen wir beim nächsten Treffen?",
+        "facts": "NGFT Safety ist das Safety Management System für Flugbetriebe. Es deckt Sicherheitsmeldungen, Triage, Ereignisanalyse, Risikomanagement, Minderungsmaßnahmen und Korrekturmaßnahmen ab.",
+        "questions": [
+          "Wie reiche ich eine anonyme Meldung ein?",
+          "Wie funktioniert die Triage durch den Safety Manager?",
+          "Wie nutze ich die Risikomatrix?",
+          "Wie weise ich RCA & CAP zu?"
+        ]
+      }
+    },
+    "help": [
+      {
+        "source": "sms/WILCO_PRODUCT_GUIDE.md",
+        "notes": [
+          "Risk Register exports an Excel file. The PDF summary is exported from Safety Cockpit. Access depends on the role in the currently selected company.",
+          "AI classification assists the Safety Manager. Authority Reporting, Data Exchange and Safety Audits appear as Coming Soon in the documented staging version."
+        ]
+      }
+    ],
+    "questions": [
+      "How do I submit an anonymous report?",
+      "How does the Safety Manager triage a report?",
+      "How do I use the Risk Register matrix?",
+      "How do I assign RCA & CAP?"
+    ],
+    "clips": [
+      null,
+      null,
+      "media/stories/09-safety-meeting-silent.mp4",
+      null
+    ]
+  },
+  {
+    "id": "crew",
+    "name": "CrewOverview",
+    "area": "Crew",
+    "facts": "Review qualifications by crew member and position, certificates and approaching expiry.",
+    "prompt": "Which crew qualification needs attention?",
+    "url": "https://co.staging.ngft.com/",
+    "locales": {
+      "it": {
+        "area": "Equipaggio",
+        "prompt": "Quale qualifica richiede attenzione?",
+        "facts": "Verifica qualifiche per membro e funzione, certificati e scadenze.",
+        "questions": [
+          "Cosa indica il punto arancione?",
+          "Come carico un certificato esterno?",
+          "Chi approva i certificati?",
+          "Come esporto un report con i filtri?"
+        ]
+      },
+      "fr": {
+        "area": "Équipage",
+        "prompt": "Quelle qualification arrive à échéance ?",
+        "facts": "Consultez les qualifications par membre d’équipage et par fonction, les certificats et les échéances.",
+        "questions": [
+          "Que signifie le point orange ?",
+          "Comment téléverser un certificat externe ?",
+          "Qui valide les certificats ?",
+          "Comment exporter un rapport filtré ?"
+        ]
+      },
+      "de": {
+        "area": "Besatzung",
+        "prompt": "Welche Qualifikation läuft bald ab?",
+        "facts": "Prüfen Sie Qualifikationen nach Besatzungsmitglied und Funktion sowie Nachweise und Ablaufdaten.",
+        "questions": [
+          "Was bedeutet der orange Punkt?",
+          "Wie lade ich einen externen Nachweis hoch?",
+          "Wer genehmigt Nachweise?",
+          "Wie exportiere ich einen gefilterten Bericht?"
+        ]
+      }
+    },
+    "help": [
+      {
+        "source": "crew-overview/NGFT-Crew-Tutorial-for-dev/source/08-upload-certificate.md",
+        "notes": [
+          "Own external certificate: open the course list and use Upload beside the course, choose the file, enter Completion Date and Valid Until (or tick Certificate never expires), then Upload Certificate. The entry shows Awaiting approval."
+        ]
+      },
+      {
+        "source": "crew-overview/NGFT-Crew-Tutorial-for-dev/source/18-approve-courses.md",
+        "notes": [
+          "A manager with Approve extern certificates opens Approve Courses, clicks the filename to review it, and can use the pencil to correct dates. Confirm the green thumb to approve or red thumb to decline. Both decisions are final in this workflow. A normal upload by a manager also waits for approval."
+        ]
+      },
+      {
+        "source": "crew-overview/NGFT-Crew-Tutorial-for-dev/source/19-bulk-upload.md",
+        "notes": [
+          "Managers with Bulk upload certificates can use One Certificate, Multiple Users after a shared training day, or One User, Multiple Certificates for one person. Select course(s) and member(s), supply the common file and dates, then Upload & Approve. These uploads count immediately. Company Administrator does not have this permission by default."
+        ]
+      },
+      {
+        "source": "crew-overview/NGFT-Crew-Tutorial-for-dev/source/02-company-selector.md",
+        "notes": [
+          "If courses or certificates seem to belong to the wrong company, check the company at the top. For a user working for multiple companies, use the three dots beside the company name, select the company, and wait for the page to reload."
+        ]
+      },
+      {
+        "source": "crew-overview/NGFT-Crew-Tutorial-for-dev/source/23-troubleshooting.md",
+        "notes": [
+          "Course appears unfinished: reopen it with the play arrow and check every Moodle component, including the feedback form where present. A composite training can have unfinished parts; expand it for progress. For a manager seeing stale red in Overview, use its refresh arrow to recalculate.",
+          "Missing course: ask the manager to check assigned roles, positions, operations and the company Relations Tree. Missing menu entries depend on permissions. To check a missing operation for a member, review Members > Properties, then aircraft assignment and the Allowed switch under Aircraft & Operation Authorization / Limitations."
+        ]
+      }
+    ],
+    "questions": [
+      "What does the orange expiry status mean?",
+      "How do I upload an external certificate?",
+      "Who approves certificates?",
+      "How do I export a filtered report?"
+    ],
+    "clips": [
+      "media/stories/10-crew-qualification-silent.mp4",
+      "media/stories/10b-crew-upload-silent.mp4",
+      "media/stories/10c-crew-approve-silent.mp4",
+      "media/stories/10d-crew-export-silent.mp4"
+    ]
+  },
+  {
+    "id": "frat",
+    "name": "FRAT",
+    "area": "Safety",
+    "facts": "Assess flight risks, review mitigations and view the resulting score. The pilot can consult a PDF.",
+    "prompt": "How does mitigation affect the risk score?",
+    "locales": {
+      "it": {
+        "area": "Safety",
+        "prompt": "Qual è il rischio dopo la mitigazione?",
+        "facts": "Valuta i rischi di volo, esamina le mitigazioni e controlla il punteggio risultante. Il pilota può aprire il PDF.",
+        "questions": [
+          "A cosa serve la valutazione pre-volo?",
+          "Dove vedo le mitigazioni?",
+          "Cosa mostra il punteggio residuo?",
+          "Cosa contiene il PDF delle mitigazioni?"
+        ]
+      },
+      "fr": {
+        "area": "Sécurité",
+        "prompt": "Quel est le risque après atténuation ?",
+        "facts": "Évaluez les risques du vol, examinez les mesures et consultez le score obtenu. Le pilote peut ouvrir le PDF.",
+        "questions": [
+          "À quoi sert l’évaluation avant vol ?",
+          "Où consulter les mesures d’atténuation ?",
+          "Que montre le score résiduel ?",
+          "Que contient le PDF des mesures ?"
+        ]
+      },
+      "de": {
+        "area": "Sicherheit",
+        "prompt": "Wie verändert eine Maßnahme den Risikowert?",
+        "facts": "Bewerten Sie die Flugrisiken, prüfen Sie die Maßnahmen und den resultierenden Risikowert. Der Pilot kann das PDF öffnen.",
+        "questions": [
+          "Wozu dient die Risikobewertung vor dem Flug?",
+          "Wo sehe ich die Maßnahmen?",
+          "Was zeigt der verbleibende Risikowert?",
+          "Was enthält das Maßnahmen-PDF?"
+        ]
+      }
+    },
+    "help": [
+      {
+        "source": "frat-flutter/lib/ui/screens/frat_flow/mitigation/mitigation_results_screen.dart",
+        "notes": [
+          "The mitigation results screen shows the resulting risk score and level. MITIGATION PDF builds a report from the assessment items and the selected mitigations. Describe the recorded assessment rather than making a flight decision."
+        ]
+      }
+    ],
+    "questions": [
+      "What is a preflight assessment for?",
+      "How do I review mitigations?",
+      "What does the residual score show?",
+      "What does the mitigation PDF contain?"
+    ]
+  },
+  {
+    "id": "training",
+    "hidden": true,
+    "name": "Training",
+    "area": "Training",
+    "facts": "Instructors can review a session, record exercise outcomes and sign on a tablet.",
+    "prompt": "How does an instructor finish a session?",
+    "locales": {
+      "it": {
+        "area": "Addestramento",
+        "prompt": "Come conclude la sessione un istruttore?",
+        "facts": "Sul tablet l’istruttore può esaminare la sessione, registrare gli esiti e firmare.",
+        "questions": [
+          "Come rivede la sessione un istruttore?",
+          "Come registro gli esiti degli esercizi?",
+          "Come firmo una sessione?",
+          "Cosa posso registrare offline?"
+        ]
+      },
+      "fr": {
+        "area": "Formation",
+        "prompt": "Comment terminer une séance ?",
+        "facts": "Sur tablette, l’instructeur peut examiner la séance, consigner les résultats et signer.",
+        "questions": [
+          "Comment un instructeur consulte-t-il une séance ?",
+          "Comment consigner les résultats des exercices ?",
+          "Comment signer une séance ?",
+          "Que puis-je saisir hors ligne ?"
+        ]
+      },
+      "de": {
+        "area": "Ausbildung",
+        "prompt": "Wie schließt der Fluglehrer die Einheit ab?",
+        "facts": "Prüfen Sie die Einheit auf dem Tablet, erfassen Sie Übungsergebnisse und unterschreiben Sie.",
+        "questions": [
+          "Wie prüfe ich eine Trainingseinheit?",
+          "Wie erfasse ich Übungsergebnisse?",
+          "Wie unterschreibe ich eine Einheit?",
+          "Was kann ich offline erfassen?"
+        ]
+      }
+    },
+    "help": [
+      {
+        "source": "training/ngft-training-mobile/docs/DEVICE-CHECKLIST.md",
+        "notes": [
+          "The mobile test workflow distinguishes recording exercise results from signing. Offline capture is described in the device checklist, while signature requires a connection and signing PIN. This checklist describes mock-device tests; confirm tenant availability before promising offline use in the live demo."
+        ]
+      }
+    ],
+    "questions": [
+      "How do instructors review a session?",
+      "How do I record exercise outcomes?",
+      "How do I sign a session?",
+      "What can I enter offline?"
+    ]
+  },
+  {
+    "id": "docgen",
+    "name": "DocGen",
+    "area": "Compliance",
+    "facts": "NGFT DocGen supports writing, reviewing and approving controlled manuals. Compare revisions, link chapters to RegVault articles and publish approved revisions to crews through NGFT Reader.",
+    "prompt": "How do I review a changed manual?",
+    "url": "https://docgen2.staging.ngft.com/",
+    "locales": {
+      "it": {
+        "area": "Compliance",
+        "prompt": "Cosa è cambiato nel manuale?",
+        "facts": "NGFT DocGen gestisce scrittura, revisione e approvazione dei manuali controllati. Confronta le revisioni, collega i capitoli a RegVault e pubblica le revisioni per gli equipaggi tramite NGFT Reader.",
+        "questions": [
+          "Cosa posso modificare in un manuale?",
+          "Come confronto due revisioni?",
+          "Quali revisioni posso confrontare?",
+          "Come trovo il riferimento normativo collegato?"
+        ]
+      },
+      "fr": {
+        "area": "Conformité",
+        "prompt": "Qu’est-ce qui a changé dans le manuel ?",
+        "facts": "NGFT DocGen gère la rédaction, la révision et l’approbation des manuels contrôlés. Comparez les révisions, reliez les chapitres à RegVault et publiez-les pour les équipages via NGFT Reader.",
+        "questions": [
+          "Que puis-je modifier dans un manuel ?",
+          "Comment comparer deux révisions ?",
+          "Quelles révisions puis-je comparer ?",
+          "Où trouver la référence réglementaire liée ?"
+        ]
+      },
+      "de": {
+        "area": "Compliance",
+        "prompt": "Was hat sich im Handbuch geändert?",
+        "facts": "NGFT DocGen unterstützt das Schreiben, Prüfen und Genehmigen kontrollierter Handbücher. Vergleichen Sie Revisionen, verknüpfen Sie Kapitel mit RegVault und veröffentlichen Sie Revisionen über NGFT Reader.",
+        "questions": [
+          "Was kann ich im Handbuch bearbeiten?",
+          "Wie vergleiche ich zwei Revisionen?",
+          "Welche Revisionen kann ich vergleichen?",
+          "Wo finde ich den verknüpften Vorschriftenverweis?"
+        ]
+      }
+    },
+    "help": [
+      {
+        "source": "docgen-new/WILCO_PRODUCT_GUIDE.md",
+        "notes": [
+          "This guide describes DocGen 2 based on its source code and documentation. Staging workflows and current production availability were not verified.",
+          "In DocGen 2, File → Difference document uses Compared with to select an older revision. Editions include Crew, Compliance and Authority.",
+          "The Owner hands a Draft over to Compliance Review. The CMM reviews changed chapters and decides which approvals are required. After approval, Put in force freezes a PDF. Publishing to NGFT Reader is a separate step."
+        ]
+      }
+    ],
+    "questions": [
+      "What can I edit in a manual?",
+      "How do I compare two revisions?",
+      "Which revisions can I compare?",
+      "How do I find the linked regulatory reference?"
+    ]
+  },
+  {
+    "id": "regvault",
+    "hidden": true,
+    "name": "RegVault",
+    "area": "Compliance",
+    "facts": "Look up regulatory references for compliance work.",
+    "prompt": "Where can I find a regulatory reference?",
+    "locales": {
+      "it": {
+        "area": "Compliance",
+        "prompt": "Dove trovo un riferimento normativo?",
+        "facts": "Cerca riferimenti normativi per le attività di compliance.",
+        "questions": [
+          "Come cerco un riferimento normativo?",
+          "Quali materiali EASA include?",
+          "Come si collega RegVault a DocGen?",
+          "RegVault è disponibile con DocGen?"
+        ]
+      },
+      "fr": {
+        "area": "Conformité",
+        "prompt": "Où trouver une référence réglementaire ?",
+        "facts": "Recherchez des références réglementaires pour vos activités de conformité.",
+        "questions": [
+          "Comment trouver une référence réglementaire ?",
+          "Quels textes EASA sont couverts ?",
+          "Comment RegVault se connecte-t-il à DocGen ?",
+          "RegVault est-il proposé avec DocGen ?"
+        ]
+      },
+      "de": {
+        "area": "Compliance",
+        "prompt": "Wo finde ich eine Vorschriftenreferenz?",
+        "facts": "Suchen Sie nach Verweisen auf Vorschriften für Ihre Compliance-Arbeit.",
+        "questions": [
+          "Wie finde ich einen Vorschriftenverweis?",
+          "Welche EASA-Dokumente sind enthalten?",
+          "Wie ist RegVault mit DocGen verbunden?",
+          "Ist RegVault mit DocGen verfügbar?"
+        ]
+      }
+    },
+    "help": [
+      {
+        "source": "https://ngft.com/solutions/",
+        "notes": [
+          "RegVault is offered with DocGen. It links references to corresponding manual chapters and includes EASA implementing rules, acceptable means of compliance and guidance material. For editing the chapter, move the conversation to DocGen."
+        ]
+      }
+    ],
+    "questions": [
+      "How do I find a regulatory reference?",
+      "Which EASA materials are covered?",
+      "How does RegVault connect to DocGen?",
+      "Can I get RegVault with DocGen?"
+    ]
+  },
+  {
+    "id": "audit",
+    "name": "Audit",
+    "area": "Compliance",
+    "facts": "NGFT Audit supports compliance audit planning, fieldwork, reporting and closing findings. Start from RegVault regulations or DocGen documents and manage findings, root cause analysis and corrective actions.",
+    "prompt": "How do we follow up an audit finding?",
+    "url": "https://audit2.staging.ngft.com/",
+    "locales": {
+      "it": {
+        "area": "Compliance",
+        "prompt": "Come seguiamo un rilievo di audit?",
+        "facts": "NGFT Audit gestisce pianificazione, conduzione, report e chiusura dei rilievi. Puoi partire da regolamenti RegVault o documenti DocGen e seguire finding, analisi delle cause e azioni correttive.",
+        "questions": [
+          "Quali requisiti EASA non ho ancora verificato?",
+          "Come registro un finding?",
+          "Chi approva RCA & CAP?",
+          "Come esporto la lista dei finding?"
+        ]
+      },
+      "fr": {
+        "area": "Conformité",
+        "prompt": "Comment suivre un constat d’audit ?",
+        "facts": "NGFT Audit couvre la planification, la réalisation et le rapport des audits ainsi que la clôture des constats. Il s’appuie sur RegVault ou DocGen et permet de suivre les causes et les actions correctives.",
+        "questions": [
+          "Quels critères EASA restent à auditer ?",
+          "Comment enregistrer un constat ?",
+          "Qui approuve le RCA & CAP ?",
+          "Comment exporter la liste des constats ?"
+        ]
+      },
+      "de": {
+        "area": "Compliance",
+        "prompt": "Wie verfolgen wir eine Auditfeststellung?",
+        "facts": "NGFT Audit unterstützt Planung, Durchführung und Berichterstellung sowie den Abschluss von Feststellungen. Ausgangspunkt sind Vorschriften aus RegVault oder Dokumente aus DocGen.",
+        "questions": [
+          "Welche EASA-Anforderungen sind noch ungeprüft?",
+          "Wie erfasse ich eine Feststellung?",
+          "Wer genehmigt RCA & CAP?",
+          "Wie exportiere ich die Feststellungen?"
+        ]
+      }
+    },
+    "help": [
+      {
+        "source": "audit-ngft-new/WILCO_PRODUCT_GUIDE.md",
+        "notes": [
+          "Plan audits with Audit Planning and Gap Analysis. Requirements can come from RegVault Regulations or company documents from DocGen.",
+          "For an audit finding, the auditee prepares RCA and CAP. In the audit Findings step, an eligible reviewer can approve or reject a submitted RCA & CAP."
+        ]
+      }
+    ],
+    "questions": [
+      "Which EASA requirements have I not audited?",
+      "How do I record a finding?",
+      "Who can approve RCA & CAP?",
+      "How do I export the findings list?"
+    ]
+  },
+  {
+    "id": "efb",
+    "hidden": true,
+    "name": "EFB",
+    "area": "Flight operations",
+    "facts": "Access operations manuals electronically.",
+    "prompt": "Where can pilots read operations manuals?",
+    "locales": {
+      "it": {
+        "area": "Operazioni di volo",
+        "prompt": "Dove leggono i manuali i piloti?",
+        "facts": "Apri i manuali operativi in formato elettronico.",
+        "questions": [
+          "Come consultano i manuali i piloti?",
+          "Chi può leggere o modificare i documenti?",
+          "Come funziona l’EFB con DocGen?",
+          "Quale app permette la lettura offline?"
+        ]
+      },
+      "fr": {
+        "area": "Opérations aériennes",
+        "prompt": "Où les pilotes lisent-ils les manuels ?",
+        "facts": "Consultez les manuels d’exploitation au format électronique.",
+        "questions": [
+          "Comment les pilotes consultent-ils les manuels ?",
+          "Qui peut lire ou modifier les documents ?",
+          "Comment l’EFB fonctionne-t-il avec DocGen ?",
+          "Quelle application permet la lecture hors ligne ?"
+        ]
+      },
+      "de": {
+        "area": "Flugbetrieb",
+        "prompt": "Wo lesen Piloten die Handbücher?",
+        "facts": "Öffnen Sie Betriebshandbücher in elektronischer Form.",
+        "questions": [
+          "Wie greifen Piloten auf die Handbücher zu?",
+          "Wer darf Dokumente lesen oder bearbeiten?",
+          "Wie arbeitet das EFB mit DocGen?",
+          "Welche App erlaubt das Offline-Lesen?"
+        ]
+      }
+    },
+    "help": [
+      {
+        "source": "https://ngft.com/solutions/",
+        "notes": [
+          "Company documents sit in private cloud storage. Staff roles govern reading, editing and administration of directories and files. DocGen documents can be carried electronically; the mobile Viewer is described separately for offline reading."
+        ]
+      }
+    ],
+    "questions": [
+      "How do pilots access their manuals?",
+      "Who can read or edit documents?",
+      "How does the EFB work with DocGen?",
+      "Which app supports offline reading?"
+    ]
+  },
+  {
+    "id": "ai",
+    "hidden": true,
+    "name": "NGFT AI",
+    "area": "Knowledge",
+    "facts": "Ask questions about selected manuals and regulatory material.",
+    "prompt": "Can I ask questions about our manual?",
+    "locales": {
+      "it": {
+        "area": "Documentazione",
+        "prompt": "Posso fare domande sul manuale?",
+        "facts": "Fai domande sui manuali selezionati e sul materiale normativo.",
+        "questions": [
+          "Cosa posso chiedere su un manuale?",
+          "Posso fare domande sul materiale normativo?",
+          "Come influiscono i documenti selezionati?",
+          "Come verifico la risposta nel documento?"
+        ]
+      },
+      "fr": {
+        "area": "Documentation",
+        "prompt": "Puis-je interroger notre manuel ?",
+        "facts": "Posez des questions sur les manuels sélectionnés et les documents réglementaires.",
+        "questions": [
+          "Que puis-je demander sur un manuel ?",
+          "Puis-je interroger les textes réglementaires ?",
+          "Quel rôle jouent les documents sélectionnés ?",
+          "Comment vérifier la réponse dans le document ?"
+        ]
+      },
+      "de": {
+        "area": "Dokumentation",
+        "prompt": "Kann ich Fragen zum Handbuch stellen?",
+        "facts": "Stellen Sie Fragen zu ausgewählten Handbüchern und Vorschriften.",
+        "questions": [
+          "Was kann ich zu einem Handbuch fragen?",
+          "Kann ich Fragen zu Vorschriften stellen?",
+          "Wie wirken sich ausgewählte Dokumente aus?",
+          "Wie prüfe ich die Antwort anhand des Dokuments?"
+        ]
+      }
+    },
+    "questions": [
+      "What can I ask about a manual?",
+      "Can I ask about regulatory material?",
+      "How do selected documents shape the answer?",
+      "How do I check an answer against the source?"
+    ]
+  }
+]
