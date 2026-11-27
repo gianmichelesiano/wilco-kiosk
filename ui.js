@@ -546,7 +546,7 @@ function presenceShow(){
   document.body.dataset.presence='near';
   const wake=$('#wake'), welcomes=config.camera.welcomes, welcome=welcomes[Math.floor(Math.random()*welcomes.length)];
   wake.lang='en';wake.textContent=welcome;
-  if(config.camera.greet && !greetHeld && state==='standby')speak(welcome,'en',seq,null,true).catch(()=>{});
+  if(config.camera.welcomeAloud && !greetHeld && state==='standby')speak(welcome,'en',seq,null,true).catch(()=>{});
 }
 function presenceChanged(now,status){
   if(!now.near)greetHeld=false;
