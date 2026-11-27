@@ -267,6 +267,25 @@ test('a visitor who stops wakes Wilco, who sleeps again when they leave', async 
   await until(page, () => !document.body.dataset.presence, null, 5000);
 });
 
+test('the home shows whether Wilco is awake or asleep, and a tap on it wakes him without starting a visit', async t => {
+  const {page} = await launch(t);
+  await until(page, () => window.Presence?.status === 'working', null, 15000);
+  assert.equal((await page.textContent('#presence-toggle')).trim(), 'Asleep');
+  await page.click('#presence-toggle');
+  await until(page, () => document.body.dataset.presence === 'near', null, 3000);
+  assert.equal((await page.textContent('#presence-toggle')).trim(), 'Awake');
+  assert.ok(await page.isVisible('#wake'));
+  assert.equal(await mode(page), 'attract');
+  await page.click('#presence-toggle');
+  await until(page, () => !document.body.dataset.presence, null, 3000);
+  assert.equal(await mode(page), 'attract');
+  // The camera wakes him too, and the button says so; without a working camera it says that instead.
+  await presenceNear(page);
+  await until(page, () => document.querySelector('#presence-toggle').textContent.trim() === 'Awake', null, 3000);
+  await presenceAway(page);
+  await until(page, () => document.querySelector('#presence-toggle').textContent.trim() === 'Asleep · camera off', null, 5000);
+});
+
 test('someone in front keeps the visit open past the idle time', async t => {
   const {page} = await launch(t, {files: {'demo.json': {idleSeconds: 3}}});
   await visit(page, 'en');

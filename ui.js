@@ -444,7 +444,7 @@ function setMode(next){
 let lastHello='';
 function startVisit(code,id){
   if(state==='speaking')interrupt(); // The spoken hello of the attract screen gives way to the welcome.
-  presenceSeen=false;
+  presenceSeen=false;wokenByHand=false;
   settledAt=performance.now();
   api.greeted();
   setMode('visit');
@@ -499,7 +499,7 @@ function wake(event){
   startVisit(chosen||target.closest('#wake')?.lang||(target.closest('#teaser, #begin') && teased?.lang)||'en',picked?.id);
 }
 // The Settings button belongs to the stand team: a touch on it never starts a visit.
-const staffTouch=event=>!!event.target.closest?.('#settings-open');
+const staffTouch=event=>!!event.target.closest?.('#settings-open, #presence-toggle');
 for(const type of ['pointerup','pointercancel'])addEventListener(type,event=>{
   if(mode==='attract' && !$('#pin').open && !settling() && !staffTouch(event))wake(event);
 },true);
@@ -532,9 +532,13 @@ api.onActivity(touched); // Touches inside the live demo.
 // aloud at most once a minute when Settings allow it. Visit: someone in front counts as a touch; nobody for
 // 20 s ends a visit where the camera, still running since, saw someone. Settings: no effect.
 // greetHeld: the visit just ended with someone in front; no spoken hello until they have gone.
-let presenceSeen=false, presenceStatus='off', lastGreet=-Infinity, greetHeld=false;
+// wokenByHand: the home button woke Wilco, camera or not; a visit clears it.
+let presenceSeen=false, presenceStatus='off', lastGreet=-Infinity, greetHeld=false, wokenByHand=false;
 function presenceShow(){
-  if(mode!=='attract' || !Presence.state.near){delete document.body.dataset.presence;return;}
+  const near=Presence.state.near||wokenByHand, button=$('#presence-toggle');
+  button.textContent=near?'Awake':Presence.status==='working'?'Asleep':'Asleep · camera off';
+  button.setAttribute('aria-pressed',wokenByHand);
+  if(mode!=='attract' || !near){delete document.body.dataset.presence;return;}
   if(Presence.state.face)document.body.style.setProperty('--face-x',((.5-Presence.state.face.x)*2).toFixed(2)); // The camera sees the visitor mirrored.
   if(document.body.dataset.presence==='near')return;
   document.body.dataset.presence='near';
@@ -557,6 +561,8 @@ setInterval(()=>{
   // Like the idle rule: never with idleSeconds 0, never while the visitor still touches the screen.
   else if(config.idleSeconds && presenceSeen && performance.now()-Presence.state.lastNearAt>20000 && Date.now()-lastInput>20000 && quiet())endVisit();
 },1000);
+
+$('#presence-toggle').onclick=()=>{wokenByHand=!wokenByHand;presenceShow();};
 
 // Stand team: the Settings button asks for the PIN (settings.js).
 $('#settings-open').onclick=()=>askPin();

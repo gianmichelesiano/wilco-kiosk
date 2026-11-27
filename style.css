@@ -107,6 +107,15 @@ aside:has(.msg) #wave { margin-top: 8px; }
   font-size: 12px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
 }
 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--off); }
+/* Attract only: asleep (nobody in front) or awake (the camera, or a tap, woke Wilco). */
+#presence-toggle { display: none; }
+[data-mode="attract"] #presence-toggle {
+  display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 12px; color: var(--side-muted);
+  font-size: 12px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+}
+#presence-toggle::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--off); }
+[data-presence="near"] #presence-toggle { color: var(--accent); }
+[data-presence="near"] #presence-toggle::before { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
 body:not([data-state="standby"]) .dot { background: var(--on); animation: blink 1.2s ease-in-out infinite; }
 #wave { display: flex; align-items: center; gap: 3px; height: 32px; margin-top: 16px; }
 #wave span { width: 3px; height: 100%; border-radius: 2px; background: var(--side-control); transform: scaleY(.125); }
