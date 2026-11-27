@@ -396,15 +396,15 @@ $('#lang').onclick=e=>{const code=e.target.closest('[data-lang]')?.dataset.lang;
 // When no marked product is in the kiosk, it asks about every product.
 const teaserLanguages=['en','fr','de','it'];
 const hooks=p=>[p.prompt,...p.questions||[]];
-// chosen: the language picked with a button on the attract screen. Until then the question walks through all four.
-let teased=null, teaserStep=0, teaserTimer, chosen=null;
+// The question walks through all four languages.
+let teased=null, teaserStep=0, teaserTimer;
 function teaser(){
   if(!products.length)return;
   const marked=products.filter(p=>p.attract);
   const lines=(marked.length ? marked : products).flatMap(product=>hooks(product).map((_,line)=>({product,line})));
   // Each full round shifts the languages by one, so every question appears in every language whatever their number.
   const step=teaserStep++, index=step%lines.length, {product,line}=lines[index];
-  const code=chosen||teaserLanguages[(index+Math.floor(step/lines.length))%teaserLanguages.length];
+  const code=teaserLanguages[(index+Math.floor(step/lines.length))%teaserLanguages.length];
   const p={...product,...product.locales?.[code]}, own=hooks(p);
   teased={id:product.id,lang:code};
   const box=$('#teaser');
@@ -414,8 +414,8 @@ function teaser(){
   $('#teaser-icon').textContent=areaIcons[product.area]||'menu_book';
   $('#teaser-name').textContent=p.name;
   $('#begin-label').textContent=messages[code].start;$('#begin').lang=code;
-  // A button lights up only when the visitor picked it: the rotating question picks nothing.
-  for(const b of $('#lang').children)b.setAttribute('aria-pressed',b.dataset.lang===chosen);
+  // No language button is lit on this screen: the rotating question picks nothing, a button starts the visit.
+  for(const b of $('#lang').children)b.setAttribute('aria-pressed',false);
   box.classList.remove('arrive');void box.offsetWidth;box.classList.add('arrive'); // Restart the entrance.
 }
 let clipFailures=0;
@@ -472,7 +472,6 @@ function endVisit(){
   api.reset();busy=false;liveOpen=false;active=null;introduced.clear();heard.clear();$('#transcript').replaceChildren();
   if($('#pin').open)$('#pin').close();
   mode='visit'; // Leave Settings before the language changes, so the locked panel is not drawn again.
-  chosen=null; // The next visitor starts from the attract screen with all four languages.
   greetHeld=Presence.state.near; // Whoever ended the visit is not greeted as a newcomer.
   setSide(false);
   setLanguage('en');
@@ -492,11 +491,10 @@ $('#side-toggle').onclick=()=>setSide(!document.body.dataset.side);
 function wake(event){
   const target=event.target.closest ? event.target : document.body;
   const picked=target.closest('#teaser') && teased;
-  // The visit starts in the language picked on this screen, else in the language of the question on show (question or start button), else in English.
-  // A language button only changes the language of the attract screen: nothing starts.
+  // The visit starts in the language of the button touched, else in the language of the question on show
+  // (question or start button), else in English (the welcome, or anywhere else).
   const button=target.closest('[data-lang]')?.dataset.lang;
-  if(button){chosen=button;clearInterval(teaserTimer);teaser();teaserTimer=setInterval(teaser,5000);return;}
-  startVisit(chosen||target.closest('#wake')?.lang||(target.closest('#teaser, #begin') && teased?.lang)||'en',picked?.id);
+  startVisit(button||(target.closest('#teaser, #begin') && teased?.lang)||'en',picked?.id);
 }
 // The Settings button belongs to the stand team: a touch on it never starts a visit.
 const staffTouch=event=>!!event.target.closest?.('#settings-open, #presence-toggle');

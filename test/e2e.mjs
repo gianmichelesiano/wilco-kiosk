@@ -24,10 +24,9 @@ const latest = page => page.textContent('#transcript .msg.wilco.latest p');
 // For half a second after a visit starts or ends the kiosk ignores touches, so that the second tap of a
 // double tap does nothing. A test that taps again waits for that.
 const settle = page => page.waitForTimeout(600);
-// On the attract screen a language button only picks the language; the next touch starts the visit in it.
+// On the attract screen a language button starts the visit in that language.
 async function visit(page, language) {
   await page.click(`#lang [data-lang="${language}"]`);
-  await page.click('#begin');
   await settle(page);
 }
 
@@ -320,7 +319,6 @@ test('waking up, Wilco says one of the four English welcomes, at every wake, unl
     const welcomes = await page.evaluate(() => config.camera.welcomes);
     assert.equal(welcomes.length, 4);
     assert.match(welcomes[0], /^Hello and welcome to NGFT! Choose your preferred language on the top left/);
-    await page.click('#lang [data-lang="fr"]'); // A French screen: the welcome stays English.
     await page.evaluate(() => { window.spoke = 0; new MutationObserver(() => { if (document.body.dataset.state === 'speaking') window.spoke++; }).observe(document.body, {attributes: true, attributeFilter: ['data-state']}); });
     let shown;
     for (let approach = 0; approach < 2; approach++) { // Two visitors, one after the other: two wakes, two welcomes.
@@ -429,13 +427,12 @@ test('the camera can be switched off while it starts, and on again', {timeout: 3
   assert.deepEqual(result, {after: {status: 'off', stream: false}, again: {status: 'working', stream: true}});
 });
 
-test('tapping the welcome starts the visit in the language the visitor picked, else in English', async t => {
-  for (const [pick, expected] of [[null, 'en'], ['de', 'de']]) {
+test('awake, a tap on a language starts the visit in it at once; a tap on the welcome starts it in English', async t => {
+  for (const [target, expected] of [['#lang [data-lang="de"]', 'de'], ['#wake', 'en']]) {
     const {page} = await launch(t, {files: {'camera.json': {welcomeAloud: false}}});
-    if (pick) await page.click(`#lang [data-lang="${pick}"]`);
     await presenceNear(page);
     await until(page, () => document.body.dataset.presence === 'near', null, 3000);
-    await page.click('#wake');
+    await page.click(target);
     await until(page, () => document.body.dataset.mode === 'visit');
     assert.equal(await page.evaluate(() => document.documentElement.lang), expected);
   }
