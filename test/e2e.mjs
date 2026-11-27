@@ -310,6 +310,23 @@ test('spoken hello: never by default, at most once a minute when switched on', a
   }
 });
 
+test('Settings camera: staff only, validated, saved in camera.json, live reading', async t => {
+  const {page, settings} = await launch(t);
+  await assert.rejects(page.evaluate(() => window.wilco.camera({on: false, near: 0.2, greet: true})), /Locked/);
+  await openSettings(page);
+  assert.ok(await page.isVisible('#camera-preview'));
+  await page.$eval('#camera-near', el => { el.value = '0.2'; el.dispatchEvent(new Event('change')); });
+  await until(page, () => /saved/i.test(document.querySelector('#camera-status').textContent));
+  await page.check('#camera-greet');
+  await until(page, () => /hello aloud on/i.test(document.querySelector('#camera-status').textContent));
+  assert.deepEqual(JSON.parse(fs.readFileSync(path.join(settings, 'camera.json'), 'utf8')), {on: true, near: 0.2, greet: true});
+  await assert.rejects(page.evaluate(() => window.wilco.camera({on: true, near: 5, greet: false})), /Unknown camera setting/);
+  await presenceNear(page);
+  await until(page, () => /0\.30/.test(document.querySelector('#camera-reading').textContent), null, 3000);
+  await page.uncheck('#camera-on');
+  await until(page, () => window.Presence.status === 'off');
+});
+
 test('Settings opens only with the staff PIN', async t => {
   const {page} = await launch(t);
   await visit(page, 'en'); // Start in English, whatever the question on screen.

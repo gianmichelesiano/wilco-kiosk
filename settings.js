@@ -67,8 +67,42 @@ async function openSettings(){
   $('#probe-result').replaceChildren();
   $('#settings-message').textContent=config.unreadable?.length ? config.unreadable.join(' and ')+' could not be read when Wilco started and was set aside beside the keys. Wilco runs without it; the next save starts a new file.' : '';
   showVoices().catch(()=>{}); // The list comes from ElevenLabs: the panel does not wait for it. Closed meanwhile: nothing to show.
+  showCamera();
   await showContext();
 }
+// Webcam presence: the stand team switches it, sets the distance with the live preview, allows the spoken hello.
+// The preview shows the live camera and the size of the biggest face; it records nothing.
+const cameraStates={off:'Camera off.',starting:'Starting the camera…',working:'Camera working.',
+  'no-camera':'No camera found. Wilco tries again every 10 seconds and works by touch meanwhile.',
+  'no-permission':'No permission for the camera: Windows Settings > Privacy & security > Camera > Let desktop apps access your camera, then restart Wilco.',
+  unavailable:'Face detection unavailable on this computer: Wilco works by touch.'};
+let cameraWatch;
+function showCamera(){
+  $('#camera-on').checked=config.camera.on;
+  $('#camera-near').value=config.camera.near;
+  $('#camera-greet').checked=config.camera.greet;
+  $('#camera-status').textContent='';
+  clearInterval(cameraWatch);
+  const preview=$('#camera-preview');
+  const watch=()=>{
+    if(mode!=='settings'){clearInterval(cameraWatch);preview.srcObject=null;return;} // Closed: the preview lets go of the camera.
+    if(preview.srcObject!==Presence.stream)preview.srcObject=Presence.stream;
+    const face=Presence.last, needed=Number($('#camera-near').value).toFixed(2);
+    $('#camera-reading').textContent=face ? 'Biggest face: '+face.width.toFixed(2)+' of the frame, needed '+needed+'. In front: '+(Presence.state.near ? 'yes' : 'not yet')+'.' : 'No face in view. Needed: '+needed+'.';
+    $('#camera-state').textContent=cameraStates[Presence.status]||'';
+  };
+  watch();cameraWatch=setInterval(watch,250);
+}
+async function saveCamera(){
+  const next={on:$('#camera-on').checked,near:Number($('#camera-near').value),greet:$('#camera-greet').checked};
+  try{
+    config.camera=await api.camera(next);
+    Presence.threshold=config.camera.near;
+    if(config.camera.on)Presence.start();else Presence.stop();
+    $('#camera-status').textContent='Saved: camera '+(config.camera.on ? 'on' : 'off')+', distance '+config.camera.near.toFixed(2)+', hello aloud '+(config.camera.greet ? 'on' : 'off')+'.';
+  }catch(error){$('#camera-status').textContent='Not saved. '+reasonOf(error);}
+}
+for(const id of ['#camera-on','#camera-near','#camera-greet'])$(id).onchange=saveCamera;
 // ElevenLabs voices: one voice for each language and a test of each language.
 const languageNames={en:'English',fr:'French',de:'German',it:'Italian'};
 async function showVoices(){

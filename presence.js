@@ -20,8 +20,10 @@ function presenceStep(state, faces, now, threshold) {
 const presenceEmpty = {near: false, since: null, lastNearAt: -Infinity, face: null};
 let presenceDetector, presenceVideo, presenceLoop, presenceRetry, presenceGeneration = 0;
 var Presence = {
-  status: 'off', threshold: 0.10, stream: null, onchange: null, state: presenceEmpty,
+  // last: the biggest face of the latest detection, near enough or not, for the calibration in Settings.
+  status: 'off', threshold: 0.10, stream: null, onchange: null, state: presenceEmpty, last: null,
   feed(faces, now = performance.now()) {
+    this.last = faces.reduce((big, f) => !big || f.width > big.width ? f : big, null);
     const was = this.state.near;
     this.state = presenceStep(this.state, faces, now, this.threshold);
     if (this.state.near !== was) this.onchange?.(this.state, this.status);
@@ -85,6 +87,7 @@ var Presence = {
     if (presenceVideo) presenceVideo.srcObject = null;
     const was = this.state.near;
     this.state = presenceEmpty;
+    this.last = null;
     if (was) this.onchange?.(this.state, this.status);
     this.setStatus('off');
   }

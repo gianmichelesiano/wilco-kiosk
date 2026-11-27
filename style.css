@@ -277,7 +277,7 @@ article:has(> #film:not([hidden])) #transcript { grid-column: 2; grid-row: 4; ma
 
 /* Settings: products on the left, what Wilco knows about the selected one on the right. */
 [data-mode="settings"] #settings {
-  display: grid; flex: 1; min-height: 0; grid-template: auto auto minmax(0, 1fr) / 260px minmax(0, 1fr); gap: 24px 32px; padding-top: 24px;
+  display: grid; flex: 1; min-height: 0; grid-template: auto auto auto minmax(0, 1fr) / 260px minmax(0, 1fr); gap: 24px 32px; padding-top: 24px;
 }
 #settings .bar { grid-column: 1 / -1; display: flex; align-items: center; gap: 24px; }
 #settings h1 { margin: 0; font-size: 28px; white-space: nowrap; }
@@ -310,6 +310,20 @@ article:has(> #film:not([hidden])) #transcript { grid-column: 2; grid-row: 4; ma
 #voice h2 { margin: 0; color: var(--text); font-size: 18px; }
 /* For the whole kiosk: a band across the panel, above the products. One cell per language: name, voice, test. */
 #voice { grid-column: 1 / -1; }
+/* Webcam presence: live preview, mirrored like a mirror, beside the controls. */
+#camera { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 8px; padding: 16px; border: 1px solid var(--border); border-radius: 4px; background: var(--card); }
+#camera h2 { margin: 0; color: var(--text); font-size: 18px; }
+#camera p { margin: 0; color: var(--muted); font-size: 14px; }
+#camera .camera-body { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; }
+#camera-preview { width: 160px; aspect-ratio: 4 / 3; border-radius: 4px; background: var(--side); transform: scaleX(-1); object-fit: cover; }
+#camera .camera-controls { display: grid; flex: 1; min-width: 260px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 6px 24px; align-items: center; }
+#camera label { display: flex; align-items: center; gap: 10px; color: var(--text); font-size: 15px; }
+#camera input[type="checkbox"] { width: 22px; height: 22px; }
+#camera-near { width: 100%; height: 28px; }
+#camera .camera-distance { display: flex; flex-direction: column; gap: 2px; }
+#camera-reading { color: var(--text) !important; font-weight: 600; }
+#camera-status { color: var(--text); font-size: 14px; }
+#camera-status:empty { display: none; }
 #voice-rows { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 12px 20px; } /* Wide enough to read the name of a voice. */
 .voice-row { display: grid; grid-template-columns: minmax(0, 1fr) max-content; gap: 6px 8px; align-items: center; }
 .voice-row label { grid-column: 1 / -1; }

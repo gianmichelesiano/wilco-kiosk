@@ -12,5 +12,6 @@ demo.json
 overrides.json
 overrides.json.unreadable-*
 voice.json
+camera.json
 
 .DS_Store

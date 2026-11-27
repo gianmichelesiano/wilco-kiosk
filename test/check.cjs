@@ -155,3 +155,9 @@ test('presence.js never keeps, sends or stores an image', () => {
   for (const word of ['toDataURL', 'toBlob', 'getImageData', 'MediaRecorder', 'captureStream', 'fetch(', 'XMLHttpRequest', 'localStorage', 'indexedDB', 'window.wilco', 'api.', 'console.'])
     assert.ok(!source.includes(word), `presence.js uses ${word}`);
 });
+
+test('the camera preview in Settings never captures a frame', () => {
+  const source = require('node:fs').readFileSync(require('node:path').join(__dirname, '../settings.js'), 'utf8');
+  for (const word of ['toDataURL', 'toBlob', 'getImageData', 'drawImage', 'MediaRecorder', 'captureStream'])
+    assert.ok(!source.includes(word), `settings.js uses ${word}`);
+});

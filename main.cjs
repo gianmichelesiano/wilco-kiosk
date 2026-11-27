@@ -365,6 +365,14 @@ app.whenReady().then(()=>{
     writeMap('voice.json',next);
     voiceChoice=next;
   }));
+  // Webcam presence from Settings: camera on or off, the distance that counts as in front, the spoken hello.
+  handle('camera',staff(next=>{
+    const near=Number(next?.near);
+    if(typeof next?.on!=='boolean' || typeof next?.greet!=='boolean' || !(near>=0.05 && near<=0.30)) throw Error('Unknown camera setting');
+    cameraChoice={on:next.on,near:Math.round(near*100)/100,greet:next.greet};
+    writeMap('camera.json',cameraChoice);
+    return cameraSettings();
+  }));
   // Everything Wilco knows about one product, plus the prepared answers to the questions the kiosk suggests.
   handle('context',staff((id,lang,questions)=>{
     lang=language(lang);
