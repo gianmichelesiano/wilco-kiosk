@@ -227,7 +227,7 @@ test('Quit Wilco: only from Settings, and only with a second tap', async t => {
   await closed;
 });
 
-test('Update Wilco: only from Settings, and only on the Windows git install', async t => {
+test('Update Wilco: only from Settings, and never from a development run', async t => {
   const {page} = await launch(t);
   await visit(page, 'en');
   await assert.rejects(page.evaluate(() => window.wilco.update()), /Locked/);
@@ -236,7 +236,7 @@ test('Update Wilco: only from Settings, and only on the Windows git install', as
   await page.click('#settings-update');
   assert.equal(await page.textContent('#settings-update'), 'Tap again to update Wilco');
   await page.click('#settings-update');
-  await until(page, () => /Windows PC installed with git clone/.test(document.querySelector('#settings-message').textContent));
+  await until(page, () => /only in a git clone/.test(document.querySelector('#settings-message').textContent));
   assert.equal(await mode(page), 'settings');
 });
 
