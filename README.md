@@ -33,6 +33,21 @@ Quando nessuno usa il kiosk, Wilco mostra una domanda in grande che cambia ogni 
 
 `idleSeconds` in `demo.json` (valore iniziale 90) è il tempo senza tocchi dopo il quale la visita termina. Dieci secondi prima Wilco chiede al visitatore di toccare lo schermo. Mentre Wilco parla o un filmato del prodotto è in riproduzione il tempo non scorre. I tocchi dentro la demo live contano come attività. Con `idleSeconds` a 0 la schermata di richiamo e la fine automatica sono disattivate. Le Impostazioni si chiudono comunque da sole dopo 5 minuti senza tocchi. Per mezzo secondo dopo l'inizio o la fine di una visita i tocchi sono ignorati: così il secondo tocco di un doppio tocco non fa danni.
 
+## Webcam: Wilco si accorge di chi si ferma
+
+Con una webcam collegata, Wilco nota chi si ferma davanti al kiosk. Sulla schermata di richiamo, un volto abbastanza vicino per circa un secondo sveglia Wilco: l'anello si accende, l'avatar si gira verso il visitatore e compare «Ciao! Tocca per parlare con me» nella lingua mostrata. Tre secondi dopo che il visitatore se ne va, Wilco torna come prima. La visita parte sempre con un tocco. Durante la visita un volto davanti allo schermo conta come un tocco: la visita non finisce mentre il visitatore legge o ascolta. Se la webcam ha visto il visitatore e poi per 20 secondi non vede più nessuno, con Wilco in silenzio, la visita finisce. Senza webcam valgono solo le regole di `idleSeconds`.
+
+Privacy: il riconoscimento gira solo su questo PC (MediaPipe, file in `vendor/mediapipe/`). I fotogrammi restano in memoria e non vengono salvati né inviati; dal riconoscimento escono solo larghezza e posizione del volto. Nessuno viene identificato. La pagina del kiosk non può collegarsi a Internet: lo impediscono la Content-Security-Policy e `main.cjs`, che blocca anche il registro d'uso che MediaPipe invierebbe a Google. I test lo verificano. Allo stand mettere un cartello visibile, per esempio: «Cette borne détecte la présence d'un visage pour vous saluer. Aucune image n'est enregistrée ni transmise. / This kiosk detects a face to greet you. No image is stored or sent.» Farlo confermare a chi si occupa di privacy in NGFT.
+
+Nelle Impostazioni, riquadro «Camera»:
+
+- «Camera on» accende o spegne la webcam. All'inizio è accesa.
+- «Distance» è la larghezza minima del volto rispetto all'inquadratura (da 0,05 a 0,30, valore iniziale 0,10, circa 1–1,5 m). Più è piccola, più lontano arriva Wilco. Tararla allo stand: un collega si mette dove deve partire il risveglio e si sposta il cursore finché la lettura sotto l'anteprima dice «In front: yes».
+- «Say hello aloud» fa dire a Wilco il saluto a voce, al massimo una volta al minuto. All'inizio è spento: nel padiglione può disturbare.
+- Sotto l'anteprima: lo stato della webcam. «No permission» su Windows: Impostazioni > Privacy e sicurezza > Fotocamera > «Consenti alle app desktop di accedere alla fotocamera», poi riavviare Wilco. «No camera»: Wilco riprova ogni 10 secondi e intanto funziona a tocco.
+
+Le scelte sono salvate in `camera.json` accanto a `.env`. Il riconoscimento usa la scheda grafica: se l'anteprima mostra un volto ma la lettura resta «No face in view», su quel PC il riconoscimento non funziona e Wilco resta a tocco.
+
 ## Impostazioni per il team allo stand
 
 Le Impostazioni mostrano che cosa Wilco sa di ogni prodotto e permettono di correggerlo senza toccare i file.

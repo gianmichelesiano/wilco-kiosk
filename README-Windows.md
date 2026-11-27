@@ -7,6 +7,7 @@ Non serve Node.js: Electron per Windows è già incluso. Con lo ZIP non serve in
 - Windows 10 o 11 a 64 bit.
 - Connessione Internet per la voce (OpenAI, ElevenLabs) e per le demo live. Le schede, i filmati e le risposte già preparate funzionano anche offline.
 - Un microfono, se si usa la voce.
+- Una webcam, se si vuole che Wilco si accorga di chi si ferma davanti al kiosk (vedi «Webcam» nel README).
 - Circa 600 MB liberi.
 
 ## Installazione da GitHub (git clone)
@@ -38,6 +39,7 @@ Senza `cache\` Wilco prepara le risposte e le voci dal vivo, quindi la prima vol
 5. Doppio clic su **Wilco.exe**.
    - Al primo avvio Windows può mostrare «Windows ha protetto il PC», perché l'app non è firmata. Fare clic su **Ulteriori informazioni** > **Esegui comunque**.
    - Per la voce: in Impostazioni di Windows > Privacy e sicurezza > Microfono, attivare «Consenti alle app desktop di accedere al microfono».
+   - Per la webcam: in Impostazioni di Windows > Privacy e sicurezza > Fotocamera, attivare «Consenti alle app desktop di accedere alla fotocamera». Le immagini restano sul PC: niente viene salvato o inviato.
 
 ## Uso
 
