@@ -399,6 +399,19 @@ test('a camera that cannot be opened also points the stand team at Windows priva
   await until(page, () => /Privacy & security > Camera/.test(document.querySelector('#camera-state').textContent));
 });
 
+test('Update Wilco: only from Settings, and only on the Windows git install', async t => {
+  const {page} = await launch(t);
+  await visit(page, 'en');
+  await assert.rejects(page.evaluate(() => window.wilco.update()), /Locked/);
+  await openSettings(page);
+  await until(page, () => /^Version of \d/.test(document.querySelector('#version').textContent)); // This copy is a git clone.
+  await page.click('#settings-update');
+  assert.equal(await page.textContent('#settings-update'), 'Tap again to update Wilco');
+  await page.click('#settings-update');
+  await until(page, () => /Windows PC installed with git clone/.test(document.querySelector('#settings-message').textContent));
+  assert.equal(await mode(page), 'settings');
+});
+
 test('Settings opens only with the staff PIN', async t => {
   const {page} = await launch(t);
   await visit(page, 'en'); // Start in English, whatever the question on screen.
@@ -522,6 +535,83 @@ test('the app tour plays without sound during the overview, and a question takes
   await until(page, () => /\/media\/stories\/01-new-mission-silent\.mp4$/.test(document.querySelector('#film').src));
   await page.click('#topics .topic:last-child'); // No clip: the film goes away.
   await until(page, () => document.querySelector('#film').hidden);
+});
+
+for (const id of ['techlog', 'audit', 'sms']) {
+  test(`each card plays its own app tour: ${id} opens the ${id} tour`, async t => {
+    const {page} = await launch(t);
+    await visit(page, 'en');
+    await page.click(`#grid .card:nth-child(${visible.findIndex(product => product.id === id) + 1})`);
+    await until(page, id => !document.querySelector('#film').hidden && document.querySelector('#film').src.endsWith(`/media/intro/${id}.mp4`), id);
+    await until(page, () => document.querySelector('#film').currentTime > 2, null, 8000);
+  });
+}
+
+// Moving to another product happens only when the visitor wants it: the model's switchTo, or "yes" to an offer.
+const latestHas = (page, part) => until(page, part => (document.querySelector('#transcript .msg.wilco.latest p')?.textContent || '').includes(part), part);
+const toTechLog = 'What would you like to know about TechLog?';
+async function openOps(page) {
+  await visit(page, 'en');
+  await page.click(`#grid .card:nth-child(${visible.findIndex(product => product.id === 'ops') + 1})`);
+  await latestHas(page, 'Mock answer');
+}
+async function type(page, question) {
+  await page.fill('#question', question);
+  await page.press('#question', 'Enter');
+}
+
+test('a visitor who asks for another product is told, taken there and asked what they would like to know', async t => {
+  const {page, mock} = await launch(t);
+  await openOps(page);
+  await mock({switchTo: 'techlog'});
+  await type(page, 'Show me TechLog');
+  await latestHas(page, toTechLog);
+  assert.equal(await page.textContent('#name'), 'TechLog');
+  const transcript = await page.textContent('#transcript');
+  assert.match(transcript, /Let me guide you there\./);
+  assert.doesNotMatch(transcript, /to: Show me TechLog/, 'the answer of the model is not shown');
+  await until(page, () => document.querySelector('#film').src.endsWith('/media/intro/techlog.mp4'));
+  await until(page, () => !document.querySelector('#topics').hidden);
+  assert.equal(await page.textContent('#topics .topic'), catalog.find(product => product.id === 'techlog').questions[0]);
+});
+
+test('a question that only mentions another product keeps the visitor where they are', async t => {
+  const {page, mock} = await launch(t);
+  await openOps(page);
+  await mock({answerId: 'techlog'});
+  await type(page, 'Does OPS work with TechLog?');
+  await latestHas(page, 'to: Does OPS work with TechLog?');
+  assert.equal(await page.textContent('#name'), 'OPS Dispatch');
+});
+
+test('"yes" to a product Wilco offered moves there at once, without the model', async t => {
+  const {page, mock, calls} = await launch(t);
+  await openOps(page);
+  await mock({offer: 'techlog'});
+  await type(page, 'Does OPS work with TechLog?');
+  await latestHas(page, 'to: Does OPS work with TechLog?');
+  await mock({offer: null});
+  const asked = (await calls()).asked;
+  await type(page, 'yes');
+  await latestHas(page, toTechLog);
+  assert.equal(await page.textContent('#name'), 'TechLog');
+  assert.equal((await calls()).asked, asked);
+});
+
+test('after the last suggested question of a product Wilco offers the next product, and "yes" goes there', async t => {
+  const {page, calls} = await launch(t);
+  await openOps(page);
+  const questions = catalog.find(product => product.id === 'ops').questions;
+  for (const [index, question] of questions.entries()) {
+    await page.locator('#topics').getByRole('button', {name: question, exact: true}).click();
+    await latestHas(page, 'to: ' + question);
+    if (index < questions.length - 1) assert.doesNotMatch(await latest(page), /another system/);
+  }
+  assert.match(await latest(page), /Would you like to discover another system, for example TechLog\?$/);
+  const asked = (await calls()).asked;
+  await type(page, 'Yes please');
+  await latestHas(page, toTechLog);
+  assert.equal((await calls()).asked, asked);
 });
 
 test('prepared answers play at once and keep working with the network down', async t => {

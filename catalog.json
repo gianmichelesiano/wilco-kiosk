@@ -95,6 +95,7 @@
     "facts": "Digital technical logbook for flight missions, inspections, defects, fluid entries and maintenance. Pilots report defects in the app. In Techlog Admin, Assign links a defect to an HIL item or a maintenance action.",
     "prompt": "What happens to an open defect?",
     "url": "https://techlog.staging.ngft.com/",
+    "intro": "media/intro/techlog.mp4",
     "locales": {
       "it": {
         "area": "Manutenzione",
@@ -152,6 +153,7 @@
     "facts": "NGFT Safety is the Safety Management System for aviation operators. Collect reports, triage and analyze occurrences, manage risks and mitigations, and track corrective actions and changes.",
     "prompt": "What should we review at our safety meeting?",
     "url": "https://sms.staging.ngft.com/",
+    "intro": "media/intro/sms.mp4",
     "locales": {
       "it": {
         "area": "Safety",
@@ -533,6 +535,7 @@
     "facts": "NGFT Audit supports compliance audit planning, fieldwork, reporting and closing findings. Start from RegVault regulations or DocGen documents and manage findings, root cause analysis and corrective actions.",
     "prompt": "How do we follow up an audit finding?",
     "url": "https://audit2.staging.ngft.com/",
+    "intro": "media/intro/audit.mp4",
     "locales": {
       "it": {
         "area": "Compliance",

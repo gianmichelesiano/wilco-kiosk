@@ -3,6 +3,7 @@
 // down: no provider answers. speechDown: only ElevenLabs refuses. delay: milliseconds before every answer.
 // reply: the answer text the model gives, to try the faults a real model shows now and then.
 // badOnce: the next model answer is cut off. asked: requests to the model, answered or not.
+// answerId, switchTo, offer: the product fields the model gives (answerId: else the product open in the kiosk).
 // The tests run the real kiosk on a computer that someone may be using. Here its window never comes on
 // screen: the page is drawn off screen, so nothing opens, nothing takes the keyboard and, on a Mac, no icon
 // appears in the Dock. The person's typing and clicks stay theirs and cannot disturb a test.
@@ -20,7 +21,7 @@ Module._load = function (request, ...rest) {
   return new Proxy(loaded, {get: (target, key) => key === 'BrowserWindow' ? UnseenWindow : target[key]});
 };
 
-const calls = globalThis.wilcoMock = {chat: 0, speech: 0, transcription: 0, down: false, speechDown: false, delay: 0, reply: '', badOnce: false, asked: 0};
+const calls = globalThis.wilcoMock = {chat: 0, speech: 0, transcription: 0, down: false, speechDown: false, delay: 0, reply: '', badOnce: false, asked: 0, answerId: null, switchTo: null, offer: null};
 const opening = {en: 'Would you like', fr: 'Voulez-vous', de: 'Möchten Sie', it: 'Vuoi che'};
 // One silent MPEG-1 Layer III frame (128 kbit/s, 44.1 kHz), repeated for about one second.
 const frame = Buffer.concat([Buffer.from([0xFF, 0xFB, 0x90, 0x64]), Buffer.alloc(413)]);
@@ -43,9 +44,11 @@ globalThis.fetch = async (url, options = {}) => {
     calls.lastProducts = [...messages[0].content.matchAll(/\{"id":"([a-z]+)"/g)].map(match => match[1]); // The catalog the model received.
     return json({choices: [{message: {content: JSON.stringify({
       text: calls.reply || `Mock answer ${calls.chat} to: ${question}`,
-      id: activeProduct,
+      id: calls.answerId || activeProduct,
       language: lang,
-      followUp: `${opening[lang]} more?`
+      followUp: `${opening[lang]} more?`,
+      switchTo: calls.switchTo,
+      offer: calls.offer
     })}}]});
   }
   if (url.includes('/v2/voices')) {

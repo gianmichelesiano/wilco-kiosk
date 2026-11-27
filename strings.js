@@ -10,12 +10,16 @@ const messages = Object.fromEntries(Object.entries(labels).map(([lang,values])=>
 // hello: the welcome variants, one picked at random for each visit.
 const added = {
   en: {wake: 'Hi! Tap to talk to me', hold: 'Hold to talk', release: 'Release to send', start: 'Touch to start', idle: 'Still there? Touch the screen to continue.',
+    moving: 'So you want to know how one of our other systems works. Let me guide you there.', which: 'What would you like to know about {name}?',
     hello: ['Hello, I’m Wilco. Welcome to NGFT!','Hi, I’m Wilco, your guide to NGFT. Great to see you!','Welcome to the NGFT stand! I’m Wilco, and I’m here to help.','Hello and welcome! I’m Wilco. Let’s explore NGFT together.','Good to see you! I’m Wilco, your NGFT guide for today.']},
   fr: {wake: 'Bonjour ! Touchez pour me parler', hold: 'Maintenez pour parler', release: 'Relâchez pour envoyer', start: 'Touchez pour commencer', idle: 'Toujours là ? Touchez l’écran pour continuer.',
+    moving: 'Vous voulez donc découvrir un autre de nos systèmes. Je vous y emmène.', which: 'Que souhaitez-vous savoir sur {name} ?',
     hello: ['Bonjour, je suis Wilco. Bienvenue chez NGFT !','Bonjour, je suis Wilco, votre guide NGFT. Ravi de vous voir !','Bienvenue sur le stand NGFT ! Je suis Wilco, je suis là pour vous aider.','Bonjour et bienvenue ! Je suis Wilco. Découvrons NGFT ensemble.','Ravi de vous voir ! Je suis Wilco, votre guide NGFT aujourd’hui.']},
   de: {wake: 'Hallo! Tippen Sie, um mit mir zu sprechen', hold: 'Zum Sprechen gedrückt halten', release: 'Zum Senden loslassen', start: 'Zum Starten berühren', idle: 'Noch da? Berühren Sie den Bildschirm, um fortzufahren.',
+    moving: 'Sie möchten also eines unserer anderen Systeme kennenlernen. Ich bringe Sie hin.', which: 'Was möchten Sie über {name} wissen?',
     hello: ['Hallo, ich bin Wilco. Willkommen bei NGFT!','Hallo, ich bin Wilco, Ihr Guide für NGFT. Schön, Sie zu sehen!','Willkommen am NGFT-Stand! Ich bin Wilco und helfe Ihnen gern.','Hallo und willkommen! Ich bin Wilco. Entdecken wir NGFT gemeinsam.','Schön, dass Sie da sind! Ich bin Wilco, Ihr NGFT-Guide für heute.']},
   it: {wake: 'Ciao! Tocca per parlare con me', hold: 'Tieni premuto per parlare', release: 'Rilascia per inviare', start: 'Tocca per iniziare', idle: 'Ci sei ancora? Tocca lo schermo per continuare.',
+    moving: 'Quindi vuoi scoprire un altro dei nostri sistemi. Ti accompagno lì.', which: 'Cosa vorresti sapere su {name}?',
     hello: ['Ciao, sono Wilco. Benvenuti da NGFT!','Ciao, sono Wilco, la tua guida NGFT. Piacere di vederti!','Benvenuti allo stand NGFT! Sono Wilco e sono qui per aiutarti.','Ciao e benvenuti! Sono Wilco. Scopriamo NGFT insieme.','Che piacere vederti! Sono Wilco, la tua guida NGFT di oggi.']}
 };
 for (const [lang, values] of Object.entries(added)) Object.assign(messages[lang], values);

@@ -281,7 +281,11 @@ article:has(> #film:not([hidden])) #transcript { grid-column: 2; grid-row: 4; ma
 }
 #settings .bar { grid-column: 1 / -1; display: flex; align-items: center; gap: 24px; }
 #settings h1 { margin: 0; font-size: 28px; white-space: nowrap; }
-#last { flex: 1; margin: 0; color: var(--muted); font-size: 14px; line-height: 1.4; }
+#about { display: flex; flex: 1; flex-direction: column; gap: 4px; min-width: 0; }
+#settings .bar button { white-space: nowrap; }
+#version { color: var(--muted); font-size: 13px; line-height: 1.4; }
+#version.new { color: var(--red-strong); font-weight: 600; }
+#last { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.4; }
 #settings button { min-height: 44px; padding: 0 16px; border: 1px solid var(--border); background: var(--card); color: var(--brand); font-weight: 600; }
 #settings button:hover:enabled { border-color: var(--brand); background: var(--selected); }
 #settings button:disabled { color: var(--icon); cursor: default; }

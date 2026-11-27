@@ -9,6 +9,8 @@ let mode='attract', config={idleSeconds:0,clips:[],settings:false}, busy=false, 
 let settledAt=-1000, lastInput=Date.now();
 const settling=()=>performance.now()-settledAt<500;
 const introduced=new Set();
+// "product|question": the suggested questions asked in this visit. After the last one of a product Wilco offers another.
+const heard=new Set();
 const t=key=>messages[lang][key];
 const stateLabels={standby:'standby',listening:'hearing',thinking:'thinking',speaking:'speaking'};
 const areaIcons={'Flight operations':'flight',Maintenance:'build',Safety:'health_and_safety',Crew:'groups',Training:'school',Compliance:'verified',Knowledge:'menu_book'};
@@ -185,11 +187,17 @@ async function ask(q,showQuestion=true){
   showFilm(clipOf(q));
   if(showQuestion)say('visitor',q);
   setState('thinking');$('#status').textContent=t('thinking');$('#question').value='';
+  const product=products.find(p=>p.id===active), suggested=product ? local(product).questions||[] : [];
+  const fresh=suggested.includes(q) && !heard.has(active+'|'+q);
+  if(fresh)heard.add(active+'|'+q);
+  const last=fresh && suggested.every(s=>heard.has(active+'|'+s));
   try{
-    const r=await api.ask(q,active,lang);if(seq!==token)return;
+    const r=await api.ask(q,active,lang,last);if(seq!==token)return;
     // The visitor spoke another kiosk language: Wilco answers in it and the screen and the buttons follow.
     if(messages[r.language] && r.language!==lang){setLanguage(r.language);token=seq;}
-    if(r.id && r.id!==active){await closeLive();if(seq!==token)return;show(r.id);}
+    if(r.switchTo){await moveTo(r.switchTo,token);return;}
+    // From the product grid the answer opens its product. With a product open Wilco stays: he moves only when the visitor wants (switchTo).
+    if(r.id && !active)show(r.id);
     const text=r.text || (active ? local(products.find(p=>p.id===active)).facts : t('welcome'));
     say('wilco',text);$('#status').textContent='';
     if(r.offline)$('#status').textContent=t('offline');
@@ -202,6 +210,26 @@ async function ask(q,showQuestion=true){
       revealTopics();
     }
   }
+}
+// The visitor wants another product: Wilco says so, takes them there and asks what they would like to know.
+// Both sentences are fixed, so their voice is kept on disk.
+async function moveTo(id,token){
+  const found=products.find(p=>p.id===id);
+  if(!found)return;
+  const moving=t('moving');
+  say('wilco',moving);$('#status').textContent='';
+  await speak(moving,lang,token,async()=>{
+    const wasLive=liveOpen;
+    await closeLive();if(seq!==token)return;
+    show(id);
+    revealTopics(); // It also marks the product as introduced: no overview on top of the question.
+    if(wasLive && found.live){liveOpen=await api.live(id);placeChat();} // From one live demo to the next.
+    else showFilm(found.intro||null);
+    if(seq!==token)return;
+    const which=t('which').replace('{name}',found.name);
+    say('wilco',which);
+    await speak(which,lang,token,null,true);
+  },true);
 }
 async function speak(text,voiceLang,token,onDone,keep=false){
   text=plain(text);
@@ -418,7 +446,7 @@ function startVisit(code,id){
 }
 function endVisit(){
   settledAt=performance.now();
-  api.reset();busy=false;liveOpen=false;active=null;introduced.clear();$('#transcript').replaceChildren();
+  api.reset();busy=false;liveOpen=false;active=null;introduced.clear();heard.clear();$('#transcript').replaceChildren();
   if($('#pin').open)$('#pin').close();
   mode='visit'; // Leave Settings before the language changes, so the locked panel is not drawn again.
   chosen=null; // The next visitor starts from the attract screen with all four languages.
