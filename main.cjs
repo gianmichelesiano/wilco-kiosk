@@ -376,10 +376,13 @@ app.whenReady().then(()=>{
   handle('version',staff(async()=>{
     if(!fs.existsSync(path.join(clone,'.git'))) return null;
     const git=(...args)=>run('git',args,{cwd:clone,timeout:15000}).then(result=>result.stdout.trim());
-    const date=await git('log','-1','--format=%cd','--date=format:%d %b %Y %H:%M');
+    // The code that runs: Wilco.app records its commit when it is built (Build-Wilco-Mac.command), a clone runs its HEAD.
+    let running='HEAD';
+    try{if(bundled) running=fs.readFileSync(file('commit'),'utf8').trim();}catch{}
+    const date=await git('log','-1','--format=%cd','--date=format:%d %b %Y %H:%M',running);
     // Only the stand asks GitHub: the tests and development runs stay offline and compare with the last fetch.
     const fetched=updater ? git('fetch','--quiet') : Promise.resolve();
-    const behind=await fetched.then(()=>git('rev-list','--count','HEAD..@{u}')).then(Number,()=>null); // Offline: unknown.
+    const behind=await fetched.then(()=>git('rev-list','--count',running+'..@{u}')).then(Number,()=>null); // Offline: unknown.
     return {date,behind};
   }));
   handle('show',staff((id,on)=>{
