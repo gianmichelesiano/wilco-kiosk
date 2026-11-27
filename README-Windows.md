@@ -20,7 +20,7 @@ Non serve Node.js: Electron per Windows è già incluso. Con lo ZIP non serve in
    Usare `git clone`, non «Download ZIP» dalla pagina GitHub: quello ZIP non contiene `Wilco.exe`.
 3. Nella cartella `C:\wilco-kiosk` creare il file `.env` come al punto 4 della sezione successiva.
 4. Doppio clic su **Start-Wilco.cmd**. Avvia `windows\Wilco.exe` sul codice della cartella.
-5. Per aggiornare Wilco a una versione nuova: chiudere Wilco, poi nella cartella `C:\wilco-kiosk` eseguire `git pull`.
+5. Per aggiornare Wilco a una versione nuova: «Settings» > PIN > **Update Wilco**, poi toccare di nuovo il pulsante per confermare. In alternativa, doppio tocco su **Update-Wilco.cmd**. Chiude Wilco, esegue `git pull`, mostra per 10 secondi le novità oppure «already up to date» e riapre Wilco da solo. Accanto al pulsante, le Impostazioni mostrano la data della versione in uso e, in rosso, se su GitHub ce n'è una più nuova. `.env`, `overrides.json`, `voice.json` e `cache\` restano invariati. Se l'aggiornamento non riesce, la finestra mostra l'errore e dopo 60 secondi riapre la versione attuale.
 
 Senza `cache\` Wilco prepara le risposte e le voci dal vivo, quindi la prima volta è più lento. Per averle subito, copiare la cartella `cache\` da un'installazione esistente in `C:\wilco-kiosk`.
 

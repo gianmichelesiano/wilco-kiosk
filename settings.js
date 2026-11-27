@@ -66,8 +66,14 @@ async function openSettings(){
   setMode('settings');
   $('#probe-result').replaceChildren();
   $('#settings-message').textContent=config.unreadable?.length ? config.unreadable.join(' and ')+' could not be read when Wilco started and was set aside beside the keys. Wilco runs without it; the next save starts a new file.' : '';
+  showVersion().catch(()=>{}); // git asks GitHub: the panel does not wait for it.
   showVoices().catch(()=>{}); // The list comes from ElevenLabs: the panel does not wait for it. Closed meanwhile: nothing to show.
   await showContext();
+}
+async function showVersion(){
+  const version=await api.version(), out=$('#version');
+  out.textContent=!version ? '' : 'Version of '+version.date+(version.behind ? '. A new version is on GitHub: tap «Update Wilco».' : version.behind===0 ? '. Up to date.' : '.');
+  out.classList.toggle('new',!!version?.behind);
 }
 // ElevenLabs voices: one voice for each language and a test of each language.
 const languageNames={en:'English',fr:'French',de:'German',it:'Italian'};
@@ -292,3 +298,4 @@ confirmTap($('#prepare-product'),'Tap again to rewrite all its answers',()=>prep
 $('#prepare-missing').onclick=()=>prepare(products,false);
 $('#settings-close').onclick=async()=>{products=await api.catalog();endVisit();};
 confirmTap($('#settings-quit'),'Tap again to quit Wilco',()=>api.quit());
+confirmTap($('#settings-update'),'Tap again to update Wilco',()=>api.update().catch(error=>{$('#settings-message').textContent=reasonOf(error);}));

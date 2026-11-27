@@ -1,8 +1,9 @@
-const {app, BrowserWindow, WebContentsView, ipcMain, session} = require('electron');
+const {app, BrowserWindow, WebContentsView, ipcMain, session, shell} = require('electron');
 const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const {pathToFileURL} = require('node:url');
+const run = require('node:util').promisify(require('node:child_process').execFile);
 const catalog = require('./catalog.json');
 const knowledge = require('./knowledge.cjs');
 const file = name => path.join(__dirname, name);
@@ -290,7 +291,6 @@ app.whenReady().then(()=>{
       try{
         const output=path.join(dir,'voice.wav');
         const voiceName={en:'Samantha',it:'Alice',fr:'Thomas',de:'Anna'}[lang];
-        const run=require('node:util').promisify(require('node:child_process').execFile);
         await run('/usr/bin/say',['-v',voiceName,'-o',output,'--file-format=WAVE','--data-format=LEI16@22050','--',phrase],{timeout:15000});
         const bytes=await fs.promises.readFile(output);
         let hasSamples=false;
@@ -317,6 +317,23 @@ app.whenReady().then(()=>{
   // Every product, in the kiosk or not: the stand team decides in Settings which ones visitors get.
   handle('apps',staff(()=>knowledge.products(catalog)));
   handle('quit',staff(()=>app.quit())); // The touch screen has no keyboard for Alt+F4.
+  // Only the git install on Windows has Update-Wilco.cmd: it runs git pull and starts Wilco again.
+  handle('update',staff(async()=>{
+    if(process.platform!=='win32' || !fs.existsSync(file('.git'))) throw Error('Update works only on the Windows PC installed with git clone.');
+    const error=await shell.openPath(file('Update-Wilco.cmd')); // In its own window: the stand team sees git's answer.
+    if(error) throw Error(error);
+    app.quit();
+  }));
+  // Settings shows which version runs and whether GitHub has a newer one. Only the git install knows.
+  handle('version',staff(async()=>{
+    if(!fs.existsSync(file('.git'))) return null;
+    const git=(...args)=>run('git',args,{cwd:__dirname,timeout:15000}).then(result=>result.stdout.trim());
+    const date=await git('log','-1','--format=%cd','--date=format:%d %b %Y %H:%M');
+    // Only the stand PC asks GitHub: the tests and the Mac stay offline and compare with the last fetch.
+    const fetched=process.platform==='win32' ? git('fetch','--quiet') : Promise.resolve();
+    const behind=await fetched.then(()=>git('rev-list','--count','HEAD..@{u}')).then(Number,()=>null); // Offline: unknown.
+    return {date,behind};
+  }));
   handle('show',staff((id,on)=>{
     if(!catalog.some(p=>p.id===id)) throw Error('Unknown product');
     if(!on && onShow().every(p=>p.id===id)) throw Error('One product must stay in the kiosk.');
