@@ -82,6 +82,7 @@ function showCamera(){
   $('#camera-on').checked=config.camera.on;
   $('#camera-near').value=config.camera.near;
   $('#camera-greet').checked=config.camera.greet;
+  showWelcomes();
   $('#camera-status').textContent='';
   clearInterval(cameraWatch);
   const preview=$('#camera-preview');
@@ -94,16 +95,19 @@ function showCamera(){
   };
   watch();cameraWatch=setInterval(watch,250);
 }
+const welcomeInputs=[...document.querySelectorAll('#camera-welcomes input')];
+const showWelcomes=()=>welcomeInputs.forEach((input,i)=>{input.value=config.camera.welcomes[i];});
 async function saveCamera(){
-  const next={on:$('#camera-on').checked,near:Number($('#camera-near').value),greet:$('#camera-greet').checked};
+  const next={on:$('#camera-on').checked,near:Number($('#camera-near').value),greet:$('#camera-greet').checked,welcomes:welcomeInputs.map(input=>input.value)};
   try{
     config.camera=await api.camera(next);
     Presence.threshold=config.camera.near;
     if(config.camera.on)Presence.start();else Presence.stop();
-    $('#camera-status').textContent='Saved: camera '+(config.camera.on ? 'on' : 'off')+', distance '+config.camera.near.toFixed(2)+', hello aloud '+(config.camera.greet ? 'on' : 'off')+'.';
+    showWelcomes(); // An emptied welcome shows its first text again.
+    $('#camera-status').textContent='Saved: camera '+(config.camera.on ? 'on' : 'off')+', distance '+config.camera.near.toFixed(2)+', welcome aloud '+(config.camera.greet ? 'on' : 'off')+', four welcomes.';
   }catch(error){$('#camera-status').textContent='Not saved. '+reasonOf(error);}
 }
-for(const id of ['#camera-on','#camera-near','#camera-greet'])$(id).onchange=saveCamera;
+for(const input of [$('#camera-on'),$('#camera-near'),$('#camera-greet'),...welcomeInputs])input.onchange=saveCamera;
 async function showVersion(){
   const version=await api.version(), out=$('#version');
   out.textContent=!version ? '' : 'Version of '+version.date+(version.behind ? '. A new version is on GitHub: tap «Update Wilco».' : version.behind===0 ? '. Up to date.' : '.');

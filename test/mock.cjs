@@ -62,6 +62,8 @@ globalThis.fetch = async (url, options = {}) => {
     if (calls.speechDown) return new Response('quota exceeded', {status: 401});
     calls.speech++;
     calls.lastVoice = decodeURIComponent(url.split('/text-to-speech/')[1]); // The voice the kiosk asked for.
+    calls.lastSpeech = JSON.parse(options.body).text; // The words, and the language they were asked in.
+    calls.lastSpeechLanguage = JSON.parse(options.body).language_code;
     return new Response(silence, {headers: {'Content-Type': 'audio/mpeg'}});
   }
   if (url.includes('/audio/transcriptions')) {

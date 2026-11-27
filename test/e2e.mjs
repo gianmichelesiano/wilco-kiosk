@@ -314,19 +314,42 @@ test('presence does nothing while Settings are open', async t => {
   assert.ok(!(await page.evaluate(() => document.body.dataset.presence)));
 });
 
-test('spoken hello: never by default, at most once a minute when switched on', async t => {
-  for (const [greet, expected] of [[false, 0], [true, 1]]) {
-    const {page} = await launch(t, {files: greet ? {'camera.json': {greet: true}} : {}});
+test('waking up, Wilco says one of the four English welcomes, at every wake, unless Settings switch it off', async t => {
+  for (const [greet, expected] of [[true, 2], [false, 0]]) {
+    const {page, calls} = await launch(t, {files: greet ? {} : {'camera.json': {greet: false}}}); // On unless switched off.
+    const welcomes = await page.evaluate(() => config.camera.welcomes);
+    assert.equal(welcomes.length, 4);
+    assert.match(welcomes[0], /^Hello and welcome to NGFT! Choose your preferred language on the top left/);
+    await page.click('#lang [data-lang="fr"]'); // A French screen: the welcome stays English.
     await page.evaluate(() => { window.spoke = 0; new MutationObserver(() => { if (document.body.dataset.state === 'speaking') window.spoke++; }).observe(document.body, {attributes: true, attributeFilter: ['data-state']}); });
-    for (let approach = 0; approach < 2; approach++) {
+    let shown;
+    for (let approach = 0; approach < 2; approach++) { // Two visitors, one after the other: two wakes, two welcomes.
       await presenceNear(page);
       await until(page, () => document.body.dataset.presence === 'near', null, 3000);
+      shown = await page.textContent('#wake');
+      assert.ok(welcomes.includes(shown), shown);
+      assert.equal(await page.getAttribute('#wake', 'lang'), 'en');
       await page.waitForTimeout(2500);
       await presenceAway(page);
       await until(page, () => !document.body.dataset.presence, null, 5000);
     }
     assert.equal(await page.evaluate(() => window.spoke), expected, `greet ${greet}`);
+    if (greet) assert.deepEqual([(await calls()).lastSpeech, (await calls()).lastSpeechLanguage], [shown, 'en']); // Said as shown.
   }
+});
+
+test('each wake picks one of the four welcomes saved in Settings at random', async t => {
+  const {page} = await launch(t, {files: {'camera.json': {greet: false, welcomes: ['One.', 'Two.', 'Three.', 'Four.']}}});
+  const seen = new Set();
+  for (let wake = 0; wake < 16; wake++) {
+    await page.click('#presence-toggle');
+    await until(page, () => document.body.dataset.presence === 'near', null, 3000);
+    seen.add(await page.textContent('#wake'));
+    await page.click('#presence-toggle');
+    await until(page, () => !document.body.dataset.presence, null, 3000);
+  }
+  assert.ok([...seen].every(text => ['One.', 'Two.', 'Three.', 'Four.'].includes(text)), [...seen].join(' '));
+  assert.ok(seen.size > 1, 'always the same welcome');
 });
 
 test('Settings camera: staff only, validated, saved in camera.json, live reading', async t => {
@@ -336,10 +359,20 @@ test('Settings camera: staff only, validated, saved in camera.json, live reading
   assert.ok(await page.isVisible('#camera-preview'));
   await page.$eval('#camera-near', el => { el.value = '0.2'; el.dispatchEvent(new Event('change')); });
   await until(page, () => /saved/i.test(document.querySelector('#camera-status').textContent));
-  await page.check('#camera-greet');
-  await until(page, () => /hello aloud on/i.test(document.querySelector('#camera-status').textContent));
-  assert.deepEqual(JSON.parse(fs.readFileSync(path.join(settings, 'camera.json'), 'utf8')), {on: true, near: 0.2, greet: true});
-  await assert.rejects(page.evaluate(() => window.wilco.camera({on: true, near: 5, greet: false})), /Unknown camera setting/);
+  await page.uncheck('#camera-greet');
+  await until(page, () => /welcome aloud off/i.test(document.querySelector('#camera-status').textContent));
+  // The four welcomes: changed one by one and saved; an emptied one goes back to its first text.
+  const defaults = await page.evaluate(() => config.camera.welcomes);
+  assert.deepEqual(await page.$$eval('#camera-welcomes input', inputs => inputs.map(input => input.value)), defaults);
+  await page.$eval('#camera-welcome-2', el => { el.value = '  Hi! Pick your language at the top left.  '; el.dispatchEvent(new Event('change')); });
+  await until(page, () => config.camera.welcomes[1] === 'Hi! Pick your language at the top left.');
+  await page.$eval('#camera-welcome-1', el => { el.value = ' '; el.dispatchEvent(new Event('change')); });
+  await until(page, () => document.querySelector('#camera-welcome-1').value === config.camera.welcomes[0] && /saved/i.test(document.querySelector('#camera-status').textContent));
+  const welcomes = [defaults[0], 'Hi! Pick your language at the top left.', defaults[2], defaults[3]];
+  assert.deepEqual(JSON.parse(fs.readFileSync(path.join(settings, 'camera.json'), 'utf8')), {on: true, near: 0.2, greet: false, welcomes});
+  await assert.rejects(page.evaluate(() => window.wilco.camera({on: true, near: 5, greet: false, welcomes: ['a', 'b', 'c', 'd']})), /Unknown camera setting/);
+  await assert.rejects(page.evaluate(() => window.wilco.camera({on: true, near: 0.2, greet: false, welcomes: ['a', 'b', 'c']})), /Unknown camera setting/);
+  await assert.rejects(page.evaluate(() => window.wilco.camera({on: true, near: 0.2, greet: false, welcomes: ['a', 'b', 'c', 'x'.repeat(301)]})), /Unknown camera setting/);
   await presenceNear(page);
   await until(page, () => /0\.30/.test(document.querySelector('#camera-reading').textContent), null, 3000);
   await page.uncheck('#camera-on');
@@ -386,16 +419,16 @@ test('the camera can be switched off while it starts, and on again', {timeout: 3
   assert.deepEqual(result, {after: {status: 'off', stream: false}, again: {status: 'working', stream: true}});
 });
 
-test('tapping the invitation starts the visit in its language', async t => {
-  const {page} = await launch(t);
-  await until(page, () => document.querySelector('#begin').lang !== 'fr', null, 12000);
-  await until(page, () => document.querySelector('#begin').lang === 'fr', null, 25000); // A fresh five seconds in French.
-  await presenceNear(page);
-  await until(page, () => document.body.dataset.presence === 'near', null, 3000);
-  assert.equal(await page.evaluate(() => document.querySelector('#wake').lang), 'fr');
-  await page.click('#wake');
-  await until(page, () => document.body.dataset.mode === 'visit');
-  assert.equal(await page.evaluate(() => document.documentElement.lang), 'fr');
+test('tapping the welcome starts the visit in the language the visitor picked, else in English', async t => {
+  for (const [pick, expected] of [[null, 'en'], ['de', 'de']]) {
+    const {page} = await launch(t, {files: {'camera.json': {greet: false}}});
+    if (pick) await page.click(`#lang [data-lang="${pick}"]`);
+    await presenceNear(page);
+    await until(page, () => document.body.dataset.presence === 'near', null, 3000);
+    await page.click('#wake');
+    await until(page, () => document.body.dataset.mode === 'visit');
+    assert.equal(await page.evaluate(() => document.documentElement.lang), expected);
+  }
 });
 
 test('the spoken hello never greets someone who has just ended a visit', async t => {

@@ -528,12 +528,12 @@ for(const type of ['pointerdown','keydown','wheel'])addEventListener(type,touche
 api.onActivity(touched); // Touches inside the live demo.
 
 // ---------- Webcam presence (presence.js) ----------
-// Attract screen: someone stops in front of the kiosk, Wilco wakes up, leans towards them and invites a touch,
-// aloud at most once a minute when Settings allow it. Visit: someone in front counts as a touch; nobody for
+// Attract screen: someone stops in front of the kiosk, Wilco wakes up, leans towards them and welcomes them in
+// English, aloud unless Settings switch it off, at every wake. Visit: someone in front counts as a touch; nobody for
 // 20 s ends a visit where the camera, still running since, saw someone. Settings: no effect.
 // greetHeld: the visit just ended with someone in front; no spoken hello until they have gone.
 // wokenByHand: the home button woke Wilco, camera or not; a visit clears it.
-let presenceSeen=false, presenceStatus='off', lastGreet=-Infinity, greetHeld=false, wokenByHand=false;
+let presenceSeen=false, presenceStatus='off', greetHeld=false, wokenByHand=false;
 function presenceShow(){
   const near=Presence.state.near||wokenByHand, button=$('#presence-toggle');
   button.textContent=near?'Awake':Presence.status==='working'?'Asleep':'Asleep · camera off';
@@ -541,13 +541,12 @@ function presenceShow(){
   if(mode!=='attract' || !near){delete document.body.dataset.presence;return;}
   if(Presence.state.face)document.body.style.setProperty('--face-x',((.5-Presence.state.face.x)*2).toFixed(2)); // The camera sees the visitor mirrored.
   if(document.body.dataset.presence==='near')return;
+  // Asleep to awake: one of the four welcomes of Settings, at random, on screen and aloud. Always English:
+  // the visitor has not picked a language yet, and the welcome asks them to.
   document.body.dataset.presence='near';
-  const code=chosen||teased?.lang||'en', wake=$('#wake');
-  wake.lang=code;wake.textContent=messages[code].wake;
-  if(config.camera?.greet && !greetHeld && state==='standby' && performance.now()-lastGreet>60000){
-    lastGreet=performance.now();
-    speak(messages[code].wake,code,seq,null,true).catch(()=>{});
-  }
+  const wake=$('#wake'), welcomes=config.camera.welcomes, welcome=welcomes[Math.floor(Math.random()*welcomes.length)];
+  wake.lang='en';wake.textContent=welcome;
+  if(config.camera.greet && !greetHeld && state==='standby')speak(welcome,'en',seq,null,true).catch(()=>{});
 }
 function presenceChanged(now,status){
   if(!now.near)greetHeld=false;

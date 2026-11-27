@@ -68,10 +68,18 @@ let answers = readMap('cache/answers.json'); // Prepared answers: "language|prod
 let voiceChoice = readMap('voice.json');     // ElevenLabs voice chosen in Settings for a language: {"fr": "<voice id>"}.
 let cameraChoice = readMap('camera.json');   // Webcam presence set in Settings: {"on": true, "near": 0.1, "greet": false}.
 // near: the smallest face width, as a share of the frame, that counts as someone in front of the kiosk.
+// welcomes: the four English welcomes, one at random each time Wilco wakes up; Settings change them.
+const defaultWelcomes = [
+  'Hello and welcome to NGFT! Choose your preferred language on the top left and discover our systems.',
+  'Hi there, welcome to NGFT! Pick your language on the top left and let’s discover our systems together.',
+  'Welcome to the NGFT stand! Choose your language on the top left, and I’ll show you our systems.',
+  'Hello! I’m Wilco, welcome to NGFT. Choose your preferred language on the top left to discover our systems.'
+];
 const cameraSettings = () => ({
   on: cameraChoice.on !== false,
   near: Number.isFinite(cameraChoice.near) && cameraChoice.near >= 0.05 && cameraChoice.near <= 0.30 ? cameraChoice.near : 0.10,
-  greet: cameraChoice.greet === true
+  greet: cameraChoice.greet !== false,
+  welcomes: defaultWelcomes.map((text, i) => typeof cameraChoice.welcomes?.[i] === 'string' && cameraChoice.welcomes[i].trim() || text)
 });
 // A language without a choice, or with one that is no voice id, uses the voice of .env.
 const chosenVoice = lang => /^[A-Za-z0-9]{1,64}$/.test(String(voiceChoice[lang] || '')) ? String(voiceChoice[lang]) : '';
@@ -435,9 +443,11 @@ app.whenReady().then(()=>{
   }));
   // Webcam presence from Settings: camera on or off, the distance that counts as in front, the spoken hello.
   handle('camera',staff(next=>{
-    const near=Number(next?.near);
-    if(typeof next?.on!=='boolean' || typeof next?.greet!=='boolean' || !(near>=0.05 && near<=0.30)) throw Error('Unknown camera setting');
-    cameraChoice={on:next.on,near:Math.round(near*100)/100,greet:next.greet};
+    const near=Number(next?.near), welcomes=next?.welcomes;
+    if(typeof next?.on!=='boolean' || typeof next?.greet!=='boolean' || !(near>=0.05 && near<=0.30)
+      || !Array.isArray(welcomes) || welcomes.length!==4 || !welcomes.every(text=>typeof text==='string' && text.length<=300)) throw Error('Unknown camera setting');
+    // An emptied welcome goes back to its first text.
+    cameraChoice={on:next.on,near:Math.round(near*100)/100,greet:next.greet,welcomes:welcomes.map((text,i)=>text.trim()||defaultWelcomes[i])};
     writeMap('camera.json',cameraChoice);
     return cameraSettings();
   }));
