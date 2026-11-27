@@ -215,41 +215,55 @@
     "id": "crew",
     "name": "CrewOverview",
     "area": "Crew",
-    "facts": "Review qualifications by crew member and position, certificates and approaching expiry.",
-    "prompt": "Which crew qualification needs attention?",
+    "facts": "Evidence on demand: valid courses, expiry dates and who may fly what. Missing courses can be bought in the system.",
+    "prompt": "Are my crew compliant?",
     "url": "https://co.staging.ngft.com/",
+    "overview": "CrewOverview is the NGFT tool for the training, evidence and compliance of your crew in one place. It checks qualifications by crew member and position, each with evidence and expiry date. What each position needs is already set up and can be adjusted. Missing courses are bought right in the system and the certificate is created automatically; external certificates are uploaded and approved. The Pilot Qualification List shows who may fly what, including limitations and supervision. Crew and NPCT are reminded before a course expires. When the authority says “Show me the evidence”: you have everything ready.",
+    "overviewFollowUp": "Shall I show you the Pilot Qualification List?",
     "locales": {
       "it": {
         "area": "Equipaggio",
-        "prompt": "Quale qualifica richiede attenzione?",
-        "facts": "Verifica qualifiche per membro e funzione, certificati e scadenze.",
+        "prompt": "Il mio equipaggio è conforme?",
+        "facts": "Le prove a richiesta: corsi validi, scadenze e chi può volare cosa. I corsi mancanti si acquistano nel sistema.",
+        "overview": "CrewOverview è lo strumento NGFT per formazione, prove e conformità del tuo equipaggio in un unico posto. Verifica le qualifiche per membro dell’equipaggio e per funzione, con prova e data di scadenza. Ciò che serve a ogni funzione è già definito e può essere adattato. I corsi mancanti si acquistano direttamente nel sistema e il certificato viene creato automaticamente; i certificati esterni si caricano e vengono approvati. L’elenco delle qualifiche dei piloti mostra chi può volare cosa, con limitazioni e supervisione. Equipaggio e NPCT vengono avvisati prima della scadenza di un corso. Quando l’autorità dice «Show me the evidence»: hai tutto pronto.",
+        "overviewFollowUp": "Vuoi vedere l’elenco delle qualifiche dei piloti?",
         "questions": [
-          "Cosa indica il punto arancione?",
-          "Come carico un certificato esterno?",
-          "Chi approva i certificati?",
-          "Come esporto un report con i filtri?"
+          "Come verifico la conformità del mio equipaggio?",
+          "Posso vedere l’elenco delle qualifiche dei piloti?",
+          "Posso acquistare i corsi mancanti nel sistema?",
+          "Chi viene avvisato quando un corso sta per scadere?",
+          "Posso esportare le prove per un audit?",
+          "Come stabilisco di cosa ha bisogno il mio equipaggio?"
         ]
       },
       "fr": {
         "area": "Équipage",
-        "prompt": "Quelle qualification arrive à échéance ?",
-        "facts": "Consultez les qualifications par membre d’équipage et par fonction, les certificats et les échéances.",
+        "prompt": "Mon équipage est-il conforme ?",
+        "facts": "Les justificatifs sur demande : cours valides, échéances et qui peut piloter quoi. Les cours manquants s’achètent dans le système.",
+        "overview": "CrewOverview est l’outil NGFT pour la formation, les justificatifs et la conformité de votre équipage, au même endroit. Il vérifie les qualifications par membre d’équipage et par fonction, avec justificatif et date d’expiration. Ce dont chaque fonction a besoin est déjà défini et peut être adapté. Les cours manquants s’achètent directement dans le système et le certificat est créé automatiquement ; les certificats externes sont téléversés et validés. La liste des qualifications des pilotes montre qui peut piloter quoi, avec restrictions et supervision. L’équipage et le NPCT sont prévenus avant l’expiration d’un cours. Quand l’autorité dit « Show me the evidence » : vous avez tout sous la main.",
+        "overviewFollowUp": "Voulez-vous voir la liste des qualifications des pilotes ?",
         "questions": [
-          "Que signifie le point orange ?",
-          "Comment téléverser un certificat externe ?",
-          "Qui valide les certificats ?",
-          "Comment exporter un rapport filtré ?"
+          "Comment vérifier la conformité de mon équipage ?",
+          "Puis-je voir la liste des qualifications des pilotes ?",
+          "Puis-je acheter les cours manquants dans le système ?",
+          "Qui est informé quand un cours arrive à échéance ?",
+          "Puis-je exporter les justificatifs pour un audit ?",
+          "Comment définir ce dont mon équipage a besoin ?"
         ]
       },
       "de": {
         "area": "Besatzung",
-        "prompt": "Welche Qualifikation läuft bald ab?",
-        "facts": "Prüfen Sie Qualifikationen nach Besatzungsmitglied und Funktion sowie Nachweise und Ablaufdaten.",
+        "prompt": "Ist meine Crew compliant?",
+        "facts": "Nachweise auf Knopfdruck: gültige Kurse, Ablaufdaten und wer was fliegen darf. Fehlende Kurse kaufen Sie im System.",
+        "overview": "CrewOverview ist das NGFT-Tool für Training, Nachweise und Compliance Ihrer Crew an einem Ort. Es prüft Qualifikationen nach Besatzungsmitglied und Funktion, jeweils mit Nachweis und Ablaufdatum. Was jede Funktion braucht, ist bereits hinterlegt und lässt sich anpassen. Fehlende Kurse kaufen Sie direkt im System, das Zertifikat entsteht automatisch; externe Zertifikate laden Sie hoch und lassen sie genehmigen. Die Berechtigungsliste zeigt, wer was fliegen darf, mit Einschränkungen und Supervision. Crew und NPCT werden erinnert, bevor ein Kurs abläuft. Wenn die Behörde sagt «Show me the evidence»: Sie haben alles parat.",
+        "overviewFollowUp": "Soll ich Ihnen die Berechtigungsliste zeigen?",
         "questions": [
-          "Was bedeutet der orange Punkt?",
-          "Wie lade ich einen externen Nachweis hoch?",
-          "Wer genehmigt Nachweise?",
-          "Wie exportiere ich einen gefilterten Bericht?"
+          "Wie prüfe ich die Compliance meiner Crew?",
+          "Sehe ich die Berechtigungsliste?",
+          "Kann ich fehlende Kurse direkt im System kaufen?",
+          "Wer wird benachrichtigt, wenn ein Kurs fällig wird?",
+          "Kann ich die Nachweise für ein Audit exportieren?",
+          "Wie lege ich fest, was meine Crew braucht?"
         ]
       }
     },
@@ -284,19 +298,89 @@
           "Course appears unfinished: reopen it with the play arrow and check every Moodle component, including the feedback form where present. A composite training can have unfinished parts; expand it for progress. For a manager seeing stale red in Overview, use its refresh arrow to recalculate.",
           "Missing course: ask the manager to check assigned roles, positions, operations and the company Relations Tree. Missing menu entries depend on permissions. To check a missing operation for a member, review Members > Properties, then aircraft assignment and the Allowed switch under Aircraft & Operation Authorization / Limitations."
         ]
+      },
+      {
+        "source": "crew-overview/NGFT-Crew-Tutorial-for-dev/source/13-overviews.md",
+        "notes": [
+          "Compliance of the crew: the reports show each member as a row and each requirement as a dot. Green is valid (Crew Overview shows the days remaining), orange is the buffer zone (expires within 3 months), red is expired or missing. Position Overview shows whether each member is complete for their position or operation. Crew Overview shows single courses and certificates.",
+          "The Pilot Qualification List (German: Berechtigungsliste) is the Aircraft Overview report: each row is a member and aircraft, each column an operation. A pilot may fly only if all required courses are green: the operation's own sign-off and all courses of the position. A blue ring on the dot means Under Supervision (only together with an experienced pilot). A dark disc means Limitations, for example Visibility > 8km. A ring with a disc means both. A click on the dot shows the details.",
+          "Evidence for an audit: every report can be saved as a picture or exported to Excel with the filters applied."
+        ]
+      },
+      {
+        "source": "crew-overview/NGFT-Crew-Tutorial-for-dev/source/06-all-courses-and-bundles.md and 14-subscriptions.md",
+        "notes": [
+          "Yes. The required courses are in the system. Every e-learning course of a role or position can be bought with the cart icon in My Courses, or as a bundle with one click (refresher bundles cost less). Managers with the permission Buy courses for crew members can buy for a member. A bundle works as a subscription: the latest course is enrolled automatically every year, and the invoice is sent automatically. After completion the certificate is created automatically; only training done outside the system needs an uploaded certificate, which a manager approves."
+        ]
+      },
+      {
+        "source": "crew-overview/NGFT-Crew-Tutorial-for-dev/source/04-my-courses.md",
+        "notes": [
+          "Notification: the crew member and the NPCT get an e-mail when a certificate enters the buffer zone (usually 3 months before expiry), again 10 days before it expires and once more the day before. The status turns orange in CrewOverview at the same time."
+        ]
+      },
+      {
+        "source": "crew-overview/NGFT-Crew-Tutorial-for-dev/source/17-relations-tree.md",
+        "notes": [
+          "The Relations Tree is the rulebook: it says which courses and certificates are required for which role, position, operation and aircraft. NGFT delivers the standard set according to EASA; the company can adjust it, down to the aircraft. A change applies to all members with that role or position. When a member gets a new position, the new requirements appear automatically."
+        ]
       }
     ],
     "questions": [
-      "What does the orange expiry status mean?",
-      "How do I upload an external certificate?",
-      "Who approves certificates?",
-      "How do I export a filtered report?"
+      "How do I check the compliance of my crew?",
+      "Can I see the Pilot Qualification List?",
+      "Can I buy missing courses in the system?",
+      "Who is notified when a course is due?",
+      "Can I export the evidence for an audit?",
+      "How do I set what my crew needs?"
     ],
     "clips": [
       "media/stories/10-crew-qualification-silent.mp4",
-      "media/stories/10b-crew-upload-silent.mp4",
-      "media/stories/10c-crew-approve-silent.mp4",
-      "media/stories/10d-crew-export-silent.mp4"
+      null,
+      null,
+      null,
+      "media/stories/10d-crew-export-silent.mp4",
+      null
+    ],
+    "images": [
+      {
+        "src": "media/crew/crew-1-expiry.png",
+        "caption": {
+          "en": "Compliance at a glance: green valid, orange expires within 3 months, red expired or missing",
+          "de": "Compliance auf einen Blick: grün gültig, orange läuft in 3 Monaten ab, rot abgelaufen oder fehlt",
+          "fr": "Conformité en un coup d’œil : vert valide, orange échéance sous 3 mois, rouge expiré ou manquant",
+          "it": "Conformità a colpo d’occhio: verde valido, arancione scade entro 3 mesi, rosso scaduto o mancante"
+        }
+      },
+      {
+        "src": "media/crew/crew-2-qualification-list.png",
+        "followUp": true,
+        "caption": {
+          "en": "Pilot Qualification List: who may fly what. Rings and discs show supervision and limitations",
+          "de": "Berechtigungsliste: wer was fliegen darf. Ringe und Scheiben zeigen Supervision und Einschränkungen",
+          "fr": "Liste des qualifications des pilotes : qui peut piloter quoi. Anneaux et disques : supervision et restrictions",
+          "it": "Elenco delle qualifiche dei piloti: chi può volare cosa. Anelli e dischi: supervisione e limitazioni"
+        }
+      },
+      {
+        "src": "media/crew/crew-3-supervision-limitations.png",
+        "followUp": true,
+        "caption": {
+          "en": "One click: under supervision, visibility limit 8 km",
+          "de": "Ein Klick: unter Supervision, Sichtlimit 8 km",
+          "fr": "Un clic : sous supervision, limite de visibilité 8 km",
+          "it": "Un clic: sotto supervisione, limite di visibilità 8 km"
+        }
+      },
+      {
+        "src": "media/crew/crew-4-buy-courses.png",
+        "caption": {
+          "en": "Course missing? Buy it with the cart icon",
+          "de": "Kurs fehlt? Mit dem Warenkorb-Symbol kaufen",
+          "fr": "Cours manquant ? Achetez-le avec l’icône du panier",
+          "it": "Corso mancante? Acquistalo con l’icona del carrello"
+        }
+      }
     ]
   },
   {

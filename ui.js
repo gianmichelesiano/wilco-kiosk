@@ -156,6 +156,14 @@ function show(id){
     $('#area').textContent=p.area;$('#name').textContent=p.name;$('#facts').textContent=p.facts;
     $('#live').hidden=!p.live;
   }
+  $('#shots').replaceChildren(...(p?.images||[]).map(image=>{
+    const button=el('button','shot'), picture=document.createElement('img');
+    button.type='button';picture.src=image.src;picture.alt=caption(image);
+    button.append(picture);button.onclick=()=>view([image]);
+    return button;
+  }));
+  $('#shots').hidden=!$('#shots').children.length;
+  view([]);
   placeChat();
 }
 function choose(p,card,beforeOverview){
@@ -177,6 +185,19 @@ function showFilm(src){
   if(src){film.src=src;film.play().catch(()=>{});}
   else{film.removeAttribute('src');film.load();}
 }
+// Pictures of the product (catalog.json "images") open full screen with the caption in the visitor's language.
+// Each tap shows the next one; after the last one the viewer closes.
+const caption=image=>image.caption?.[lang]||image.caption?.en||'';
+let pictureQueue=[];
+function view(images){pictureQueue=[...images];nextPicture();}
+function nextPicture(){
+  const viewer=$('#shot'), image=pictureQueue.shift();
+  if(!image){if(viewer.open)viewer.close();return;}
+  viewer.querySelector('img').src=image.src;
+  viewer.querySelector('figcaption').textContent=caption(image);
+  if(!viewer.open)viewer.showModal();
+}
+$('#shot').onclick=nextPicture;
 function clipOf(q){
   const product=products.find(p=>p.id===active);
   return product?.clips?.[(local(product).questions||[]).indexOf(q)]||null;
@@ -198,6 +219,8 @@ async function ask(q,showQuestion=true){
     if(r.switchTo){await moveTo(r.switchTo,token);return;}
     // From the product grid the answer opens its product. With a product open Wilco stays: he moves only when the visitor wants (switchTo).
     if(r.id && !active)show(r.id);
+    // "Yes" to "Shall I show you …?" after a fixed overview: its pictures open while Wilco explains.
+    if(r.pictures)view((products.find(p=>p.id===active)?.images||[]).filter(image=>image.followUp));
     const text=r.text || (active ? local(products.find(p=>p.id===active)).facts : t('welcome'));
     say('wilco',text);$('#status').textContent='';
     if(r.offline)$('#status').textContent=t('offline');

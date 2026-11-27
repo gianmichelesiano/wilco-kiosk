@@ -62,7 +62,7 @@
     <video id="loop" muted playsinline hidden></video>
   </section>
   <div id="browse"><h1 data-t="browse">Explore by interest</h1><p class="intro" data-t="intro"></p><div id="grid"></div></div>
-  <article hidden><small id="area"></small><h1 id="name"></h1><p id="facts"></p><div class="actions"><button id="live" data-t="live">Open live demo</button></div><video id="film" controls muted playsinline hidden></video><div id="topics" role="group" hidden></div></article>
+  <article hidden><small id="area"></small><h1 id="name"></h1><p id="facts"></p><div class="actions"><button id="live" data-t="live">Open live demo</button></div><div id="shots" hidden></div><video id="film" controls muted playsinline hidden></video><div id="topics" role="group" hidden></div></article>
   <section id="settings" lang="en">
     <div class="bar"><h1>What Wilco knows</h1><div id="about"><p id="last"></p><small id="version" role="status"></small></div><button id="settings-update" type="button">Update Wilco</button><button id="settings-quit" type="button">Quit Wilco</button><button id="settings-close" type="button">Close and lock</button></div>
     <!-- For the whole kiosk, so above the products: one voice for each language, whatever the product. -->
@@ -77,5 +77,7 @@
     </div>
   </section>
 </main>
+<!-- A product picture, full screen with its caption. A tap shows the next one or closes it (ui.js view()). -->
+<dialog id="shot"><figure><img alt=""><figcaption></figcaption></figure></dialog>
 <dialog id="pin" lang="en"><h2>Staff PIN</h2><p id="pin-dots" aria-live="polite"></p><p id="pin-message" role="alert"></p><div id="keys"></div><form method="dialog"><button>Cancel</button></form></dialog>
 <script src="strings.js"></script><script src="ui.js"></script><script src="settings.js"></script></body></html>
