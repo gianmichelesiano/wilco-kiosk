@@ -10,7 +10,9 @@ const file = name => path.join(__dirname, name);
 const bundled = __dirname.startsWith(process.resourcesPath);
 // Keys, demo.json, the stand team's edits and the prepared answers live here, outside the app.
 const settingsDir = process.env.WILCO_SETTINGS_DIR
-  || (bundled && process.platform === 'darwin' ? path.join(app.getPath('appData'), 'NGFT Wilco') : __dirname);
+  || (!bundled ? __dirname
+    : process.platform === 'darwin' ? path.join(app.getPath('appData'), 'NGFT Wilco')
+    : path.dirname(process.execPath)); // Windows portable: next to Wilco.exe.
 const envFiles = [path.join(settingsDir, '.env')];
 // Development copy: the .env beside Wilco.app fills in what the installed file lacks.
 if(bundled && process.platform==='darwin') envFiles.push(path.resolve(__dirname, '../../../../.env'), path.resolve(__dirname, '../../../../wilco-kiosk/.env'));
