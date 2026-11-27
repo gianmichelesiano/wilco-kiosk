@@ -1,6 +1,4 @@
-# 15. Company custom certificates and LMS courses
-
-[← Previous: Bundles and active subscriptions](14-subscriptions.md) · [Table of Contents](README.md) · [Next: Company aircraft and limitations →](16-aircraft-and-limitations.md)
+# Company custom certificates and LMS courses
 
 **Who can use it:** managers with the permission *Configure company custom courses* (menu **Company Custom Courses**).
 
@@ -14,10 +12,10 @@ UAS …: the same roles for drone operations.
 
 ## What it is for
 
-This chapter covers two different things:
+Your company can add two different things:
 
 - **Custom certificates** are your company's own certificates, for example an internal briefing. You only create the name in the system. Members upload the proof themselves. This is quick and simple.
-- **Company LMS courses** are online courses that your company builds on the NGFT learning platform (Moodle). This needs an add-on and an extra role, see further down.
+- **Company LMS courses** are online courses that your company builds on the NGFT learning platform (Moodle). This needs the add-on **Courses** and the role **Company LMS Manager**.
 
 ## Custom certificates
 
@@ -33,7 +31,7 @@ You define your company's **own certificates**, for example an internal briefing
 
 ## Your own online courses (Company LMS)
 
-Your company can also offer **its own online courses**. You build them yourself on the NGFT learning platform (Moodle), the same platform the NGFT courses run on. Your members take them like any other course ([chapter 4](04-my-courses.md)).
+Your company can also offer **its own online courses**. You build them yourself on the NGFT learning platform (Moodle), the same platform the NGFT courses run on. Your members take them like any other course.
 
 The first course takes some effort. Once it is set up, you can reuse its structure for your other courses and also for the following years.
 
@@ -123,7 +121,7 @@ The first course takes some effort. Once it is set up, you can reuse its structu
 
 > **Good to know:**
 >
-> - **Don't forget the Relations Tree.** Add your new course to your Relations Tree, so that it shows up for your members. See [chapter 17](17-relations-tree.md).
-> - **Your members always start the course in NGFT Crew** with the play arrow ([chapter 4](04-my-courses.md)). They do not need to sign in to Moodle themselves. Completing the course and getting the certificate also go through NGFT Crew.
+> - **Don't forget the Relations Tree.** Add your new course to your Relations Tree, so that it shows up for your members.
+> - **Your members always start the course in NGFT Crew** with the play arrow. They do not need to sign in to Moodle themselves. Completing the course and getting the certificate also go through NGFT Crew.
 > - **You are responsible for your content.** NGFT gives you an introduction. The creation of the course is then your responsibility. NGFT can also create a course for you on request. This is charged.
 > - **Data protection:** NGFT complies with the applicable data protection laws, in particular the Swiss Federal Act on Data Protection. Your data is treated confidentially and not passed on to third parties unless required by law. You remain the owner of all data you enter and can export it at any time.

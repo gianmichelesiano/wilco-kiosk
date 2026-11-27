@@ -584,7 +584,7 @@ test('a text changed in Settings reaches Wilco, survives a restart and can be re
   await page.fill('#question', 'zeppelin');
   await page.press('#question', 'Enter');
   await until(page, () => /to: zeppelin/.test(document.querySelector('#transcript .msg.wilco.latest p').textContent));
-  assert.equal((await first.calls()).lastChapters[0], 'T1 How do I record a zeppelin request?', 'the model receives the section under its new title');
+  assert.equal((await first.calls()).lastChapters[0], 'How do I record a zeppelin request?', 'the model receives the section under its new title, without its number');
   await first.close();
 
   const second = await launch(t, {settings: first.settings});

@@ -14,11 +14,11 @@ The home is called «My Modules». Each module is a card with the «Open» butto
 Additional rules:
 
 - **Bow-Tie Analysis** is added to SM, CMM (also CAMO and Maintenance), AM, NPFO, NPCT, NPGO, NPCA, NPMO Part 145, Head of Training and NGFT Administrator.
-- Managers also see the section «Coming Soon»: Authority Reporting, Safety Audits, Data Exchange. They are not yet available (3.23).
-- Anyone without an SMS role in the company sees «Access Denied» (3.22).
+- Managers also see the section «Coming Soon»: Authority Reporting, Safety Audits, Data Exchange. They are not yet available.
+- Anyone without an SMS role in the company sees «Access Denied».
 - The Safety Manager has a **deputy**. Today the deputy is a user indicated in the triage settings. A role «Deputy Safety Manager» is in development (NS-1326) and is not yet in the sources read.
 
-**Verification.** staging (profile manager and Safety Manager profile) and sources.
+**Verification.** screens observed in the app (profile manager and Safety Manager profile) and sources.
 
 ### 3.1 New report: How do I submit a safety report?
 
@@ -36,7 +36,7 @@ Additional rules:
 1. Check «Date» and «Time»: they are already set to now.
     - The «I became aware of it at that time» box is checked. If you noticed it later, untick it and fill in «Date you became aware of it» and «Time you became aware of it».
 2. In «Location», search for the place with «Search Location», use «My location» or «Add Location» on the map.
-3. In «Type:» choose a type. On staging the types are: Accident, Incident, Event, Observation, Ground Damage, Fuel/Chemical Spill, Information Security, Non-Compliance, Safety Improvement, Customer Complaint, Fatigue & Wellbeing. «What the types mean» explains all the types.
+3. In «Type:» choose a type. The default types are: Accident, Incident, Event, Observation, Ground Damage, Fuel/Chemical Spill, Information Security, Non-Compliance, Safety Improvement, Customer Complaint, Fatigue & Wellbeing. «What the types mean» explains all the types.
 4. Describe the event in the text field: who was involved, what you saw, what you did.
 5. If the type is Fatigue & Wellbeing, fill out «How were you feeling?»: sleep hours in the last 24 and 48 hours, hours awake, duty start, scale «Fatigue (Samn-Perelli)» from 1 to 7 and «Sleepiness (Karolinska, KSS)» from 1 to 9.
 6. Choose the options, if needed:
@@ -50,24 +50,24 @@ Additional rules:
 
 - «Report saved» appears and then «Checking what else the Safety Manager needs…».
 - If no other data is needed: «Report sent» and «Thank you. You'll find the report and every update under Reports.»
-- If other data is needed, step 2 (3.2) opens.
+- If other data is needed, step 2 opens.
 
 **Handoff.**
 
 - The report has a number (example of the format: `ABC-2026-00041`) and the internal status «awaiting triage». It is not yet an analyzed event.
 - The AI classifies the event as accident, serious incident or incident. If it is an accident or serious incident, the urgency becomes «Immediate» and the deadlines for notifying the authority start (72 hours).
 - All active Safety Managers receive the email «New report has been submitted in SMS», with a link to Reports and without the reporter's data.
-- The Safety Manager sees the report in the «Triage» tab (3.4).
+- The Safety Manager sees the report in the «Triage» tab.
 
 **If a button or result is missing.**
 
 - «Submit» is disabled: the types have not been loaded. Use «Try again» below «The report types could not be loaded.»
 - Error messages on the form: «Pick a report type.», «Describe what happened.», «You can't have become aware of it before it happened.»
 - «Error creating report»: the form stays filled in, you can try again.
-- You do not see the Reporting card: you are NGFT staff, or your role does not give access to the SMS (3.22).
-- A type is missing from the list: the Safety Manager can rename, hide or archive types (3.21).
+- You do not see the Reporting card: you are NGFT staff, or your role does not give access to the SMS.
+- A type is missing from the list: the Safety Manager can rename, hide or archive types.
 
-**Verification.** staging for the form (fields, types, options; no sending), sources for sending and notifications.
+**Verification.** screens observed in the app for the form (fields, types, options; no sending), sources for sending and notifications.
 
 ### 3.2 Completing the report: why does the system ask me for more data?
 
@@ -112,7 +112,7 @@ Additional rules:
 
 **Context.**
 
-- Role: whoever is not part of management (pilot, technician, ground personnel). Managers see the work tabs (3.4).
+- Role: whoever is not part of management (pilot, technician, ground personnel). Managers see the work tabs.
 - Device: browser.
 - Initial screen: home › «Report List» › «Open» (`/reports`), title «Reports».
 - Prerequisites: at least one report sent.
@@ -127,7 +127,7 @@ Additional rules:
     - «Saved»: the analysis is completed, possibly with corrective actions.
 3. From the row menu choose «Open the report». In the «Your report» window, the «Updates for you» part shows the messages.
 4. For an anonymous report, choose «Private conversation»; for a confidential one «Private updates».
-5. If the «… needs additional information» banner appears, press «Complete now» (3.2).
+5. If the «… needs additional information» banner appears, press «Complete now».
 
 **What you see.** Updated status and Safety Manager messages. Without updates you see «No update yet. You get a notification when the Safety Manager writes to you.»
 
@@ -173,7 +173,7 @@ Additional rules:
 - The «Fatigue & Wellbeing» tab shows only aggregated counts: details are reserved for the restricted group and the designated person.
 - The dotted box «The AI pre-triage proposal (workflow, urgency, duplicates, rationale) appears here once it is live.» indicates a function not yet active.
 
-**Verification.** staging with the Safety Manager profile ( Triage tab, open triage window without sending) and with the manager profile (no Triage tab; Fatigue & Wellbeing counts).
+**Verification.** screens observed in the app with the Safety Manager profile ( Triage tab, open triage window without sending) and with the manager profile (no Triage tab; Fatigue & Wellbeing counts).
 
 ### 3.5 Report analysis: how do I analyze an event and link it to the Risk Register?
 
@@ -184,7 +184,7 @@ Additional rules:
 - Role: Safety Manager, Accountable Manager or Company Account Owner. Only the Safety Manager saves the ARMS ERC classification.
 - Device: browser.
 - Initial screen: «Reports» › tab «Occurrences» › row menu › «View» (`/reports/<id>`).
-- Prerequisites: report sent to the Occurrences workflow (3.4); tolerability matrix configured (3.21).
+- Prerequisites: report sent to the Occurrences workflow; tolerability matrix configured.
 
 **Steps.** The steps bar shows: Adding information, Analysis, Review results, ECCAIRS matching, Risk Register, ARMS ERC, Summary, RCA & CAP.
 
@@ -194,7 +194,7 @@ Additional rules:
 4. **ECCAIRS matching.** Press «Suggest Entities» and then «Start Matching»: the AI proposes the entries of the ECCAIRS taxonomy.
 5. **Risk Register.** For every hazard, press «Analyze Hazard»: the AI proposes severity and probability, evaluated on the company's matrix. You can look for an existing risk with «Search Risk Register». Press «Next» to save the risks.
 6. **ARMS ERC.** The Safety Manager saves the classification with «Save ERC».
-7. **Summary.** The «What next?» panel offers decisions (3.6 and 3.7).
+7. **Summary.** The «What next?» panel offers decisions, for example «Assign RCA & CAP» or «Close with no further action».
 
 **What you see.** The report has hazards, risks in the Risk Register and an ARMS ERC classification. In the Risk Register, new risks have the source «Occurrence».
 
@@ -207,7 +207,7 @@ Additional rules:
 **If a button or result is missing.**
 
 - You see «View Report» without the steps bar: your role is not SM, AM or Company Account Owner.
-- «Tolerability matrix was not configured for this company.»: configure the matrix (3.21).
+- «Tolerability matrix was not configured for this company.»: configure the matrix in «Configuration».
 - «Please make sure all hazards are analyzed»: press «Analyze Hazard» on every hazard.
 - «Next» locked at the ARMS ERC step: the Safety Manager must save the classification.
 - Closed report: all changes are hidden.
@@ -226,7 +226,7 @@ Additional rules:
     - performs: a user with a management role (e.g. NPFO, Head of Training, Base Manager, CMM).
 - Device: browser.
 - Initial screen: report detail › step «Summary» › «What next?».
-- Prerequisites: ARMS ERC classification saved (3.5).
+- Prerequisites: ARMS ERC classification saved.
 
 **Steps.**
 
@@ -240,11 +240,11 @@ Additional rules:
 5. The Safety Manager chooses «Approve RCA & CAP» or «Reject» with a mandatory reason. After a rejection the assignee uses «Resubmit RCA & CAP».
 6. After approval, the assignee chooses the outcome:
     - «Create Report»: an implementation report, which the Safety Manager approves or rejects;
-    - «Create Project»: a Management of Change project (3.15).
+    - «Create Project»: a Management of Change project.
 
 **Visible statuses.** RCA & CAP Assigned, In Progress, Submitted, Accepted, Rejected; then Report Submitted, Report Approved, Report Rejected or Project Started, Project Submitted, Project Results Accepted.
 
-**What you see.** Approved root cause analysis and corrective actions linked to the report. The report can be closed (3.7).
+**What you see.** Approved root cause analysis and corrective actions linked to the report. The report can be closed.
 
 **If a button or result is missing.**
 
@@ -252,7 +252,7 @@ Additional rules:
 - The Safety Manager does not see the content: while the state is Assigned or In Progress, the content is visible only to the assignee.
 - Only the assignee edits and submits.
 
-**Verification.** sources. On staging the Safety Manager profile home shows «OVERDUE ACTIONS 1 · 1 RCA».
+**Verification.** sources. In the demo the Safety Manager profile home shows «OVERDUE ACTIONS 1 · 1 RCA».
 
 ### 3.7 Closing: How do I close a report?
 
@@ -278,10 +278,10 @@ Additional rules:
 
 **Other choices in the «What next?» panel.**
 
-- «Start a MoC project»: for managers (3.15).
-- «Report to the authority»: disabled, «Comes with the Authority Reporting module.» (3.23).
+- «Start a MoC project»: for managers.
+- «Report to the authority»: disabled, «Comes with the Authority Reporting module.».
 
-**What you see.** Status «Closed». The report is locked. The menu item «Report on Safety Promotion» appears on the Occurrences list (3.17).
+**What you see.** Status «Closed». The report is locked. The menu item «Report on Safety Promotion» appears on the Occurrences list.
 
 **If a button or result is missing.**
 
@@ -299,7 +299,7 @@ Additional rules:
 - Role: Safety Manager, Accountable Manager, Company Account Owner, NGFT staff.
 - Device: browser, wide screen recommended.
 - Initial screen: home › «Risk Register» › «Open» (`/risk-register`).
-- Prerequisites: tolerability matrix configured (3.21), otherwise the colours are missing.
+- Prerequisites: tolerability matrix configured, otherwise the colours are missing.
 
 **Steps.**
 
@@ -319,9 +319,9 @@ Additional rules:
 
 - You see «No permission»: the Risk Register is reserved for SM, AM, Company Account Owner and NGFT staff. The Company Administrator cannot open it, even though the API allows them to write.
 - Grey cell or «Tolerability unknown»: the tolerability matrix is not configured.
-- You want a PDF: the Risk Register only exports Excel. The PDF with the matrix's summary comes from Safety Cockpit (3.16).
+- You want a PDF: the Risk Register only exports Excel. The PDF with the matrix's summary comes from Safety Cockpit.
 
-**Verification.** staging with the Safety Manager profile (list, filters, Matrix view with Initial and Residual; unrun download) and with the manager profile (`/risk-register` leads to «No permission»); sources for the `.xlsx` format.
+**Verification.** screens observed in the app with the Safety Manager profile (list, filters, Matrix view with Initial and Residual; unrun download) and with the manager profile (`/risk-register` leads to «No permission»); sources for the `.xlsx` format.
 
 ### 3.9 New risk: how do I register a risk by hand?
 
@@ -345,11 +345,11 @@ Additional rules:
 
 **If a button or result is missing.**
 
-- Unconfigured matrix message: configure matrix (3.21).
+- Unconfigured matrix message: configure the matrix in «Configuration».
 - Error in Step 2: AI service refused the request, for example for a role that is not enabled or because the AI budget is exhausted.
 
 
-**Verification.** sources. On staging the «Register new risk» button is visible to the Safety Manager profile.
+**Verification.** sources. In the demo the «Register new risk» button is visible to the Safety Manager profile.
 
 ### 3.10 Risk life cycle: how do I review a risk and change its status?
 
@@ -367,7 +367,7 @@ Additional rules:
 1. Read the header: number, title, status, Owner, Review due (with «Overdue» if overdue), Initial rating, Residual rating.
 2. Use the six tabs: Details, Strategies, Risks, Linked Reports, Bowties, History.
 3. To record the review, press «Mark as reviewed». The next review is due one company interval from today.
-4. To link a measure, press «Create strategy» (3.12).
+4. To link a measure, press «Create strategy».
 5. For the residual rating, in the Details tab fill in probability and severity and press «Save residual rating». Both values are needed, or neither.
 6. To change the status, use «Change status»:
     - Identified → Assessed: a rating is needed;
@@ -387,7 +387,7 @@ Additional rules:
 - «Not available: needs at least one linked mitigation strategy.»: applies to the transition to Mitigated.
 - «Mark as reviewed» is disabled on a Closed risk.
 
-**Verification.** staging with the Safety Manager profile (heading, buttons and six tabs of a risk with an overdue review; no modification), sources for state rules.
+**Verification.** screens observed in the app with the Safety Manager profile (heading, buttons and six tabs of a risk with an overdue review; no modification), sources for state rules.
 
 ### 3.11 Import from Excel: How do I import an existing risk register into SMS?
 
@@ -423,7 +423,7 @@ Additional rules:
 - «The file changed since the preview, upload it again»: upload the file again.
 - There is no downloadable template in the interface.
 
-**Verification.** sources. On staging the «Import from Excel» buttons and the «Imports» tab are visible to the Safety Manager profile.
+**Verification.** sources. In the demo the «Import from Excel» buttons and the «Imports» tab are visible to the Safety Manager profile.
 
 ### 3.12 Mitigation Strategies: How do I document measures against a risk?
 
@@ -448,7 +448,7 @@ Additional rules:
 4. Press «Add». The strategy is already saved.
 5. Press «Save».
 
-**What you see.** The strategy appears on the Best Practice Register «Active» tab, with Linked Risks and Action Items. The associated risk may pass to «Mitigated» (3.10).
+**What you see.** The strategy appears on the Best Practice Register «Active» tab, with Linked Risks and Action Items. The associated risk may pass to «Mitigated».
 
 **Editing.** Open the strategy: «Edit This Strategy», then «Save Changes». The state of the actions changes with «Change status».
 
@@ -458,7 +458,7 @@ Additional rules:
 - In the list there is no «Delete»: use «Deactivate» and the strategy moves to the «Inactive» tab.
 - «Import from Excel» appears only to those who can use the Risk Register.
 
-**Verification.** staging with the profile manager (page, button and columns; no creation), source for the form.
+**Verification.** screens observed in the app with the profile manager (page, button and columns; no creation), source for the form.
 
 ### 3.13 Hazard Analysis: How do I find the hazards in a report with AI?
 
@@ -486,7 +486,7 @@ Additional rules:
 
 **What you see.** The report appears in the list with the number of hazards. The PDF «Hazard Analysis Report» is called `<file>_hazard_analysis.pdf`. Classes follow the ICAO schema: severity from Catastrophic (A) to Negligible (E), probability from Frequent (5) to Extremely Improbable (1).
 
-**Handoff.** The hazards do not go to the Risk Register by themselves. You can use them in a Bowtie with «From a hazard analysis» (3.14).
+**Handoff.** The hazards do not go to the Risk Register by themselves. You can use them in a Bowtie with «From a hazard analysis».
 
 **If a button or result is missing.**
 
@@ -496,7 +496,7 @@ Additional rules:
 - «Please use either file upload or text editor, not both».
 
 
-**Verification.** staging with both profiles (list with analyzed reports, «Analyze» button; no started analysis), source for flow.
+**Verification.** screens observed in the app with both profiles (list with analyzed reports, «Analyze» button; no started analysis), source for flow.
 
 ### 3.14 Bow-Tie Analysis: How do I build a Bow-Tie model?
 
@@ -534,7 +534,7 @@ Additional rules:
 - Deleted items cannot be recovered with Undo.
 
 
-**Verification.** staging with profile manager (list, columns and button «New bowtie»; no creation), source for editor.
+**Verification.** screens observed in the app with profile manager (list, columns and button «New bowtie»; no creation), source for editor.
 
 ### 3.15 Management of Change: How do we evaluate and approve a change?
 
@@ -575,7 +575,7 @@ Additional rules:
 - «Close Project» is disabled: «To close the project all the tasks should be in evaluation.»
 - The board gives an error to a crew member: the board is reserved for management, company administrators and AI Manager.
 
-**Verification.** staging with profile manager (list, columns, button «Create Project»; no creation), source for flow.
+**Verification.** screens observed in the app with profile manager (list, columns, button «Create Project»; no creation), source for flow.
 
 ### 3.16 Safety Cockpit: how does the Safety Manager get an overview?
 
@@ -605,10 +605,10 @@ Additional rules:
 **If a button or result is missing.**
 
 - The band does not appear in the home and the page gives «No permission»: your role is not among those indicated.
-- The «Safety Performance Indicators» box shows «Under Development»: Trend charts in the cockpit are not yet available. The indicators are in Safety Assurance (3.18).
+- The «Safety Performance Indicators» box shows «Under Development»: Trend charts in the cockpit are not yet available. The indicators are in Safety Assurance.
 - The Company Administrator sees the matrix, but a click on a cell leads to «No permission», because they cannot open the Risk Register.
 
-**Verification.** staging with the Safety Manager profile (band in the home, page with period, sections and buttons; PDF not downloaded) and with the manager profile (no band, page «No permission»).
+**Verification.** screens observed in the app with the Safety Manager profile (band in the home, page with period, sections and buttons; PDF not downloaded) and with the manager profile (no band, page «No permission»).
 
 ### 3.17 Safety Promotion: how do I publish a safety bulletin?
 
@@ -645,9 +645,9 @@ Additional rules:
 - «Delete» exists only for scheduled bulletins. For the others use «Archive».
 
 
-**Verification.** staging with the Safety Manager profile (list with published bulletins, creation button; no creation), sources for creation.
+**Verification.** screens observed in the app with the Safety Manager profile (list with published bulletins, creation button; no creation), sources for creation.
 
-The guide does not verify where the staff reads the bulletin after publication.
+Where the staff reads the bulletin after publication is not verified.
 
 ### 3.18 Safety Assurance: how do I measure safety performance?
 
@@ -682,7 +682,7 @@ The guide does not verify where the staff reads the bulletin after publication.
 - Other managers open the page but do not see data: the service accepts only SM, Company Account Owner and Company Administrator.
 - The «Updates» block shows «Coming soon»: it is not yet available.
 
-**Verification.** staging with both profiles (profile manager: «You have not setup any SPTs yet»; Safety Manager profile: indicator «Number of reports submitted by users» with «See Details»), sources for calculation.
+**Verification.** screens observed in the app with both profiles (profile manager: «You have not setup any SPTs yet»; Safety Manager profile: indicator «Number of reports submitted by users» with «See Details»), sources for calculation.
 
 ### 3.19 Emergency Response Plan: how do I prepare the emergency plan?
 
@@ -716,7 +716,7 @@ The guide does not verify where the staff reads the bulletin after publication.
 - «External Contacts» and «Documents» have the description «TBD» in the dashboard.
 
 
-**Verification.** staging with the Safety Manager profile (dashboard with six tabs; no creation), source for mobile startup. Mobile app not verified.
+**Verification.** screens observed in the app with the Safety Manager profile (dashboard with six tabs; no creation), source for mobile startup. Mobile app not verified.
 
 ### 3.20 External Accident DB: how do I look for accidents from other operators?
 
@@ -745,7 +745,7 @@ The guide does not verify where the staff reads the bulletin after publication.
 - «Upload Report» is only for NGFT staff.
 
 
-**Verification.** staging with profile manager (list, columns, reports; no export), sources for data source.
+**Verification.** screens observed in the app with profile manager (list, columns, reports; no export), sources for data source.
 
 ### 3.21 Configuration: how do I set up the tolerability matrix and the report types?
 
@@ -778,7 +778,7 @@ The guide does not verify where the staff reads the bulletin after publication.
 - The «Configuration» card appears only for SM, AM, Company Account Owner and NGFT staff.
 
 
-**Verification.** sources. On staging the «Configuration» card is visible to the Safety Manager profile.
+**Verification.** sources. In the demo the «Configuration» card is visible to the Safety Manager profile.
 
 ### 3.22 Access: Why don't I see a module or button?
 
@@ -795,7 +795,7 @@ The guide does not verify where the staff reads the bulletin after publication.
 
 1. **The company.** In the home, in «Organization», check the selected company. If you work for multiple companies, choose the right one from the drop-down menu. The account menu shows «Current Company».
 2. **The page «Access Denied».** «You don't have the required roles to access SMS application for the selected company.» Use «Switch Company» or ask for a role.
-3. **The page «No permission».** «The page you're trying access has restricted access. Please refer to your system administrator». Use «Go To Home». The module is reserved for other roles (1.3).
+3. **The page «No permission».** «The page you're trying access has restricted access. Please refer to your system administrator». Use «Go To Home». The module is reserved for other roles.
 4. **The missing role notice.** «Your role does not allow this action. Ask your company administrator for access.» It appears when a save is refused because of the role.
 5. **The record state.** Many buttons depend on the state: for example a closed report can no longer be changed.
 6. **The language.** The language selector offers English, Deutsch, Italiano, Français. Some labels remain in English.
@@ -807,13 +807,13 @@ The guide does not verify where the staff reads the bulletin after publication.
 - If an NGFT administrator logs in on your behalf, the «Impersonated» indicator appears.
 
 
-**Verification.** staging for «No permission» (profile manager on Risk Register, Safety Promotion, Emergency Response Plan, Safety Cockpit) and home header; sources for other messages.
+**Verification.** screens observed in the app for «No permission» (profile manager on Risk Register, Safety Promotion, Emergency Response Plan, Safety Cockpit) and home header; sources for other messages.
 
 The notice «Your role does not allow this action» is documented in a branch of development. The availability on the customer's version must be verified.
 
 ### 3.23 Authority Reporting, Data Exchange and Safety Audits: What is available today?
 
-**Short answer.** SMS already shows reporting deadlines. Authority Reporting, Data Exchange and Safety Audits are listed as Coming Soon in the documented staging version. Submitting a report to the authority from this interface is pending.
+**Short answer.** SMS already shows reporting deadlines. Authority Reporting, Data Exchange and Safety Audits are listed as Coming Soon in the documented version. Submitting a report to the authority from this interface is pending.
 
 **Context.**
 
@@ -824,10 +824,10 @@ The notice «Your role does not allow this action» is documented in a branch of
 
 - The three pages show «This feature will be available soon.», «This module is currently under development.» and «Go back».
 - In the report: the «Authority deadline: n h remaining» indicator and the disabled choice «Report to the authority», «Comes with the Authority Reporting module.».
-- The matching with the ECCAIRS taxonomy and the ARMS ERC classification are already available (3.5).
+- The matching with the ECCAIRS taxonomy and the ARMS ERC classification are already available.
 
 
-**Verification.** staging (page «Authority Reporting» and «Coming Soon» cards), source and documentation.
+**Verification.** screens observed in the app (page «Authority Reporting» and «Coming Soon» cards), source and documentation.
 
 ### 5.1 Demo A: Prepare the safety meeting
 
@@ -842,7 +842,7 @@ The notice «Your role does not allow this action» is documented in a branch of
 - **Outcome:** risk list to be discussed; with «Export» an Excel from the Risk Register or a PDF from the Safety Cockpit.
 - **Format:** silent clip 20–30 s (steps 1–3) and guided demo 60–90 s (all steps, with export).
 - **Data changes:** none, if you do not press «Mark as reviewed». No reset needed.
-- **Verification:** staging, read only (steps 1–4). Downloads not tested.
+- **Verification:** observed in the app, read only (steps 1–4). Downloads not tested.
 
 ### 5.2 Demo B: from the pilot's report to triage
 
@@ -857,7 +857,7 @@ The notice «Your role does not allow this action» is documented in a branch of
 - **Outcome:** the report is in the chosen workflow, with the same number. The reporter sees «Viewed».
 - **Format:** guided demo 60–90 s. Not suitable for a live silent clip, because the AI takes a variable time; record the clip in advance.
 - **Data changes:** Yes. Each test creates a report and sends an email to the Safety Manager of the company.
-- **Reset:** not verified. After the triage, in the «Occurrences» tab, the Safety Manager has «Delete» in the row menu (sources). For a report not yet triaged, no deletion has been found in the interface (section 6).
+- **Reset:** not verified. After the triage, in the «Occurrences» tab, the Safety Manager has «Delete» in the row menu (sources). For a report not yet triaged, no deletion has been found in the interface.
 
 ### 5.3 Demo C: AI finds the hazards in a report
 

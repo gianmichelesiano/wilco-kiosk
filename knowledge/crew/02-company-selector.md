@@ -1,6 +1,4 @@
-# 2. Selecting your company
-
-[← Previous: Signing in and the main screen](01-getting-started.md) · [Table of Contents](README.md) · [Next: Your profile →](03-user-profile.md)
+# Selecting your company
 
 **Who can use it:** all users. You only need this if you work for more than one company.
 

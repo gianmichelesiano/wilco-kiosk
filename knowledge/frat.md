@@ -14,7 +14,7 @@ What happens in the app, in order:
 6. If the pilot asks for permission, a FRAT Admin of the same crew grants or denies it in the **Decisions** tab.
 7. After mitigation the pilot can open a **MITIGATION PDF** report.
 
-**Verification.** Source code and documentation. Not verified on staging or on a device.
+**Verification.** Source code and documentation. Not verified on a device.
 
 ### 1.3 Roles
 
@@ -26,7 +26,7 @@ What happens in the app, in order:
 
 A user who has neither role in any crew sees "No crews found" after sign-in and cannot continue.
 
-**Verification.** Source code. Not verified on staging.
+**Verification.** Source code.
 
 ### 1.4 Key terms and status values
 
@@ -48,7 +48,7 @@ Decision values. The left column is what **Flight Details** shows next to "Decis
 | Permit | `permit` | **Granted** (FRAT Admin) | **Granted** |
 | Deny | `deny` | **Denied** (FRAT Admin) | **Denied** |
 
-**Verification.** Source code. Not verified on staging.
+**Verification.** Source code.
 
 ### 3.1 How do I sign in and choose my crew?
 
@@ -68,16 +68,16 @@ Decision values. The left column is what **Flight Details** shows next to "Decis
 5. On **Select Crew** ("Hi, <your name>", "Select a crew to continue"), tap your crew. If you have only one crew, the app skips this screen.
 6. The app opens **Home**: "Welcome Back", your name, and the cards "Next Scheduled Flight", "Last Frat" and "Last Flight" when data exists. The bottom bar has **Home**, **FRAT**, **Decisions** and **Profile**.
 
-**Visible result and handoff.** You are in the selected crew. Flights, FRATs and requests on every tab belong to that crew. Change the crew later in **Profile** (3.14). If you are still signed in from a previous session, the app goes straight to **Select Crew**.
+**Visible result and handoff.** You are in the selected crew. Flights, FRATs and requests on every tab belong to that crew. Change the crew later in **Profile**. If you are still signed in from a previous session, the app goes straight to **Select Crew**.
 
 **Troubleshooting.**
 - "Enter a valid email address": the **Username** field accepts only an email address.
 - "No network connection": sign-in needs network.
 - "No crews found" and "You are not authorized. Please check your role in the system with your manager.": your account has no FRAT role in any crew. Ask your company's NGFT administrator. Tap **Log out** to leave.
 - "Looks like something went wrong. Please try again later." with **Retry**: the user information could not be loaded. Tap **Retry**.
-- Home says "You have no flights!": no flights exist yet for this crew. Create one (3.2).
+- Home says "You have no flights!": no flights exist yet for this crew. Create one.
 
-**Verification.** Source code. Not verified on staging.
+**Verification.** Source code.
 
 ### 3.2 How do I create a flight?
 
@@ -87,7 +87,7 @@ Decision values. The left column is what **Flight Details** shows next to "Decis
 - Role: FRAT User.
 - Device: phone or tablet, **online**.
 - Starting screen: **FRAT** tab › **FLIGHTS** sub-tab.
-- Prerequisite: a crew is selected (3.1).
+- Prerequisite: a crew is selected.
 
 **Steps.**
 1. Tap **FRAT** in the bottom bar. Stay on the **FLIGHTS** sub-tab.
@@ -111,7 +111,7 @@ Decision values. The left column is what **Flight Details** shows next to "Decis
 
 Example with fictional data: "DEMO TRAINING CIRCUIT", tail number "DEMO-01", 2 people on board.
 
-**Visible result and handoff.** The app shows "Flight created successfully" and opens **Flight Details**: Date, Registration, Departure, Destination, Alternate, EOBT, EET, POB, PIC and "Decision: No decision". The **NEW ASSESSMENT** button starts the risk assessment (3.3). The flight appears at the top of **FLIGHTS**.
+**Visible result and handoff.** The app shows "Flight created successfully" and opens **Flight Details**: Date, Registration, Departure, Destination, Alternate, EOBT, EET, POB, PIC and "Decision: No decision". The **NEW ASSESSMENT** button starts the risk assessment. The flight appears at the top of **FLIGHTS**.
 
 **Troubleshooting.**
 - **NEW FLIGHT** is missing: it shows only on the **FLIGHTS** sub-tab, not on **FRATs** or **ARCHIVE**.
@@ -120,7 +120,7 @@ Example with fictional data: "DEMO TRAINING CIRCUIT", tail number "DEMO-01", 2 p
 - Leaving the form with the back arrow shows "Confirmation Alert", "If you exit now then the data that was entered will be lost". **Exit** discards the entries; **Cancel** stays.
 - "Something went wrong. Please try again later or contact support.": the server did not save the flight. Try again.
 
-**Verification.** Source code. Not verified on staging.
+**Verification.** Source code.
 
 ### 3.3 How do I run a risk assessment for a flight?
 
@@ -128,7 +128,7 @@ Example with fictional data: "DEMO TRAINING CIRCUIT", tail number "DEMO-01", 2 p
 
 **Context.**
 - Role: FRAT User.
-- Device: phone or tablet. Online is recommended (see 3.13 for offline).
+- Device: phone or tablet. Online is recommended (offline works only for a FRAT opened online before on this device).
 - Starting screen: **Flight Details** of a flight with "Decision: No decision".
 - Prerequisite: the crew has at least one published FRAT.
 
@@ -142,18 +142,18 @@ Example with fictional data: "DEMO TRAINING CIRCUIT", tail number "DEMO-01", 2 p
 5. Tap the down arrow for the next question. The arrow stays inactive until you answer a required question.
 6. On the last question, tap the tick icon.
 
-**Visible result and handoff.** The app opens **Frat Results** (3.4). The assessment is saved with the flight on the server. The flight stays in **FLIGHTS**.
+**Visible result and handoff.** The app opens **Frat Results**. The assessment is saved with the flight on the server. The flight stays in **FLIGHTS**.
 
 **Troubleshooting.**
 - **NEW ASSESSMENT** is missing: the flight already has a decision. One flight has one decision. Create a new flight for a new assessment.
 - "Your company has not published any FRATs yet. Ask your NPFO.": no live FRAT exists for the selected crew. Check the crew in **Profile**, then ask the NPFO.
-- "User id is null, please sign out and then sign in again.": log out (3.14) and sign in again.
+- "User id is null, please sign out and then sign in again.": log out and sign in again.
 - "No question available": the FRAT has no questions. Contact the NPFO.
 - Leaving mid-way shows "Confirmation Alert". **Exit** discards your answers.
 
 **How the score works.** Each answer has points. Sliders give points by range. Some answer combinations add extra points (the FRAT calls them modifiers). The total decides the risk level.
 
-**Verification.** Source code and documentation. Not verified on staging.
+**Verification.** Source code and documentation.
 
 ### 3.4 How do I read the FRAT result and sign it?
 
@@ -161,7 +161,7 @@ Example with fictional data: "DEMO TRAINING CIRCUIT", tail number "DEMO-01", 2 p
 
 **Context.**
 - Role: FRAT User.
-- Device: phone or tablet, online for the signature (see 3.13).
+- Device: phone or tablet, online for the signature.
 - Starting screen: **Frat Results**, right after the last question.
 
 **Steps.**
@@ -181,18 +181,18 @@ Example with fictional data: "DEMO TRAINING CIRCUIT", tail number "DEMO-01", 2 p
    | Above the highest threshold | Stop sign | **MITIGATE**, **CANCEL FLIGHT** |
 
    **MITIGATE** also appears in the first three rows when your answers have mitigations in the FRAT.
-4. Optional: tap **ADD RISK NOTE** (3.10).
+4. Optional: tap **ADD RISK NOTE**.
 
 Fictional example: a FRAT with "Low" up to 10, "Medium" up to 20 and "High" up to 30 points. A score of 8 gives a plane and **FLY**. A score of 15 gives **FLY ANYWAY**. A score of 25 gives **ASK FOR PERMISSION**. A score of 34 gives a stop sign and only **MITIGATE** or **CANCEL FLIGHT**.
 
-**Visible result and handoff.** The signature is saved on the assessment. The next step is 3.5, 3.6 or 3.8.
+**Visible result and handoff.** The signature is saved on the assessment. The next step is a decision, a permission request or mitigation.
 
 **Troubleshooting.**
 - "Please sign by checking the box before proceeding": every button on this screen, including **ADD RISK NOTE** and **MITIGATE**, needs the box ticked first.
 - The box does not tick: it needs network.
 - "Risk Level: Not defined" or "Threshold: N/A": the FRAT has no risk levels. Contact the NPFO.
 
-**Verification.** Source code. Not verified on staging.
+**Verification.** Source code.
 
 ### 3.5 How do I record my go/no-go decision?
 
@@ -201,7 +201,7 @@ Fictional example: a FRAT with "Low" up to 10, "Medium" up to 20 and "High" up t
 **Context.**
 - Role: FRAT User.
 - Device: phone or tablet.
-- Starting screen: **Frat Results** with the signature box ticked (3.4).
+- Starting screen: **Frat Results** with the signature box ticked.
 
 **Steps.**
 - **Fly (low risk):** tap **FLY**. The app shows "Flight confirmed".
@@ -215,10 +215,10 @@ Fictional example: a FRAT with "Low" up to 10, "Medium" up to 20 and "High" up t
 
 **Troubleshooting.**
 - "Error: You must be online to submit your decision to "Fly anyway".": **FLY ANYWAY** needs network.
-- **FLY** is missing: your score is above the lowest threshold. See 3.4 for which buttons apply.
+- **FLY** is missing: your score is above the lowest threshold. Higher bands offer **FLY ANYWAY**, **ASK FOR PERMISSION** or **MITIGATE** instead.
 - The **Reason** field is not mandatory, but it is the only explanation saved with "Fly anyway".
 
-**Verification.** Source code. Not verified on staging.
+**Verification.** Source code.
 
 ### 3.6 How do I ask my manager for permission to fly?
 
@@ -227,21 +227,21 @@ Fictional example: a FRAT with "Low" up to 10, "Medium" up to 20 and "High" up t
 **Context.**
 - Role: FRAT User.
 - Device: phone or tablet.
-- Starting screen: **Frat Results** with the signature box ticked, score in the **ASK FOR PERMISSION** band, or after mitigation (3.8) when the score is still above the lowest threshold.
+- Starting screen: **Frat Results** with the signature box ticked, score in the **ASK FOR PERMISSION** band, or after mitigation when the score is still above the lowest threshold.
 
 **Steps.**
 1. Tap **ASK FOR PERMISSION**. The screen "Ask for permission to fly" opens.
 2. In **Reason**, describe the situation and your plan.
 3. Tap **SUBMIT**.
 
-**Visible result and handoff.** The app shows "Permission status pending." and returns to **Home**. **Flight Details** shows "Decision: Ask permission". The request appears in **Decisions** › **Pending** for everyone in the crew. A FRAT Admin answers it there (3.7). The app does not send a push notification; tell your manager directly if it is urgent.
+**Visible result and handoff.** The app shows "Permission status pending." and returns to **Home**. **Flight Details** shows "Decision: Ask permission". The request appears in **Decisions** › **Pending** for everyone in the crew. A FRAT Admin answers it there. The app does not send a push notification; tell your manager directly if it is urgent.
 
 **Troubleshooting.**
-- **ASK FOR PERMISSION** is missing: your score is in another band (3.4). In the stop band, mitigate first (3.8).
-- No network: the request is stored on the device and sent when the connection returns (3.13).
+- **ASK FOR PERMISSION** is missing: your score is in another band. In the stop band, mitigate first.
+- No network: the request is stored on the device and sent when the connection returns.
 - After a **Deny**, the flight cannot be assessed again. Create a new flight if the plan changes.
 
-**Verification.** Source code. Not verified on staging.
+**Verification.** Source code.
 
 ### 3.7 How does a FRAT Admin grant or deny a request?
 
@@ -266,9 +266,9 @@ Fictional example: a FRAT with "Low" up to 10, "Medium" up to 20 and "High" up t
 - "Score" shows "N/A": the API does not send the score before mitigation in this list. Use "After Mitigation".
 - "No network connection": answering needs network.
 - There is no undo in the app. Answered requests have no buttons.
-- A request from a FRAT run without a flight shows "N/A ➜ N/A" as the route (3.11).
+- A request from a FRAT run without a flight shows "N/A ➜ N/A" as the route.
 
-**Verification.** Source code. Not verified on staging.
+**Verification.** Source code.
 
 ### 3.8 How do I mitigate risks and lower the score?
 
@@ -287,16 +287,16 @@ Fictional example: a FRAT with "Low" up to 10, "Medium" up to 20 and "High" up t
 5. Choose the next step:
    - If the new score is at or below the lowest threshold: **FLY**, **MITIGATION PDF** or **CANCEL FLIGHT**.
    - Otherwise: **MITIGATION PDF**, **ASK FOR PERMISSION** or **CANCEL FLIGHT**. After mitigation, **FLY ANYWAY** is not offered.
-6. Optional: **ADD MITIGATION NOTE** (3.10).
+6. Optional: **ADD MITIGATION NOTE**.
 
-**Visible result and handoff.** The mitigated score is saved on the assessment. FRAT Admins see it as "After Mitigation" in **Decisions** (3.7). The PDF is in 3.9.
+**Visible result and handoff.** The mitigated score is saved on the assessment. FRAT Admins see it as "After Mitigation" in **Decisions**. **MITIGATION PDF** opens the mitigation report.
 
 **Troubleshooting.**
 - **MITIGATE** is missing: your answers have no mitigations in this FRAT, or the assessment was done offline. In the stop band, **MITIGATE** always shows.
 - **CANCEL FLIGHT** on the after-mitigation screen, low band: the code opens the "Ask for permission to fly" form, and **SUBMIT** saves nothing. To cancel, go back to the first **Frat Results** screen and use **CANCEL FLIGHT** there.
 - If the score does not change, the selected mitigations have zero points in the FRAT.
 
-**Verification.** Source code and documentation. Not verified on staging.
+**Verification.** Source code and documentation.
 
 ### 3.9 How do I export the mitigation report as PDF?
 
@@ -305,7 +305,7 @@ Fictional example: a FRAT with "Low" up to 10, "Medium" up to 20 and "High" up t
 **Context.**
 - Role: FRAT User.
 - Device: phone or tablet with a PDF viewer.
-- Starting screen: **Frat Results** after mitigation (3.8).
+- Starting screen: **Frat Results** after mitigation.
 
 **Steps.**
 1. Tap **MITIGATION PDF**. A spinner shows.
@@ -319,7 +319,7 @@ Fictional example: a FRAT with "Low" up to 10, "Medium" up to 20 and "High" up t
 - The button is missing: the PDF is only offered after mitigation.
 - This is the only export in the app. No CSV or Excel export was found.
 
-**Verification.** Source code. Not verified on staging. The PDF is built on the device; whether it opens offline is not verified.
+**Verification.** Source code. The PDF is built on the device; whether it opens offline is not verified.
 
 ### 3.10 How do I add a risk note or a mitigation note?
 
@@ -344,7 +344,7 @@ Fictional example: a FRAT with "Low" up to 10, "Medium" up to 20 and "High" up t
 - "Please enter a risk note." / "Please enter a mitigation note.": the field is empty.
 - Add notes while online. The offline path for notes in the code looks incomplete.
 
-**Verification.** Source code. Not verified on staging.
+**Verification.** Source code.
 
 ### 3.11 How do I run a FRAT without creating a flight?
 
@@ -358,8 +358,8 @@ Fictional example: a FRAT with "Low" up to 10, "Medium" up to 20 and "High" up t
 **Steps.**
 1. Tap **FRAT**, then the **FRATs** sub-tab.
 2. Tap a FRAT ("Status: live").
-3. Answer the questions and tap the tick on the last step (as in 3.3).
-4. Continue on **Frat Results** (3.4 to 3.8).
+3. Answer the questions and tap the tick on the last step.
+4. Continue on **Frat Results**.
 
 **Visible result and handoff.** The assessment and any decision are saved without a flight. A permission request from this assessment appears in **Decisions** with the route "N/A ➜ N/A". The "Last Frat" card on **Home** starts a new assessment of that FRAT; it does not reopen the previous one.
 
@@ -367,7 +367,7 @@ Fictional example: a FRAT with "Low" up to 10, "Medium" up to 20 and "High" up t
 - "Your company has not published any FRATs yet. Ask your NPFO.": no live FRAT for the selected crew.
 - Swiping a FRAT shows "Frat items cannot be archived.": FRATs cannot be archived.
 
-**Verification.** Source code. Not verified on staging.
+**Verification.** Source code.
 
 ### 3.12 How do I archive or restore a flight?
 
@@ -389,7 +389,7 @@ Fictional example: a FRAT with "Low" up to 10, "Medium" up to 20 and "High" up t
 - "An error occurred.": the server did not save the change. Pull down to refresh the list and try again.
 - "No Archived Flights Found": nothing is archived for this crew.
 
-**Verification.** Source code. Not verified on staging.
+**Verification.** Source code.
 
 ### 3.13 What works offline?
 
@@ -445,9 +445,9 @@ Fictional example: a FRAT with "Low" up to 10, "Medium" up to 20 and "High" up t
 
 **Troubleshooting.**
 - A crew is missing: you have no FRAT role in it. Ask your NGFT administrator.
-- See the logout warning in 3.13.
+- Logout deletes the data stored on the device, including offline work not yet sent.
 
-**Verification.** Source code. Not verified on staging.
+**Verification.** Source code.
 
 ### 3.15 Is there a web version of FRAT?
 
@@ -468,7 +468,7 @@ Fictional example: a FRAT with "Low" up to 10, "Medium" up to 20 and "High" up t
 
 **Visible result and handoff.** Assessment and mitigations are stored on the NGFT platform, not in the FRAT API. The action buttons show only for flights in the future, and they save no decision.
 
-**Verification.** Source code only. Not verified on staging.
+**Verification.** Source code only.
 
 ### 5.1 Demo A: go/no-go before take-off
 
@@ -484,7 +484,7 @@ Fictional example: a FRAT with "Low" up to 10, "Medium" up to 20 and "High" up t
 - **Format:** both. As a silent 20–30 second clip if the FRAT has about six questions or fewer; otherwise as a guided 60–90 second demo.
 - **Data changes:** creates an assessment and sets the flight's decision. **NEW ASSESSMENT** disappears, so the flight cannot be reused. Reset: archive the flight; use a new one next time.
 
-**Verification.** Demonstration scenario based on the source code. Not verified on staging.
+**Verification.** Demonstration scenario based on the source code.
 
 ### 5.2 Demo B: high risk, mitigation and PDF
 
@@ -500,7 +500,7 @@ Fictional example: a FRAT with "Low" up to 10, "Medium" up to 20 and "High" up t
 - **Format:** guided 60–90 seconds. Steps 2 to 4 also work as a silent 20–30 second clip.
 - **Data changes:** creates an assessment with mitigations and a signature. If you stop before any decision button, the flight keeps "No decision" and **NEW ASSESSMENT** stays visible, so the flight can be reused (source code only). Each run adds an assessment record. The PDF on the device is overwritten.
 
-**Verification.** Demonstration scenario based on the source code. Not verified on staging.
+**Verification.** Demonstration scenario based on the source code.
 
 ### 5.3 Demo C: manager approval on a second device
 
@@ -516,4 +516,4 @@ Fictional example: a FRAT with "Low" up to 10, "Medium" up to 20 and "High" up t
 - **Format:** guided 60–90 seconds only. It needs two devices and there is no push notification.
 - **Data changes:** permanent decision on the flight; no undo in the app. Reset: archive the flight and prepare a new one per run. Expect "Score: N/A" on the manager's card.
 
-**Verification.** Demonstration scenario based on the source code. Not verified on staging.
+**Verification.** Demonstration scenario based on the source code.

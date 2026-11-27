@@ -1,6 +1,4 @@
-# 9. All certificates
-
-[← Previous: Uploading an external certificate](08-upload-certificate.md) · [Table of Contents](README.md) · [Next: Setting up a new member →](10-new-member.md)
+# All certificates
 
 **Who can use it:** all users (menu **My Courses → All Certificates**).
 

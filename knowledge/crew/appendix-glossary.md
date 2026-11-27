@@ -1,6 +1,4 @@
-# Appendix: Glossary
-
-[← Table of Contents](README.md)
+# Glossary
 
 | Term | Meaning |
 |---|---|
@@ -17,11 +15,11 @@
 | **Missing** | No valid certificate exists for a required course |
 | **Operation** | A type of work a position performs, for example *Construction out of Cabin* |
 | **Permission** | A single right, for example *Approve extern certificates* |
-| **PICUS** | Pilot in Command under Supervision. In NGFT Crew you set it with *Under Supervision* and *Limitations* ([Good to know](appendix-good-to-know.md)) |
+| **PICUS** | Pilot in Command under Supervision. In NGFT Crew you set it with *Under Supervision* and *Limitations* |
 | **Position** | A job position inside a role, for example *SPO Pilot* |
 | **Refresher** | A repeat course that renews an expiring certificate |
 | **Relations tree** | The rules linking roles, positions, operations and aircraft to required courses |
 | **Role** | A job function in the company, for example Pilot or NPCT. It decides your menu and permissions |
 | **SPO / CAT** | Specialised Operations / Commercial Air Transport |
 | **Valid until** | Date a certificate expires |
-| **Wilco** | The help assistant in NGFT Crew. He answers only from this tutorial. What is not written here, he cannot find |
+| **Wilco** | The help assistant in NGFT Crew. If he does not know a topic, write to support@ngft.com |

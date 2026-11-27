@@ -11,7 +11,7 @@ const expected = {
   ops: [['T2'], ['T3'], ['T4'], ['T11'], ['T5'], ['T15']],
   techlog: [['3.3'], ['3.8'], ['3.7'], ['3.2']],
   sms: [['3.1'], ['3.4'], ['3.8'], ['3.6']],
-  crew: [['13.'], ['13.'], ['4.', '6.', '14.'], ['4.'], ['13.'], ['17.']],
+  crew: [['13-overviews.md'], ['13-overviews.md'], ['04-my-courses.md', '06-all-courses-and-bundles.md', '14-subscriptions.md'], ['04-my-courses.md'], ['13-overviews.md'], ['17-relations-tree.md']],
   frat: [['1.1', '3.3'], ['3.8'], ['3.8', '3.4'], ['3.9']],
   docgen: [['3.3', '3.4'], ['3.18'], ['3.18'], ['3.16']],
   audit: [['3.2'], ['3.6'], ['3.11'], ['3.17']]
@@ -41,11 +41,12 @@ test('guide titles are in English and name the task', () => {
   }
 });
 
-test('a title override changes the chapter name that Wilco cites', t => {
+test('a title override changes the section title Wilco receives', t => {
   t.after(() => knowledge.load({}));
   knowledge.load({'ops/guide.T13.title': 'How do I invoice flights?'});
   const chapters = knowledge.productContext('Come fatturo i voli?', 'ops').map(e => e.chapter);
   assert.ok(chapters.includes('T13 How do I invoice flights?'), chapters.join(' | '));
+  assert.ok(knowledge.productContext('Come fatturo i voli?', 'ops').some(e => e.topic === 'How do I invoice flights?'), 'the topic for the model carries no section number');
 });
 
 test('a body override replaces the excerpt and keeps its verification line', t => {

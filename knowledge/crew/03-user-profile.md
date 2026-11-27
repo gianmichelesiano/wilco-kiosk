@@ -1,6 +1,4 @@
-# 3. Your profile
-
-[← Previous: Selecting your company](02-company-selector.md) · [Table of Contents](README.md) · [Next: My Courses →](04-my-courses.md)
+# Your profile
 
 **Who can use it:** all users.
 

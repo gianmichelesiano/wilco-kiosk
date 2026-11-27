@@ -1,6 +1,4 @@
-# 16. Company aircraft and limitations
-
-[← Previous: Company custom certificates and LMS courses](15-company-courses.md) · [Table of Contents](README.md) · [Next: Relations tree →](17-relations-tree.md)
+# Company aircraft and limitations
 
 **Who can use it:**
 
@@ -20,7 +18,7 @@ By default: Company Administrator, Deputy NPCT, NPCT and NPFO.
 
 - **Company Aircraft** shows the aircraft types your company operates. You cannot add aircraft here: administrators create them on **admin.ngft.com**. NGFT has many systems (OPS, Compliance, Safety, Crew), and they all take their aircraft from this one central place.
 
-  To give a crew member an aircraft, open **Members**, click the person icon of the member and open the tab **Aircraft & Operation Authorization / Limitations**. This is explained in [chapter 12](12-member-edit.md).
+  To give a crew member an aircraft, open **Members**, click the person icon of the member and open the tab **Aircraft & Operation Authorization / Limitations**.
 - **Limitations** are conditions that can be attached to a member's authorisation for an aircraft and operation, for example *Visibility > 5 km* or *Wind < 25 kt*. They are for companies that track such restrictions per pilot.
 
 ## Limitations
@@ -37,6 +35,6 @@ By default: Company Administrator, Deputy NPCT, NPCT and NPFO.
 
 ### Give a limitation to a pilot
 
-A limitation only takes effect when you link it to a pilot, an aircraft and an operation. You do this on the member's page: **Members**, the person icon, the tab **Aircraft & Operation Authorization / Limitations**, then the pencil in the column **Limitations**. See [chapter 12](12-member-edit.md).
+A limitation only takes effect when you link it to a pilot, an aircraft and an operation. You do this on the member's page: **Members**, the person icon, the tab **Aircraft & Operation Authorization / Limitations**, then the pencil in the column **Limitations**.
 
 > **Good to know:** a limitation that is already given to a crew member cannot be renamed, and its existing values cannot be changed. You can still add new values. If an existing limitation has to change, contact NGFT support (support@ngft.com).

@@ -39,7 +39,7 @@ globalThis.fetch = async (url, options = {}) => {
     const {messages} = JSON.parse(options.body);
     const {activeProduct, question} = JSON.parse(messages.at(-1).content);
     const lang = /For ambiguous input use (\w\w)/.exec(messages[0].content)[1];
-    const chapters = [...messages[0].content.matchAll(/"chapter":"([^"]+)"/g)].map(match => match[1]);
+    const chapters = [...messages[0].content.matchAll(/"topic":"([^"]+)"/g)].map(match => match[1]);
     calls.lastChapters = chapters;
     calls.lastProducts = [...messages[0].content.matchAll(/\{"id":"([a-z]+)"/g)].map(match => match[1]); // The catalog the model received.
     return json({choices: [{message: {content: JSON.stringify({

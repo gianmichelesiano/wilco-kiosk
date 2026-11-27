@@ -1,6 +1,4 @@
-# 22. Trainer, Instructor, Assessor and Checker
-
-[← Previous: Orders and invoices](21-orders.md) · [Table of Contents](README.md) · [Next: Troubleshooting →](23-troubleshooting.md)
+# Trainer, Instructor, Assessor and Checker
 
 **Who can use it:** people who have one of these roles in the company. The permissions come with the role.
 
@@ -8,7 +6,7 @@
 
 ## What it is for
 
-DG and CRM trainings have several parts ([chapter 5](05-my-trainings.md)). Each part is done with a person who has a specific role. These people have an extra menu item under **DG/CRM Crew Training**, with the trainings assigned to them.
+DG and CRM trainings have several parts. Each part is done with a person who has a specific role. These people have an extra menu item under **DG/CRM Crew Training**, with the trainings assigned to them.
 
 | Menu item | Role in the system | For |
 |---|---|---|

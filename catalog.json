@@ -59,7 +59,7 @@
       {
         "source": "ngft-tutorials/eur-2026/README.md",
         "notes": [
-          "In the fair staging scenario, accepting an offer creates an order and flights. Use the daily plan PDF to share the schedule; the example had empty client, location and fuel columns.",
+          "In the fair demo scenario, accepting an offer creates an order and flights. Use the daily plan PDF to share the schedule; the example had empty client, location and fuel columns.",
           "OPS Agent day-plan demonstration proposes an aircraft and pilot; after confirmation the dispatcher checks the calendar. The recorded feature is restricted to NGFT administrators; do not present it as available to every dispatcher."
         ]
       },
@@ -194,7 +194,7 @@
         "source": "sms/WILCO_PRODUCT_GUIDE.md",
         "notes": [
           "Risk Register exports an Excel file. The PDF summary is exported from Safety Cockpit. Access depends on the role in the currently selected company.",
-          "AI classification assists the Safety Manager. Authority Reporting, Data Exchange and Safety Audits appear as Coming Soon in the documented staging version."
+          "AI classification assists the Safety Manager. Authority Reporting, Data Exchange and Safety Audits appear as Coming Soon in the documented version."
         ]
       }
     ],
@@ -544,7 +544,7 @@
       {
         "source": "docgen-new/WILCO_PRODUCT_GUIDE.md",
         "notes": [
-          "This guide describes DocGen 2 based on its source code and documentation. Staging workflows and current production availability were not verified.",
+          "DocGen 2 is described from its source code and documentation. Current production availability was not verified.",
           "In DocGen 2, File → Difference document uses Compared with to select an older revision. Editions include Crew, Compliance and Authority.",
           "The Owner hands a Draft over to Compliance Review. The CMM reviews changed chapters and decides which approvals are required. After approval, Put in force freezes a PDF. Publishing to NGFT Reader is a separate step."
         ]

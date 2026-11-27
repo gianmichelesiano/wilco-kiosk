@@ -1,6 +1,4 @@
-# 21. Orders and invoices
-
-[← Previous: Roles and permissions](20-roles-and-permissions.md) · [Table of Contents](README.md) · [Next: Trainer, Instructor, Assessor and Checker →](22-training-roles.md)
+# Orders and invoices
 
 **Who can use it:** managers with the permission *Order read* (menu **Orders Crew**).
 
@@ -12,7 +10,7 @@ UAS …: the same roles for drone operations.
 
 ## What it is for
 
-**Orders** is the purchase history of your company. Every checkout from the shopping cart (see [chapter 7](07-cart-and-payment.md)) creates an order. Here you follow its payment status and download the invoice or receipt.
+**Orders** is the purchase history of your company. Every checkout from the shopping cart creates an order. Here you follow its payment status and download the invoice or receipt.
 
 | Status | Meaning |
 |---|---|

@@ -19,19 +19,19 @@
 
 | Surface | What it covers | Status |
 |---|---|---|
-| DocGen web app (desktop) | All writing, review, approval and publishing work | Covered by this guide. TP1 asks for Chrome or Edge on a computer. |
+| DocGen web app (desktop) | All writing, review, approval and publishing work | Covered in full. TP1 asks for Chrome or Edge on a computer. |
 | Phone and tablet | Below a certain width the menu becomes a drawer (source code) | TP1 says: "Phones and tablets are not part of this test". Tablet use not verified. |
 | NGFT Reader (crew app) | Reading published manuals and confirming "read and understood" | Separate app, not in these repositories. This backend serves its data (Reader API, source code). |
-| Workflows (separate NGFT product) | The Accountable Manager's decision, when switched on | On in staging (source code, `approvalRuns: true`), off in production. |
+| Workflows (separate NGFT product) | The Accountable Manager's decision, when switched on | On in the demo (source code, `approvalRuns: true`), off in production. |
 | Administration | Company settings, registries, style sheets, NGFT team | Inside the web app, menu **Settings**. |
 
 **What these repositories cover:**
 
 - `docgen2-frontend`: the whole DocGen web interface.
 - `docgen2-backend`: the API, the lifecycle rules, the Reader API for the crew app, the last step of the import and the link to NGFT Print.
-- **Not covered:** the NGFT Reader app, Workflows, the NGFT AI backend (ai2) that reads imported PDFs, NGFT Print and RegVault. This guide shows only how DocGen uses them.
+- **Not covered:** the NGFT Reader app, Workflows, the NGFT AI backend (ai2) that reads imported PDFs, NGFT Print and RegVault. Wilco knows only how DocGen uses them.
 
-**Availability:** the Import Guide (5 October 2026) says: "DocGen has no production release yet". The code holds a production configuration (source code, `docgen2.ngft.com`). The current state of production is an open check (section 6).
+**Availability:** the Import Guide (5 October 2026) says: "DocGen has no production release yet". The code holds a production configuration (source code, `docgen2.ngft.com`). The current state of production is an open check.
 
 **Interface language:** the interface is in English. The account menu offers English, Deutsch and العربية. A language change translates only the account menu, the impersonation indicator and the company selection page. Everything else stays in English (source code).
 
@@ -103,7 +103,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - An authority inspector sees fewer manuals: only **Authority supervised** documents, and only revisions from **In Review** on.
 - In the CSV the **Status** column holds only the state, without "Rev. N". Dates are in ISO format.
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.2 How do I start a new revision of a manual?
 
@@ -142,7 +142,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - An **Approved** revision counts as in work: put it in force first.
 - Special case: with a revision **With the AM**, the document page shows neither the state nor the link to the revision, and the dialog shows the roles message instead of "still in work". This is a frontend inconsistency (`IN_WORK` lacks `am_approval`).
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.3 How do I edit and save a chapter?
 
@@ -189,7 +189,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 
 **Unsaved text:** if the session expires, DocGen asks you to sign in again and keeps the unsaved text in the browser tab. On return it says "Your unsaved changes in N chapter(s) were kept while you were signed in again — review and save them."
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.4 How do I insert tables, pictures, diagrams, variables and references?
 
@@ -199,7 +199,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 
 **Context**
 
-- Role: whoever may edit the chapter (see 3.3).
+- Role: whoever may edit the chapter: Owner or SME in **Draft**, the CMM in **Compliance Review** after **Edit chapter**.
 - Start screen: editor, **Insert** tab.
 - Prerequisites: editable chapter. Variables, abbreviations, definitions and cross-references need access to the registries (Owner, SME, CMM, NGFT staff).
 
@@ -227,7 +227,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - The error "Someone saved this diagram while you were drawing" means a colleague saved first. Close the diagram and open it again.
 - An unresolved reference shows in the status bar as "N unresolved reference(s)". A click opens **Resolve reference**.
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.5 How do I comment on a passage, and how do I resolve the comment?
 
@@ -270,7 +270,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - "The quoted text is no longer in this chapter." means the quoted passage was changed.
 - The Inspector sees only comments written in **In Review**.
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.6 How do I accept or reject another author's changes?
 
@@ -300,7 +300,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - Only additions are tracked changes. Deletions are not tracked.
 - At hand-over, the message "Hand-over is not possible yet: N chapter(s) have changes by other authors that you still have to accept or reject" lists the chapters to decide.
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.7 How do I hand the revision over to Compliance Review?
 
@@ -314,7 +314,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - Start screen: editor, revision in **Draft**. The button is in the title line.
 - Prerequisites:
   - every chapter saved;
-  - no other author's change still to decide (see 3.6);
+  - no other author's change still to decide;
   - the document has an Owner. A document created from a template or by import has no Owner until the CMM sets one in **Document parameters** (open check).
 
 **Steps**
@@ -341,7 +341,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - The revision is not in **Draft**.
 - You are looking at an earlier stage, read only.
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.8 How does the CMM review the chapters in Compliance Review?
 
@@ -370,7 +370,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 
 - The chapter shows "Approved by {name}" and turns green in the list, or "Rejected by {name}: {reason}" and turns red.
 - With **Return to Draft**: message "The revision is back in Draft; the authors see your rejection comments." The Owner and SMEs write again. Approved chapters keep their approval.
-- The next step is closing the review (3.9).
+- The next step is closing the review.
 
 **If a button is missing**
 
@@ -380,7 +380,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - The text stays read only until the CMM presses **Edit chapter**. The note "Read only — in this state only the Owner and the SMEs edit (P5)." also shows in Compliance Review: the frontend wording is imprecise there.
 - For an initial issue, **File → Approve all chapters (n)** approves every chapter in one step, except those the CMM wrote.
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.9 How does the CMM close Compliance Review and choose the approval route?
 
@@ -415,12 +415,12 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 
 | Choice | New state | Message | Who acts next |
 |---|---|---|---|
-| Authority | **In Review** | "Sent to the authority for prior approval." | The Inspector (3.10) |
-| No authority, with AM | **With the AM** | "Sent to the Accountable Manager for approval." | The AM (3.11) |
-| No authority, no AM | **Approved** | "Approved internally." | Owner, CMM or AM put it in force (3.12) |
+| Authority | **In Review** | "Sent to the authority for prior approval." | The Inspector |
+| No authority, with AM | **With the AM** | "Sent to the Accountable Manager for approval." | The AM |
+| No authority, no AM | **Approved** | "Approved internally." | Owner, CMM or AM put it in force |
 
 - An **Internal** document never goes to the authority: closing the review approves it.
-- For supervised documents, DocGen keeps a copy of the revision for the authority's package (3.19).
+- For supervised documents, DocGen keeps a copy of the revision for the authority's package.
 
 **If closing is refused**
 
@@ -430,9 +430,9 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - "Internal documents never go to the authority (P2)": for an Internal document choose approval without the authority.
 - The authority option is disabled when the route to the authority is not open.
 
-**Configuration condition:** if the AM's signature is chosen and the Workflows flag is on, the AM's decision moves to Workflows. On staging the flag is on (`docgen2-backend/config/develop.yaml`); in production it is off (`docgen2-backend/config/prod.yaml`).
+**Configuration condition:** if the AM's signature is chosen and the Workflows flag is on, the AM's decision moves to Workflows. In the demo the flag is on (`docgen2-backend/config/develop.yaml`); in production it is off (`docgen2-backend/config/prod.yaml`).
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.10 How does the authority inspector decide an In Review revision?
 
@@ -465,20 +465,20 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - Someone who worked on the revision as Owner, SME, CMM or AM and also holds the Inspector post does not decide. They see: "You hold the Inspector's post, but you also worked on this revision as …, so another person decides it for the authority."
 - An **Internal** document is not visible to the Inspector.
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.11 How does the Accountable Manager approve?
 
 **Feature:** the AM step, in DocGen or in Workflows.
 
-**Short answer for Wilco:** "When the revision is With the AM, the Accountable Manager approves it as a whole. If Workflows is on, as on staging, they decide in Workflows and DocGen shows With the Accountable Manager in Workflows. Otherwise they press Approve as Accountable Manager in DocGen."
+**Short answer for Wilco:** "When the revision is With the AM, the Accountable Manager approves it as a whole. If Workflows is on, as in the demo, they decide in Workflows and DocGen shows With the Accountable Manager in Workflows. Otherwise they press Approve as Accountable Manager in DocGen."
 
 **Context**
 
 - Role: AM. Must be a different person from whoever acted as CMM on this revision.
 - Start screen: menu **Sign-off** → **Open revision**, or Workflows.
 - Prerequisites: revision **With the AM**.
-- Condition: flag `workflows.approvalRuns`. On in staging, off in production. A company not linked to the NGFT platform always stays in DocGen.
+- Condition: flag `workflows.approvalRuns`. On in the demo, off in production. A company not linked to the NGFT platform always stays in DocGen.
 
 **Steps in DocGen (Workflows off)**
 
@@ -503,7 +503,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - The person does not hold the AM post.
 - The same AM acted as CMM: "The Accountable Manager may only sign when a different person acted as CMM for this revision".
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.12 How do I put an approved revision in force?
 
@@ -529,7 +529,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - Message "In force from {date}; the controlled PDF has N pages. You can now start the next revision on the document page."
 - The state becomes **Effective**. The revision in force before becomes **Previous** and crews no longer see it.
 - On the document page, tab **List of Effective Pages**, the pages of the new revision appear.
-- The revision can now be published (3.13).
+- The revision can now be published.
 
 **Introducing a manual already approved outside DocGen**
 
@@ -542,7 +542,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - **Put in force** is missing when the revision is not **Approved**, or the person is not the Owner, the CMM, the AM or the NGFT Admin.
 - A job checks every 5 minutes for Approved revisions whose date has come and whose PDF is already frozen. If there is no PDF, the title line says "The effective date has come, but the revision has no frozen PDF yet". In the interface the PDF is frozen only by **Put in force**.
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.13 How do I publish a revision to crews and see who confirmed reading it?
 
@@ -583,7 +583,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - The **EFB** and **PDF download** channels are recorded and can be filtered. These repositories hold no code that delivers to an EFB: delivery is an open check.
 - Revisions already in force at the time of the update were published automatically to every member, without reading confirmation.
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.14 How do I create a new manual from an NGFT template?
 
@@ -614,7 +614,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - The text holds the values from the company registries, for example the company name, not placeholders such as "[COMPANY_NAME]".
 - The manual appears in **Documents**.
 - The chapters keep the template's confirmed law tags, marked "Inherited from the template".
-- Later template updates do not change the manual by themselves: they arrive as proposals (3.15).
+- Later template updates do not change the manual by themselves: they arrive as proposals.
 - **Company chapters only (N)** in the change bar shows the chapters the company wrote itself, labelled **Company**.
 
 **After creation:** the dialog does not ask for the Owner. Before the hand-over to Compliance Review, the CMM sets the **Owner** in **Document parameters** (open check).
@@ -625,7 +625,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - No template in the list: the company has no published template revisions.
 - The AM can create the document but does not see the law-tag confirmation box.
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.15 How do I decide a template update or a company variable change?
 
@@ -655,7 +655,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 
 **Steps to bring the text into the manual**
 
-1. Start or open the revision in **Draft** (3.2).
+1. Start or open the revision in **Draft**.
 2. In the **Review** tab, press **Take over all updates (n)**. In the dialog "Take over proposals into this revision" press **Take over (n)**.
 3. Alternatively, above the affected chapter, use **Take over**, **Adapt…** or **Leave as is…**: they decide and apply in one click.
 
@@ -673,7 +673,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - A template's first publication creates no proposals.
 - The top menu shows no count next to **Proposals**.
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.16 How do I link a chapter to an article of law and see its compliance state?
 
@@ -720,7 +720,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - The NGFT templates' law tags are edited in DocGen only after the hand-over from RegVault, planned for 30 November 2026 (flag `REGVAULT_TEMPLATE_EDITING`). Until then RegVault maintains them.
 - The Compliance page has no CSV export.
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.17 How do I see what is waiting for a signature?
 
@@ -748,7 +748,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - A member without a role sees "This page is for the CMM, the AM, the Owner of a document, the Authority Inspector and NGFT staff".
 - The page is read only. Decisions are made in the editor.
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.18 How do I see what changed between two revisions?
 
@@ -777,7 +777,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - "NGFT Print could not render the PDF.": NGFT Print did not answer. Try again later.
 - **History** is disabled when no chapter is open.
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.19 How do I prepare the authority's package and the regulator export?
 
@@ -810,7 +810,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - The Workflows audit extract is not yet in the export. The manifest says so.
 - The editor has no button to download only the frozen PDF. The PDF is inside these two ZIP files.
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.20 How do I import an existing PDF or Word manual?
 
@@ -860,7 +860,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - The lists refresh every 5 seconds only while the browser tab is in front.
 - **Warning:** the app cannot delete a Draft created by the import. The trash icon in **Import a manual** deletes the imported manual for the whole company.
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.21 How do I manage a controlled PDF that we don't write in DocGen?
 
@@ -900,7 +900,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - A member without a role sees an empty list.
 - The virus check is not active yet: it is a placeholder that scans nothing (`docgen2-backend/src/modules/uploaded-document/services/virus-scanner.ts`).
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.22 How do I change a company variable, for example the company's address?
 
@@ -919,7 +919,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 2. Find the variable, for example by the key `COMPANY_CITY`.
 3. Press the edit icon. In the **Change variable** dialog change the **Value** and press **Save**.
 4. Read the message "KEY saved. N chapters in M documents can take the new value; nothing in the manuals changed yet." and press **Open Proposals**.
-5. Decide the proposals and bring them into the next revision (3.15).
+5. Decide the proposals and bring them into the next revision.
 
 **Visible result:** one proposal "Variable KEY changed" for each document that uses the variable. Published revisions do not change.
 
@@ -933,7 +933,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - The first value of an empty variable creates no proposals. Clearing a variable withdraws the open proposals.
 - The registries have no export.
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.23 How do I change the printed look of the manuals?
 
@@ -965,7 +965,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - "No document to show yet.": the company has no manual for the preview yet.
 - There is not yet a way to choose a style sheet for a single manual: the company default applies.
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.24 How do I switch company or language, and how do I go back to the Cockpit?
 
@@ -997,7 +997,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - Error "Your account is not set up in DocGen" (code `unknown_user`): the person signed in, but DocGen has no user for them. Signing in again does not help: contact NGFT support.
 - TP1 calls the menu item "Change Company". In the code the labels are "Current company" and "Select company" (open check).
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.25 How does NGFT name the people who write and review the NGFT templates?
 
@@ -1019,7 +1019,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 
 **If something is missing:** without NGFT Admin rights the switches are grey and the page says "Only an NGFT Admin changes these roles."
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 3.26 Is there an AI assistant in the editor?
 
@@ -1035,7 +1035,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 - **Warning:** **Accept** writes the demo text into a real chapter.
 - When active: Owner, SME, CMM and NGFT Admin, only in Draft and Compliance Review. Never the Inspector or the AM.
 
-**Verification.** behavior in source code, existing documentation, staging not verified.
+**Verification.** behavior in source code, existing documentation.
 
 ### 5.1 Demo: from the author to the CMM to the revision in force
 
@@ -1059,12 +1059,12 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 **Data changes and reset**
 
 - The demo changes data and cannot be undone.
-- Reset: after **Put in force**, **Start next revision** creates a new Draft and the demo can start again. The loop is verified in the source , not on staging. The demo manual's revision count grows with every run.
+- Reset: after **Put in force**, **Start next revision** creates a new Draft and the demo can start again. The loop is verified in the source code. The demo manual's revision count grows with every run.
 - Without **Put in force**, the revision stays Approved and blocks a new revision.
-- Do not tick the AM's signature: on staging the AM step moves to Workflows.
+- Do not tick the AM's signature: in the demo the AM step moves to Workflows.
 - **Put in force** calls NGFT Print, which renders one PDF at a time. It can take from a few seconds to a few minutes.
 
-**Verification.** Demonstration scenario based on the guide. Staging not verified.
+**Verification.** Demonstration scenario based on the documented features.
 
 ### 5.2 Demo: regulatory compliance chapter by chapter
 
@@ -1087,7 +1087,7 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 
 **Data changes:** none, the demo is read only. Do not use **No regulation applies** during the demo: it changes the chapter and can be removed only with a revision in work.
 
-**Verification.** Demonstration scenario based on the guide. Staging not verified.
+**Verification.** Demonstration scenario based on the documented features.
 
 ### 5.3 Demo: telling crews what changed
 
@@ -1110,4 +1110,4 @@ A document has only one revision in work at a time. The rules are in `docgen2-ba
 
 **Data changes:** none. Publish before the show, because a revision is published only once. Confirmations are given in the NGFT Reader app, outside DocGen.
 
-**Verification.** Demonstration scenario based on the guide. Staging not verified.
+**Verification.** Demonstration scenario based on the documented features.

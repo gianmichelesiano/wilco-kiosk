@@ -1,6 +1,4 @@
-# 4. My Courses: see what you need and start or purchase your course
-
-[← Previous: Your profile](03-user-profile.md) · [Table of Contents](README.md) · [Next: DG and CRM trainings →](05-my-trainings.md)
+# My Courses: see what you need and start or purchase your course
 
 **Who can use it:** all users (menu **My Courses**). This is the first page after sign-in.
 
@@ -10,7 +8,7 @@
 
 **My Courses** shows the courses you need and whether they are valid. They depend on your **roles** (for example *Pilot*), **positions** (for example *CAT Pilot*) and **operations**, which your manager sets up for you.
 
-The tabs **Positions**, **Operations** and **Aircraft** show the same courses grouped differently. **All Courses** and **Bundles** are in [chapter 6](06-all-courses-and-bundles.md).
+The tabs **Positions**, **Operations** and **Aircraft** show the same courses grouped differently. **All Courses** lists every e-learning course, and **Bundles** unlock all the courses a role or position needs with one click.
 
 | Symbol | Meaning |
 |---|---|
@@ -21,8 +19,8 @@ The tabs **Positions**, **Operations** and **Aircraft** show the same courses gr
 | Icon | Action |
 |---|---|
 | ![Play](screenshots/icons/action-play.svg) | Start the course |
-| ![Cart](screenshots/icons/action-cart.svg) | Buy the course ([chapter 7](07-cart-and-payment.md)) |
-| ![Upload](screenshots/icons/action-upload.svg) | Upload an external certificate ([chapter 8](08-upload-certificate.md)) |
+| ![Cart](screenshots/icons/action-cart.svg) | Buy the course |
+| ![Upload](screenshots/icons/action-upload.svg) | Upload an external certificate |
 | ![Download](screenshots/icons/action-download.svg) | Download your certificate (optional) |
 | ![History](screenshots/icons/action-history.svg) | Show history |
 
@@ -41,7 +39,7 @@ The tabs **Positions**, **Operations** and **Aircraft** show the same courses gr
 ### Buy a course you are missing
 
 1. In **My Courses**, find the course you are missing. If it has an arrow, use the **first row**.
-2. Click the cart icon ![Cart](screenshots/icons/action-cart.svg) at the end of the row. Then pay as described in [chapter 7](07-cart-and-payment.md).
+2. Click the cart icon ![Cart](screenshots/icons/action-cart.svg) at the end of the row. Then pay in the **shopping cart** in the top bar.
 
 ### Start your course
 

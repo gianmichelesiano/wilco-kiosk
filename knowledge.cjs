@@ -24,12 +24,11 @@ function chapter(file) {
   const key = `crew/guide.${file.name}.`;
   const markdown = ov(key + 'body', file.body);
   const sections = markdown
-    .replace(/^\[←.*$/gm, '')
     .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1')
     .trim()
     .split(/(?=^#{2,4}\s)/m)
     .map(section => ({text: section.trim(), words: new Set(terms(section))}));
-  return {title: chapterTitle(markdown), sections, keywords: new Set(terms(ov(key + 'topics', file.topics)))};
+  return {name: file.name, title: chapterTitle(markdown), sections, keywords: new Set(terms(ov(key + 'topics', file.topics)))};
 }
 let chapters = [];
 
@@ -45,12 +44,12 @@ function crewContext(question, activeProduct, previousQuestion = '') {
     const local = words.filter(word => section.words.has(word)).length;
     const topic = words.filter(word => chapter.keywords.has(word)).length;
     const followUp = [...recent].filter(word => section.words.has(word)).length;
-    return {title: chapter.title, text: section.text, score: local * 3 + topic + Math.min(followUp, 4) * 0.25};
+    return {name: chapter.name, title: chapter.title, text: section.text, score: local * 3 + topic + Math.min(followUp, 4) * 0.25};
   }));
   return ranked.filter(section => section.score > 0)
     .sort((a,b) => b.score - a.score)
     .slice(0, 5)
-    .map(({title,text}) => ({chapter: title, excerpt: text.slice(0, 2100)}));
+    .map(({name,title,text}) => ({chapter: `${name} ${title}`, topic: title, excerpt: text.slice(0, 2100)}));
 }
 
 // One guide file: every "### <number> <title>" heading starts a section.
@@ -91,7 +90,7 @@ const guides = [
     sections: readGuide('techlog'),
     preview: {
       number: '3.18',
-      query: /\b(npca|preview|anteprima|staging|corregger\w*|correzion\w*|korrigier\w*|correct\w*|r[uü]ckwirkend|backdat\w*)\b/i
+      query: /\b(npca|preview|anteprima|corregger\w*|correzion\w*|korrigier\w*|correct\w*|r[uü]ckwirkend|backdat\w*)\b/i
     }
   },
   {
@@ -163,6 +162,7 @@ function guideContext(guide, question, previousQuestion, count) {
     .map(({entry}) => ({
       product: guide.product,
       chapter: `${entry.number} ${entry.title}`,
+      topic: entry.title,
       excerpt: [limitExcerpt(entry.excerpt), entry.verification].filter(Boolean).join('\n\n')
     }));
 }

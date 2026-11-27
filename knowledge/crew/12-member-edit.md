@@ -1,6 +1,4 @@
-# 12. Editing a member: properties and aircraft
-
-[← Previous: Members: manage your crew](11-members.md) · [Table of Contents](README.md) · [Next: Reports →](13-overviews.md)
+# Editing a member: properties and aircraft
 
 **Who can use it:** managers with the permission *See training data of crew members*.
 
@@ -12,7 +10,7 @@ UAS …: the same roles for drone operations.
 
 ## What it is for
 
-According to EASA, every role and position needs specific courses. The **Relations Tree** ([chapter 17](17-relations-tree.md)) assigns the courses and certificates to roles, positions and operations. Here you give each crew member exactly the profile they have in the company.
+According to EASA, every role and position needs specific courses. The **Relations Tree** assigns the courses and certificates to roles, positions and operations. Here you give each crew member exactly the profile they have in the company.
 
 If you think a course is missing, first check the Relations Tree and see whether something is hidden there. If a course is really missing, contact support@ngft.com.
 
@@ -34,7 +32,7 @@ So let's give your member their properties.
 
    ![Aircraft tab](screenshots/11-02-aircraft-operations.png)
 
-4. If aircraft are still missing, choose them in **Select Aircraft Type** and click **Assign**. You can only choose aircraft types your company has ([chapter 16](16-aircraft-and-limitations.md)). If an aircraft is missing, an administrator has to add it on admin.ngft.com.
+4. If aircraft are still missing, choose them in **Select Aircraft Type** and click **Assign**. You can only choose aircraft types your company has. If an aircraft is missing, an administrator has to add it on admin.ngft.com.
 5. Use **Search aircraft** (**1**) and **Search operations** (**2**) to find your way. Click an aircraft (**3**) to open it. The bin (**4**) removes the aircraft with all its settings and cannot be undone.
 6. Each aircraft lists the member's operations. If one is missing, add it on the **Properties** tab first.
 
@@ -42,6 +40,6 @@ So let's give your member their properties.
 
    - **Allowed** (**1**): this pilot is allowed to fly this operation on this aircraft.
    - **Under Supervision** (**2**): the pilot may only fly together with an experienced pilot, for example because they are new or young on the job. Only possible if **Allowed** is on.
-   - **Limitations** (**3**): restrictions for this operation, for example *Visibility > 3km*. Click the pencil (**4**) and choose a value for each limitation. You can only choose limitations that have been set up before ([chapter 16](16-aircraft-and-limitations.md)).
+   - **Limitations** (**3**): restrictions for this operation, for example *Visibility > 3km*. Click the pencil (**4**) and choose a value for each limitation. You can only choose limitations that have been set up before in the menu **Limitations**.
    - The clock (**5**) shows the history: who changed what and when, with an optional comment.
    - The copy icon (**6**) applies the settings of this operation to all other operations of the same aircraft. Set up the first one and copy. You are asked to confirm first.

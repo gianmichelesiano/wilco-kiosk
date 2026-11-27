@@ -1,6 +1,4 @@
-# 5. DG and CRM trainings
-
-[← Previous: My Courses](04-my-courses.md) · [Table of Contents](README.md) · [Next: Other courses and bundles →](06-all-courses-and-bundles.md)
+# DG and CRM trainings
 
 **Who can use it:** all users.
 

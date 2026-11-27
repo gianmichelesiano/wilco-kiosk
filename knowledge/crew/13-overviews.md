@@ -1,6 +1,4 @@
-# 13. Reports: Position, Crew and Aircraft Overview
-
-[← Previous: Editing a member](12-member-edit.md) · [Table of Contents](README.md) · [Next: Bundles and active subscriptions →](14-subscriptions.md)
+# Reports: Position, Crew and Aircraft Overview
 
 **Who can use it:** managers with the permission *See training data of crew members* (menu **Members Properties**).
 
@@ -14,7 +12,7 @@ UAS …: the same roles for drone operations.
 
 The reports show the training status of your **whole crew at a glance**, for example before an audit or when you plan trainings. Each row is a member, each dot a status. An empty cell means it does not apply.
 
-You can save the status as a **picture** or download the data as an **Excel file**, for example for an audit ([Other buttons](#other-buttons)).
+You can save the status as a **picture** or download the data as an **Excel file**, for example for an audit.
 
 | Report | Columns | Use it to see |
 |---|---|---|
@@ -41,8 +39,8 @@ You can save the status as a **picture** or download the data as an **Excel file
 
 ### Click a dot
 
-- **Aircraft Overview:** see below.
-- **Position Overview:** a window with the member's courses for that position or operation, with the same icons as in My Courses ([chapter 4](04-my-courses.md)). You do not have to open the arrow of a course: the **first row** already shows the current status, and you find the icons for the next step right there.
+- **Aircraft Overview:** shows the status of the operation and of the aircraft, plus the conditions.
+- **Position Overview:** a window with the member's courses for that position or operation, with the same icons as in My Courses. You do not have to open the arrow of a course: the **first row** already shows the current status, and you find the icons for the next step right there.
 - **Crew Overview:** shows status, expiry and buffer zone. A click keeps the box open and adds the icons upload, cart, play, download and history.
 
 ### Aircraft Overview
@@ -51,7 +49,7 @@ You can save the status as a **picture** or download the data as an **Excel file
 
 **A pilot may fly only if all required courses are green:** the operation's own sign-off **and all courses of the pilot's position** (the courses in the Crew Overview). The dot stays red until all of them are valid.
 
-The marks around a dot show the conditions you set in [chapter 12](12-member-edit.md). A click shows the status of the operation and of the aircraft, plus the conditions:
+The marks around a dot show the conditions you set on the member's page, tab **Aircraft & Operation Authorization / Limitations**. A click shows the status of the operation and of the aircraft, plus the conditions:
 
 | Dot | Meaning | After a click |
 |---|---|---|

@@ -13,7 +13,7 @@
     4. check end-of-flight reports, flight and duty hours and FTL limits;
     5. invoice and follow the company's performance (Invoices, Management Cockpit).
 
-**Verification.** screens observed on staging, behavior in the source code.
+**Verification.** screens observed in the app, behavior in the source code.
 
 ### 1.4 Roles: who does what
 
@@ -53,7 +53,7 @@ Special cases:
 - If you are not part of that company, «No access» appears.
 - With open conflicts in the Calendar the change is blocked by «Resolve all vehicle conflicts before leaving the Calendar».
 
-**Verification.** screens observed on staging, behavior in the source code.
+**Verification.** screens observed in the app, behavior in the source code.
 
 ### T1 How do I record a customer request with one or more flights?
 
@@ -91,13 +91,13 @@ Steps with «New Flight» (single flight):
 
 **If a button or result is missing:**
 
-- Empty list with «Failed to load jobs»: the role does not include Jobs (see 1.4).
-- The «Aircraft» form field does not put the flight on the calendar: it indicates only the planned helicopter. Planning is dragging the flight into the Calendar (T2).
+- Empty list with «Failed to load jobs»: the role does not include Jobs.
+- The «Aircraft» form field does not put the flight on the calendar: it indicates only the planned helicopter. Planning is dragging the flight into the Calendar.
 - «Saved without an operation group: the flight won't count in a group in capacity planning»: the flight is saved, but does not count in the Capacity of the group.
-- Dialogue «Weekly total of hours breached»: the week is already full (see T7).
+- Dialogue «Weekly total of hours breached»: the week is already full.
 - Form errors, for example «Client is required», «At least one task is required», «Pickup site is required».
 
-**Verification.** screens observed on staging, behavior in the source code.
+**Verification.** screens observed in the app, behavior in the source code.
 
 ### T2 How do I schedule a new mission in the calendar?
 
@@ -121,8 +121,8 @@ Steps:
 4. Drag the card onto the helicopter's row in the «FLIGHT CALENDAR» section, at the desired time.
 5. OPS saves by itself after half a second («Saved successfully»). If autosave is suspended, press «Save». «Cancel» cancels unsaved changes.
 6. If a check dialog appears:
-    - «Weekly total of hours breached»: see T7;
-    - «Overbook maintenance limit?»: see T8.
+    - «Weekly total of hours breached»: the week exceeds its capacity; choose «Cancel», «Move to next free week (CW nn)» or «Confirm overbooking»;
+    - «Overbook maintenance limit?»: the flight takes a maintenance limit of the helicopter below 0 h or past its due date; choose «Cancel» or «Overbook and plan».
 
 **What you see:**
 
@@ -130,16 +130,16 @@ Steps:
 - The flight is «Scheduled» and an available pilot occupies the open crew seats.
 - The flight also appears in the Weekly Planner, in the list «Flights» and in the «Daily plan PDF» of the day.
 
-**Handoff:** the crew is not yet notified. The notification is sent with «Engage jobs of aircraft» (T4).
+**Handoff:** the crew is not yet notified. The notification is sent with «Engage jobs of aircraft».
 
 **If a button or result is missing:**
 
-- Empty calendar with an error: the role is not operational (1.4). Project Manager and NGFT Administrator without other roles do not use the Calendar.
-- «Save» grey: there are no changes, or there is a conflict of crew or vehicles (T3).
+- Empty calendar with an error: the role is not operational. Project Manager and NGFT Administrator without other roles do not use the Calendar.
+- «Save» grey: there are no changes, or there is a conflict of crew or vehicles.
 - The flight is not in the «UNASSIGNED JOBS» band: it already has a helicopter, or has another date. The band shows the chosen day and flights without date.
 - A flight started, completed or with reports sent no longer moves.
 
-**Verification.** recording of a demo on staging, screens observed on staging, behavior in the source code.
+**Verification.** recording of a demo, screens observed in the app, behavior in the source code.
 
 ### T3 How do I assign a pilot, TSOP and vehicles to a flight?
 
@@ -148,7 +148,7 @@ Steps:
 - **Role:** operational role.
 - **Device:** computer.
 - **Starting screen:** «Calendar».
-- **Prerequisites:** flight already on a helicopter (T2); people with Pilot or TSOP role available in the Roster (T9).
+- **Prerequisites:** flight already on a helicopter; people with Pilot or TSOP role available in the Roster.
 
 Steps:
 
@@ -173,7 +173,7 @@ Steps:
     - Move or remove the double assignment.
 - «Vehicle must be of category …»: the flight requires another type of vehicle.
 
-**Verification.** screens observed on staging, behavior in the source code.
+**Verification.** screens observed in the app, behavior in the source code.
 
 ### T4 How do I confirm a flight with the customer and notify the crew?
 
@@ -217,7 +217,7 @@ Steps:
 - Moving a confirmed or Engaged flight brings it back to «Scheduled». «Important: Flight Status Downgraded» appears, with «I Understand»: the flight must be reconfirmed with the customer and the Engage must be done again.
 - «Start flight» appears only on Engaged flights.
 
-**Verification.** screens observed on staging, behavior in the source code.
+**Verification.** screens observed in the app, behavior in the source code.
 
 ### T5 The plan has changed: how do I move a flight or change the helicopter?
 
@@ -238,7 +238,7 @@ Steps:
 
 **What you see:** the flight is on the new helicopter or time. If it was confirmed, it is now «Scheduled». A cancelled flight leaves the calendar and moves to «Cancelled» in «Flights».
 
-**Handoff:** if the flight was Engaged, the crew receives the notice that it is no longer engaged. The Engage (T4) must be done again.
+**Handoff:** if the flight was Engaged, the crew receives the notice that it is no longer engaged. The Engage must be done again.
 
 **If a button or result is missing:**
 
@@ -246,7 +246,7 @@ Steps:
 - «Cancel flight» is not there: completed flight, already canceled or with reports sent.
 - «No available aircrafts» in «Replace aircraft»: no other helicopter available that day (Roster, «Aircraft» tab).
 
-**Verification.** screens observed on staging, behavior in the source code.
+**Verification.** screens observed in the app, behavior in the source code.
 
 ### T6 How do I share the day’s flight plan?
 
@@ -280,7 +280,7 @@ Steps:
 
 The PDF is downloaded in the OPS browser. The built-in demo in Wilco cannot download files.
 
-**Verification.** screens observed on staging, behavior in the source code, documentation.
+**Verification.** screens observed in the app, behavior in the source code, documentation.
 
 ### T7 How do I plan the week and check the available hours?
 
@@ -322,7 +322,7 @@ If the week exceeds the capacity «Weekly total of hours breached» appears, wit
 
 **Handoff:**
 
-- Crew, vehicles and Engage are completed in the Calendar (T3, T4).
+- Crew, vehicles and Engage are completed in the Calendar.
 - The Weekly Planner does not have the Engage or PDF.
 
 **If a button or result is missing:**
@@ -332,7 +332,7 @@ If the week exceeds the capacity «Weekly total of hours breached» appears, wit
 - Hours in the gray segment «No group»: the flight has no operation group.
 - The project manager section is missing: no user has the role Project Manager.
 
-**Verification.** screens observed on staging, behavior in the source code.
+**Verification.** screens observed in the app, behavior in the source code.
 
 ### T8 What happens when a flight exceeds a maintenance limit?
 
@@ -345,7 +345,7 @@ If the week exceeds the capacity «Weekly total of hours breached» appears, wit
 
 Steps:
 
-1. Plan or move a flight (T2, T7).
+1. Plan or move a flight.
 2. If the flight takes a limit below 0 hours or past its due date, «Overbook maintenance limit?» appears. The text is: «Planning this flight takes a maintenance limit of the helicopter below 0 h or past its due date.»
 3. Choose one of the two options:
     - «Cancel»: the flight goes back to where it was;
@@ -403,7 +403,7 @@ Steps:
 - «Vehicle» tab empty with an error: the role does not manage vehicles. It requires Accountable Manager, NPFO, NPGO, Base Manager, Project Manager or Flight Dispatcher.
 - A person's permanent base is changed in Company Admin.
 
-**Verification.** screens observed on staging, behavior in the source code.
+**Verification.** screens observed in the app, behavior in the source code.
 
 ### T10 How do I make an offer for a customer?
 
@@ -426,18 +426,18 @@ Steps:
 
 **What you see:** the offer is on the list «Offers» with «Draft» status. «Valid until» is already calculated from the preferences (default: 30 days).
 
-**Handoff:** sending and acceptance are described in T11.
+**Handoff:** the offer is printed in NGFT Print and sent by email; when the customer accepts, OPS creates the job and the flights.
 
 **If a button or result is missing:**
 
 - Closing the form does not delete the draft. To delete it: row menu in «Offers», «Delete».
 - Customer not found:
     - the customer has expired («Valid until» of the customer is in the past);
-    - or the role does not read customers (see Open checks).
+    - or the role does not read customers.
 - «Please fix validation errors before saving»: mandatory fields are missing on the flights.
 - Other row entries in «Offers»: «Edit», «Print», «Duplicate», «Delete». «Duplicate» creates a draft copy with «(Copy)» in the title.
 
-**Verification.** screens observed on staging, behavior in the source code, documentation.
+**Verification.** screens observed in the app, behavior in the source code, documentation.
 
 ### T11 How do I send the offer and what happens when the customer accepts?
 
@@ -465,14 +465,14 @@ Steps:
 4. In «Send Offer via Email» check «To», «CC», «Subject», «Message» and «Attachment». Press «Send».
 5. Message: «Email sent successfully» or «Email queued; delivery confirmation is still pending». On confirmation the offer passes by itself to «SENT».
 6. When the customer answers, open the status selector next to the title and choose «ACCEPTED» or «REJECTED».
-7. If the flights exceed the week's capacity, «Weekly total of hours breached» appears (T7).
+7. If the flights exceed the week's capacity, «Weekly total of hours breached» appears.
 
 **What you see:**
 
 - With «ACCEPTED» a job is created in «Jobs», and one flight for each group, called «<title> - FL1», «- FL2» and so on.
 - Flights are to be planned in the Calendar.
 - The notes of the customer relationship pass to the job.
-- «Create Advance Invoice» allows a deposit invoice (T13).
+- «Create Advance Invoice» allows a deposit invoice.
 
 **Handoff:**
 
@@ -491,7 +491,7 @@ Steps:
 - When you open a «Sent» or «Accepted» offer, red alerts «Changes not saved - Offer cannot be edited in status '…'» appear. They are a known effect: the data does not change.
 - The «Status» filter of the list «Offers» currently returns «Failed to load offers». To find the offers in a given status, sort by the «STATUS» column or use the search.
 
-**Verification.** screens observed on staging, behavior in the source code, documentation.
+**Verification.** screens observed in the app, behavior in the source code, documentation.
 
 ### T12 How do I check and confirm the end-of-flight report?
 
@@ -514,7 +514,7 @@ Steps:
 
 **Handoff:**
 
-- The invoice is created from the report line with «Create Invoice» (T13).
+- The invoice is created from the report line with «Create Invoice».
 - The receipt signed by the customer is downloaded with «Download customer receipt».
 
 **If a button or result is missing:**
@@ -523,7 +523,7 @@ Steps:
 - «Confirm report» disabled: the customer typed in by hand by the pilot must first be linked to a real customer with «Resolve client».
 - «Create Invoice» grey: unconfirmed report, or already invoiced flight («Already on …»).
 
-**Verification.** screens observed on staging, behavior in the source code.
+**Verification.** screens observed in the app, behavior in the source code.
 
 ### T13 How do I invoice flights?
 
@@ -535,12 +535,12 @@ Steps:
 
 Then check rows and conditions, print and send it by email. A flight can be on only one active invoice.
 
-- **Role:** administration, project manager or dispatcher (see Open checks for the exact permissions).
+- **Role:** administration, project manager or dispatcher.
 - **Device:** computer.
 - **Starting screen:** «Jobs» or «Flight Reports».
 - **Prerequisites:**
     - customer linked to the job;
-    - for flights, confirmed reports (T12);
+    - for flights, confirmed reports;
     - invoice template published in NGFT Print.
 
 Steps:
@@ -579,7 +579,7 @@ Steps:
 - When you open an «ISSUED» invoice, red alerts «Changes not saved - Invoice is not editable in its current status» appear. They are a known effect: the invoice does not change.
 - QR-bill: You need an IBAN CH or LI in Company Admin and an invoice in CHF or EUR.
 
-**Verification.** screens observed on staging, behavior in the source code.
+**Verification.** screens observed in the app, behavior in the source code.
 
 ### T14 How do I check the crew's flight hours, duty hours and FTL limits?
 
@@ -613,7 +613,7 @@ Steps:
 - «Undetermined»: the regulation has not been determined. Choose a «Regulation» at the top.
 - The time of the daily calculation is set in «Preferences & Defaults › Flight time limits».
 
-**Verification.** screens observed on staging, behavior in the source code.
+**Verification.** screens observed in the app, behavior in the source code.
 
 ### T15 Can OPS Agent prepare the day’s plan?
 
@@ -634,7 +634,7 @@ Steps:
 
 **What you see:** the confirmed changes are in the Calendar. The panel rechecks the alerts.
 
-**Handoff:** the crew's Engage and flight start remain separate steps of the dispatcher (T4).
+**Handoff:** the crew's Engage and flight start remain separate steps of the dispatcher.
 
 **What the agent doesn't do:**
 
@@ -652,7 +652,7 @@ Steps:
     - responds in the language you write;
     - for future days it uses today's FTL status.
 
-**Verification.** recording of a demo on staging, screens observed on staging, behavior in the source code, documentation.
+**Verification.** recording of a demo, screens observed in the app, behavior in the source code, documentation.
 
 ### T16 How do I see what needs attention in the company? (Management Cockpit)
 
@@ -688,7 +688,7 @@ Steps:
 - Base Manager without assigned base: the cockpit does not open.
 - The «Safety» tab is a preview: SMS, Audit and FRAT will arrive at a later stage.
 
-**Verification.** screens observed on staging, behavior in the source code.
+**Verification.** screens observed in the app, behavior in the source code.
 
 ### T17 How do I use the map and operation sites?
 
@@ -721,7 +721,7 @@ Steps in Operation Sites:
 - On Map there is no real-time GPS tracking: the locations are the planned ones.
 - The choice between coordinates «WGS84» and «LV95» is changed at the top. The default format is set in «Preferences & Defaults».
 
-**Verification.** screens observed on staging, behavior in the source code.
+**Verification.** screens observed in the app, behavior in the source code.
 
 ### T18 Can I export data in Excel?
 
@@ -739,16 +739,16 @@ Steps:
 
 Other formats:
 
-- «Daily plan PDF» in Calendar (T6);
-- «Print» in offers and invoices (T11, T13);
-- «Export as KML» in Map (T17).
+- «Daily plan PDF» in Calendar;
+- «Print» in offers and invoices;
+- «Export as KML» in Map.
 
 **If a button or result is missing:**
 
 - Roster and Weekly Planner don't have an export.
 - The lists with the broken «Status» filter do not export filtered by status.
 
-**Verification.** screens observed on staging, behavior in the source code.
+**Verification.** screens observed in the app, behavior in the source code.
 
 ### 5.1 Demo Dispatcher · Fit in a new mission
 

@@ -1,6 +1,4 @@
-# 7. Shopping cart and payment
-
-[← Previous: Other courses and bundles](06-all-courses-and-bundles.md) · [Table of Contents](README.md) · [Next: Uploading an external certificate →](08-upload-certificate.md)
+# Shopping cart and payment
 
 **Who can use it:** all users. Managers with the permission *Buy courses for crew members* can also buy for other members.
 
@@ -8,7 +6,7 @@
 
 The cart collects the courses you want to buy and lets you pay in one go. The cart icon in the header is grey when empty and shows a dot when it contains items.
 
-> **Buying a refresher?** Only after the initial. EASA requires an initial first, and a refresher does not count before it is completed. If you have your original Initial certificate at hand, you can upload it if you want ([chapter 8](08-upload-certificate.md)). However, it is a new system, so why not start new?
+> **Buying a refresher?** Only after the initial. EASA requires an initial first, and a refresher does not count before it is completed. If you have your original Initial certificate at hand, you can upload it if you want. However, it is a new system, so why not start new?
 
 ## Step by step
 

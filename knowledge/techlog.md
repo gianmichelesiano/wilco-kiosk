@@ -11,7 +11,7 @@ Permissions arise from the user's NGFT roles in the company. The table shows the
 | HEMS TCM, HHO TCM, TSOP (`other_crewmember`) | App | Change the missions in which he is on crew |
 | Mechanical Engineer (`technician`), Limited Certifying Staff | App | Daily inspection; create and modify maintenance actions; fluid uplifts. In the initial matrix there are no defects |
 | CAMO Staff (`camo_staff`) | Techlog Admin | HIL items (create, modify, close); aircraft data; attachments; consult the event log |
-| NPCA (`npca`) | Techlog Admin | Like CAMO Staff. In addition, only the NPCA corrects a mission already sent (staging preview) |
+| NPCA (`npca`) | Techlog Admin | Like CAMO Staff. In addition, only the NPCA corrects a mission already sent (preview) |
 
 ### 3.1 Flight missions: how do I record and submit a mission from the tablet?
 
@@ -22,7 +22,7 @@ Permissions arise from the user's NGFT roles in the company. The table shows the
 - Role: Pilot. They need `mission_create` to create and `mission_submit` to send.
 - Device: tablet or smartphone. Creating and sending a mission requires connection.
 - Initial screen: tab «My Missions» (for those who are not crew it is called «Missions»).
-- Prerequisites: aircraft ready in Techlog Admin (3.13); PIN set (3.19).
+- Prerequisites: aircraft ready in Techlog Admin; PIN set.
 
 **Steps.**
 
@@ -54,7 +54,7 @@ Permissions arise from the user's NGFT roles in the company. The table shows the
 - The check-in of the pilot who signs closes by itself.
 - Totals of aircraft and engines include mission sectors.
 
-**Handoff.** In Techlog Admin the mission appears immediately in «Missions», tab «Submitted» (3.11). Its sectors appear in «Sectors» (3.12).
+**Handoff.** In Techlog Admin the mission appears immediately in «Missions», tab «Submitted». Its sectors appear in «Sectors».
 
 **If a button or result is missing.**
 
@@ -64,9 +64,9 @@ Permissions arise from the user's NGFT roles in the company. The table shows the
 - «Sign and submit mission» is disabled: the user is not in the crew, does not have `mission_modify`, or the mission is already sent. The Copilot does not have `mission_submit`.
 - «At least one sector is required.» appears: the mission has no sectors.
 - «Check overview for Errors» warns but does not block sending.
-- Sending is final. Only the NPCA can correct it afterwards (3.18).
+- Sending is final. Only the NPCA can correct it afterwards.
 
-**Verification.** Sources and documentation. The «Submitted» list in Techlog Admin is verified on staging.
+**Verification.** Sources and documentation. The «Submitted» list in Techlog Admin is verified in the app.
 
 ### 3.2 Signing inspections: how do I sign the pre-flight and post-flight inspections?
 
@@ -77,7 +77,7 @@ Permissions arise from the user's NGFT roles in the company. The table shows the
 - Role: Pilot (`otherinspection_submit`).
 - Device: app. It also works offline.
 - Initial screen: sector detail; for the other signatures, the «Before Mission» and «After Mission» tabs.
-- Prerequisite: the signature field is active in the Techlog Layout of the aircraft (sections «Signatures» and «Signature of PIC», 3.14).
+- Prerequisite: the signature field is active in the Techlog Layout of the aircraft (sections «Signatures» and «Signature of PIC»).
 
 **Steps.**
 
@@ -95,12 +95,12 @@ Permissions arise from the user's NGFT roles in the company. The table shows the
 
 - The box is not there: the inspection is not active in the aircraft layout.
 - «Sign»: the user does not have `otherinspection_submit`.
-- «*Wrong PIN» appears: the PIN is wrong. «Forgot PIN?» starts recovery (3.19).
+- «*Wrong PIN» appears: the PIN is wrong. «Forgot PIN?» starts recovery.
 - «Signature could not be saved. Check the connection and sign again.» appears: the signature has not been saved and must be repeated.
 - Biometrics is mentioned in the text, but the button is hidden: you sign only with the PIN.
 - Offline the PIN is checked on a saved copy in the device and the signature synchronizes later.
 
-**Verification.** Sources. The «Signed» view in Techlog Admin is verified on staging.
+**Verification.** Sources. The «Signed» view in Techlog Admin is verified in the app.
 
 ### 3.3 Defects: How do I report an aircraft defect from a tablet?
 
@@ -125,16 +125,16 @@ Permissions arise from the user's NGFT roles in the company. The table shows the
 - «Created defect» appears. The row shows «Reported at …» and the detail shows the status «Active».
 - With «Unserviceable» the aircraft becomes «Unserviceable: <reason>»; the reason is the beginning of the description, up to 100 characters.
 
-**Handoff.** In Techlog Admin the defect appears in «Maintenance» › «Defects» with «Unresolved» in the «Resolved at» column and the link to the mission. From there the technical office links it to an HIL item or to a maintenance action (3.8).
+**Handoff.** In Techlog Admin the defect appears in «Maintenance» › «Defects» with «Unresolved» in the «Resolved at» column and the link to the mission. From there the technical office links it to an HIL item or to a maintenance action.
 
 **If a button or result is missing.**
 
 - «Add New Defect»: the user does not have `defect_submit`. In the initial matrix only the Pilot has it.
 - «Required» appears: a mandatory field is empty.
-- In the app a defect already sent is read-only. It is resolved only with a completed maintenance action (3.7).
+- In the app a defect already sent is read-only. It is resolved only with a completed maintenance action.
 - The status does not return to Serviceable by itself. It is changed from the aircraft's pencil icon, under the item «Aircraft status», with the permission `aircraft_modifydata`.
 
-**Verification.** Sources. The defect table in Techlog Admin is verified on staging.
+**Verification.** Sources. The defect table in Techlog Admin is verified in the app.
 
 ### 3.4 Fluid uplifts: how do I record fuel, oil or hydraulic fluid?
 
@@ -167,7 +167,7 @@ Permissions arise from the user's NGFT roles in the company. The table shows the
 - A wrong amount is corrected in Techlog Admin: in «Fluid Uplift History» turn on «Edit Mode» («Edit mode allows you to update amount for fluid uplifts»).
 
 
-**Verification.** Sources. The Admin page with «Edit Mode» is verified on staging.
+**Verification.** Sources. The Admin page with «Edit Mode» is verified in the app.
 
 ### 3.5 Work offline: how do I work without connection?
 
@@ -221,7 +221,7 @@ Permissions arise from the user's NGFT roles in the company. The table shows the
 - The button is not there: in the initial matrix the pilots do not have `dailyinspection_submit`.
 - «You need to confirm completing Repetitive Airworthiness Directives before submitting the daily inspection.» appears: tick the directives box.
 
-**Verification.** Sources and documentation. The list in Techlog Admin is verified on staging.
+**Verification.** Sources and documentation. The list in Techlog Admin is verified in the app.
 
 ### 3.7 Maintenance actions: How do I record an action and close a defect?
 
@@ -257,9 +257,9 @@ Permissions arise from the user's NGFT roles in the company. The table shows the
 
 - The defect remains open: the action has been saved with «Close and Sign Later». It must be reopened and signed.
 - The defect to link does not appear: it is already resolved, or it belongs to another aircraft.
-- **In Techlog Admin** an action created with «New Maintenance Action» is not completed. So it doesn't close the defect. The page exists (`/maintenance/maintenance-actions/new`), but on staging no button opens it.
+- **In Techlog Admin** an action created with «New Maintenance Action» is not completed. So it doesn't close the defect. The page exists (`/maintenance/maintenance-actions/new`), but no button opens it.
 
-**Verification.** Sources. The «Valid maintenance actions» table is verified on staging.
+**Verification.** Sources. The «Valid maintenance actions» table is verified in the app.
 
 ### 3.8 Defect links: How do I link a defect to an HIL item or maintenance action?
 
@@ -270,7 +270,7 @@ Permissions arise from the user's NGFT roles in the company. The table shows the
 - Roles: CAMO Staff or NPCA. Techlog Admin does not check the role.
 - Device: desktop browser.
 - Initial screen: «Maintenance» › «Defects».
-- Prerequisite: an active and free HIL item (3.9) or maintenance action exists.
+- Prerequisite: an active and free HIL item or maintenance action exists.
 
 **Steps.**
 
@@ -285,14 +285,14 @@ Permissions arise from the user's NGFT roles in the company. The table shows the
 - «Defect assigned successfully» appears and the list is updated.
 - In the app the defect shows the «HIL» label and the panes «HIL» or «Related Maintenance Action».
 
-**Important difference.** Linking an HIL item does not resolve the defect, and closing the HIL item does not resolve it either. The defect is resolved only with a completed maintenance action (3.7).
+**Important difference.** Linking an HIL item does not resolve the defect, and closing the HIL item does not resolve it either. The defect is resolved only with a completed maintenance action.
 
 **If a button or result is missing.**
 
 - The HIL dialog is empty: there are no active and free HIL items. Create one with «New HIL Item»; in the form the defect can also be linked directly.
 - The list does not show the defect: check the selected company in the user menu at the top right.
 
-**Verification.** The page and columns are verified on staging. Dialogues are verified in the source code: on staging they have not been opened.
+**Verification.** The page and columns are verified in the app. Dialogues are verified in the source code: in the app they have not been opened.
 
 ### 3.9 HIL: how do I create and close an HIL item (Hold Item List)?
 
@@ -333,7 +333,7 @@ To delete an item choose «delete»: the item moves to the «Deleted HIL items»
 - In the app there is no button to create an HIL item: this is intended.
 - The closure is final: a closed HIL item cannot be reopened.
 
-**Verification.** Page, tabs and «New HIL Item» are verified on staging. Form and closure are verified in the source code.
+**Verification.** Page, tabs and «New HIL Item» are verified in the app. Form and closure are verified in the source code.
 
 ### 3.10 Due limits: how do I set and check a maintenance deadline?
 
@@ -368,7 +368,7 @@ To delete an item choose «delete»: the item moves to the «Deleted HIL items»
 - «Warning value must be smaller than limit value» appears: the values must be in order, warning ≤ limit ≤ maximum.
 - The parameter is not in the list: it must be a summable value (number, decimal or duration) and active in the layout. Otherwise the server responds «Property is not defined in the layout».
 
-**Verification.** List, tabs and «Add due limit» are verified on staging. The form is verified in the sources.
+**Verification.** List, tabs and «Add due limit» are verified in the app. The form is verified in the sources.
 
 ### 3.11 Mission review: how do I review a submitted mission in the office?
 
@@ -398,7 +398,7 @@ To delete an item choose «delete»: the item moves to the «Deleted HIL items»
 - «Restore» brings it back among the valid ones.
 - A deleted mission doesn't count in the totals.
 
-**Staging preview.**
+**Preview.**
 
 - The tabs are «Submitted», «Open» and «Deleted». «Open» contains missions not yet sent.
 - At the top there is the «New flight» button.
@@ -407,10 +407,10 @@ To delete an item choose «delete»: the item moves to the «Deleted HIL items»
 
 **If a button or result is missing.**
 
-- A mission is not in «Submitted»: it has not yet been sent. On staging you find it in «Open».
-- «Failed to load totals» appears: the initial totals of the aircraft are missing (3.15).
+- A mission is not in «Submitted»: it has not yet been sent. In the preview you find it in «Open».
+- «Failed to load totals» appears: the initial totals of the aircraft are missing.
 
-**Verification.** Staging and sources. On staging the version is more recent than sources.
+**Verification.** App and sources. In the app the version is more recent than sources.
 
 ### 3.12 Sectors and Export: How do I export flights to Excel?
 
@@ -431,7 +431,7 @@ To delete an item choose «delete»: the item moves to the «Deleted HIL items»
 
 **What you see.** The download is `sectors.xlsx` or `sectors.csv`, with all filtered rows and total rows.
 
-**Staging preview.**
+**Preview.**
 
 - «With warnings» shows only sectors with plausibility warnings, for example a landing before take-off. Warnings don't block saving.
 - «Show cancelled» shows the cancelled sectors. It only works for the NPCA.
@@ -442,7 +442,7 @@ To delete an item choose «delete»: the item moves to the «Deleted HIL items»
 - A flight does not appear: the list shows only the sectors of missions sent and not deleted.
 - Available formats: only XLSX and CSV from the Sectors page. The product does not have a PDF export and the API does not have export endpoints.
 
-**Verification.** Page, filters and buttons are verified on staging; the file has not been downloaded. The content of the file is verified in the sources.
+**Verification.** Page, filters and buttons are verified in the app; the file has not been downloaded. The content of the file is verified in the sources.
 
 ### 3.13 Preparation of the aircraft: how do I prepare a new helicopter for e-TechLog?
 
@@ -461,9 +461,9 @@ To delete an item choose «delete»: the item moves to the «Deleted HIL items»
 2. Fill in the mandatory data: «Manufacturer Serial Number (MSN) *», «Fuel Measurement Unit *», «Hydraulics Measurement Unit *», «Oil Measurement Unit *» and «Pilot Operation *». Press «Save Changes» and enter the PIN.
 3. Assign engines in «Engine 1 *» (and «Engine 2 *» for twin-engine aircraft). A new engine is created in «Assets» › «Engines» › «Add Engine».
 4. Set the parameters of each engine on the engine page.
-5. Set up the layout in «Techlog Layout» (3.14).
-6. Set the initial totals in «Maintenance» › «Totals» (3.15).
-7. Assign at least one flight type in «Flight Types» (3.16).
+5. Set up the layout in «Techlog Layout».
+6. Set the initial totals in «Maintenance» › «Totals».
+7. Assign at least one flight type in «Flight Types».
 
 **What you see.**
 
@@ -485,7 +485,7 @@ To delete an item choose «delete»: the item moves to the «Deleted HIL items»
 - The aircraft is not in the Fleet: check the «Inactive» tab and the selected company.
 - The aircraft does not appear in the app: one of the steps is missing. The app hides unprepared aircraft.
 
-**Verification.** Fleet, detail and fields are verified on staging. Sources and documentation.
+**Verification.** Fleet, detail and fields are verified in the app. Sources and documentation.
 
 ### 3.14 Techlog Layout: how do I choose the fields that the pilot fills in?
 
@@ -517,7 +517,7 @@ To delete an item choose «delete»: the item moves to the «Deleted HIL items»
 - «This aircraft has no layout, please setup one» appears: the default layout is proposed, to be saved.
 - A field does not appear in the app: «Show» is disabled for that field.
 
-**Verification.** Page, selector and Templates are verified on staging. Sources.
+**Verification.** Page, selector and Templates are verified in the app. Sources.
 
 ### 3.15 Totals: how do I set the initial totals of aircraft and engines?
 
@@ -546,7 +546,7 @@ To delete an item choose «delete»: the item moves to the «Deleted HIL items»
 - A total does not appear: the parameter does not have an initial value.
 - A flight is not counted: the mission is not sent, or the sector is canceled.
 
-**Verification.** Staging and sources.
+**Verification.** App and sources.
 
 ### 3.16 Flight types: how do I create a flight type and assign it to aircraft?
 
@@ -575,7 +575,7 @@ To delete an item choose «delete»: the item moves to the «Deleted HIL items»
 - To remove an aircraft, tap its label. No PIN is needed.
 - To delete the flight type you need a confirmation and the PIN. The type moves to the «Deleted» tab.
 
-**Verification.** Staging and sources.
+**Verification.** App and sources.
 
 ### 3.17 Integration with NGFT OPS: how do I use flights recorded in OPS in the techlog?
 
@@ -597,7 +597,7 @@ To delete an item choose «delete»: the item moves to the «Deleted HIL items»
    - «Job outside every engine run»
 
    The pilot corrects the data or confirms with «Flight time is correct».
-5. The pilot sends the mission as in 3.1. e-TechLog communicates to OPS imported data and modified readings.
+5. The pilot sends the mission as usual, with «Sign and submit mission» and the PIN. e-TechLog communicates to OPS imported data and modified readings.
 
 **If a button or result is missing.**
 
@@ -606,21 +606,21 @@ To delete an item choose «delete»: the item moves to the «Deleted HIL items»
 - A mission already sent does not accept sectors from OPS.
 
 
-**Verification.** Sources and documentation. Not verified on staging.
+**Verification.** Sources and documentation.
 
-The availability of the «Create Sectors from OPS Reports» command in the normal flow of the pilot must be confirmed on staging.
+The availability of the «Create Sectors from OPS Reports» command in the normal flow of the pilot must still be confirmed in the app.
 
-### 3.18 NPCA corrections (staging preview): how do I record a backdated flight or correct a submitted mission?
+### 3.18 NPCA corrections (preview): how do I record a backdated flight or correct a submitted mission?
 
 **Short answer.** «This function is reserved for the NPCA and is currently a preview. In Techlog Admin, Missions, the New flight button records a flight entered afterwards. On missions already sent, the NPCA can add or cancel a sector by giving a reason, which stays in the event log.»
 
 **Context.**
 
-- Condition: staging preview. The screens are not in the local sources of Techlog Admin; the rules are in the API («Unreleased», TLDEV-1674 and 1675).
+- Condition: preview, not yet released. The screens are not in the local sources of Techlog Admin; the rules are in the API («Unreleased», TLDEV-1674 and 1675).
 - Role: only NPCA. The others receive «Only the NPCA of the company may perform this action».
 - Device: Techlog Admin.
 
-**Steps** (from the staging screen and API rules; not executed):
+**Steps** (from the preview screen and API rules; not executed):
 
 1. In «Missions» press «New flight». The flight is created as a mission not yet sent, with the NPCA in the crew.
 2. Set the crew and sectors, then send with normal signature. The mission receives the next log number.
@@ -631,7 +631,7 @@ The availability of the «Create Sectors from OPS Reports» command in the norma
 - A cancelled sector stays in the data but is removed from totals and deadlines. In «Sectors» you see it with «Show cancelled».
 - The reason, the previous values, the author and the time go into the event log. NPCA and CAMO Staff can consult it.
 
-**Verification.** Only the presence of buttons is verified on staging. The rules are verified in the sources of the API.
+**Verification.** Only the presence of buttons is verified in the app. The rules are verified in the sources of the API.
 
 ### 3.19 Access and PIN: How do I sign in and reset a forgotten PIN?
 
@@ -656,16 +656,16 @@ The availability of the «Create Sectors from OPS Reports» command in the norma
 
 - «Incorrect PIN. Please try again.» appears: the PIN is wrong.
 - «does not have any e-TechLog role assigned» appears: the user lacks an e-TechLog role in the company.
-- «Forgot Password?» in the app does not send anything yet. For the password, the NGFT login recovery applies (to be confirmed, section 6).
+- «Forgot Password?» in the app does not send anything yet. For the password, the NGFT login recovery applies (to be confirmed).
 - In the app there is no item to change the PIN: use «Change PIN» in Techlog Admin, or «Forgot PIN?».
 
-**Verification.** «My Profile» with «Change PIN» and «Logout» is verified on staging. Sources.
+**Verification.** «My Profile» with «Change PIN» and «Logout» is verified in the app. Sources.
 
 ### 5.1 Demo A: from the flight to the signed techlog, on a tablet
 
 - **Visitor's phrase:** «At the end of the day we still do the techlog by hand. Can I do it from the tablet?»
-- **Account:** test user with role Pilot in NGFT test company on staging, PIN already set, «STG e-TechLog» app.
-- **Sample record:** the staging test aircraft that in Fleet shows «View Layout» and has its totals set. Do not use customer aircraft.
+- **Account:** test user with role Pilot in the NGFT test company, PIN already set, the demo e-TechLog app.
+- **Sample record:** the test aircraft that in Fleet shows «View Layout» and has its totals set. Do not use customer aircraft.
 - **Actions to show:**
   1. «My Missions» → «Add New Mission» → «Choose Aircraft» → «Check-in Aircraft».
   2. «Sectors» → «Add New Sector»: times, fuel, signature «Preflight Inspection».
@@ -678,8 +678,8 @@ The availability of the «Create Sectors from OPS Reports» command in the norma
 ### 5.2 Demo B: fleet status and due limits for CAMO
 
 - **Visitor's phrase:** «How do I see at a glance what is due and which defects are open on our helicopters?»
-- **Account:** CAMO Staff or NPCA test user on Techlog Admin staging.
-- **Sample record:** the test aircraft with an open hours-based due limit and an unresolved defect (on staging both exist).
+- **Account:** CAMO Staff or NPCA test user on the demo Techlog Admin.
+- **Sample record:** the test aircraft with an open hours-based due limit and an unresolved defect (in the demo both exist).
 - **Actions to show:**
   1. «Dashboard» (Fleet): status «Serviceable» and «Checked out».
   2. Details of the aircraft → tab «Due Limits»: row «Due in» with residual hours.
@@ -692,7 +692,7 @@ The availability of the «Create Sectors from OPS Reports» command in the norma
 ### 5.3 Demo C: from OPS flights to sector export
 
 - **Visitor's phrase:** «We already use NGFT OPS and the office wants the flights in Excel. Do we have to retype them?»
-- **Account:** on Techlog Admin staging, an office user (CAMO). For the OPS part, a pilot with an OPS flight closed.
+- **Account:** on the demo Techlog Admin, an office user (CAMO). For the OPS part, a pilot with an OPS flight closed.
 - **Sample record:** a mission created from OPS («<registration> dd-MM-yy») in «Open» or «Submitted»; the page «Sectors» with «All».
 - **Actions to show:**
   1. «Missions»: the mission with the name created by OPS.
@@ -702,4 +702,4 @@ The availability of the «Create Sectors from OPS Reports» command in the norma
 - **Outcome:** Excel file with all filtered flights and totals, without copying anything.
 - **Format:** 60–90 seconds guided demo. The Sectors and Export part is also good as a 20–30 seconds silent clip.
 - **Data changes:** none. Export doesn't change anything.
-- **Conditions:** «With warnings» and the running totals are a staging preview. The OPS part requires active integration and is not verified on staging.
+- **Conditions:** «With warnings» and the running totals are a preview, not yet released. The OPS part requires active integration and is not verified in the demo.

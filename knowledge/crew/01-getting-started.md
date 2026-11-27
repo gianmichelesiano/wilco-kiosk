@@ -1,6 +1,4 @@
-# 1. Signing in and the main screen
-
-[← Table of Contents](README.md) · [Next: Selecting your company →](02-company-selector.md)
+# Signing in and the main screen
 
 **Who can use it:** all users.
 
@@ -36,19 +34,19 @@ The top bar:
 ![Top bar](screenshots/01-03-header.png)
 
 1. **Logo**: back to the start page.
-2. **Company**: the company you work in ([chapter 2](02-company-selector.md)).
+2. **Company**: the company you work in.
 3. **Your name**.
-4. **Gear icon**: your profile ([chapter 3](03-user-profile.md)).
-5. **Cart**: your shopping cart ([chapter 7](07-cart-and-payment.md)).
+4. **Gear icon**: your profile.
+5. **Cart**: your shopping cart.
 6. **Logout**: sign out.
 7. **Grid icon**: back to the Cockpit.
 
 ### Help inside NGFT Crew
 
-- **? button** in the top bar: opens this tutorial.
+- **? button** in the top bar: opens the NGFT Crew tutorial.
 - **Wilco** is your help assistant. Ask him how to do something in NGFT Crew, for example how to buy a course or upload a certificate.
 
-**Wilco only knows what is written in this tutorial.** He reads his answers from it. If something is missing from the tutorial, Wilco cannot find it either. If you do not get an answer, write to **support@ngft.com**.
+**If Wilco does not know a topic,** write to **support@ngft.com**.
 
 ### What you see depends on your role
 
@@ -62,7 +60,7 @@ Click the **logout** icon (**6**) in the top bar.
 
 | Message | What to do |
 |---|---|
-| **No active company** | Select another company ([chapter 2](02-company-selector.md)) |
+| **No active company** | Select another company |
 | **Payment required** | Ask your company administrator to renew the subscription |
 | **Permission denied** | You have no access to this page. Ask your administrator |
 | **Server error** | Reload the page. If it stays, contact NGFT support |

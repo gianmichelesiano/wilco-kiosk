@@ -1,6 +1,4 @@
-# 8. Uploading an external certificate
-
-[← Previous: Shopping cart and payment](07-cart-and-payment.md) · [Table of Contents](README.md) · [Next: All certificates →](09-certificates.md)
+# Uploading an external certificate
 
 **Who can use it:** all users, for their own certificates.
 

@@ -1,6 +1,4 @@
-# 18. Approving uploaded certificates
-
-[← Previous: Relations tree](17-relations-tree.md) · [Table of Contents](README.md) · [Next: Bulk certificate upload →](19-bulk-upload.md)
+# Approving uploaded certificates
 
 **Who can use it:** managers with the permission *Approve extern certificates* (menu **Approve Courses**).
 
@@ -12,7 +10,7 @@ UAS …: the same roles for drone operations.
 
 ## What it is for
 
-When a member uploads a certificate that was not issued in NGFT Crew, for example a sign-off or a medical ([chapter 8](08-upload-certificate.md)), it waits here for a manager. Only after **approval** does it count as valid. A number badge next to **Approve Courses** in the menu tells how many certificates are waiting.
+When a member uploads a certificate that was not issued in NGFT Crew, for example a sign-off or a medical, it waits here for a manager. Only after **approval** does it count as valid. A number badge next to **Approve Courses** in the menu tells how many certificates are waiting.
 
 ## Step by step
 
@@ -24,4 +22,4 @@ When a member uploads a certificate that was not issued in NGFT Crew, for exampl
 
 > **Careful:** both the approval and the decline **cannot be undone**.
 
-> **Good to know:** if you upload a certificate as a manager, it is not approved automatically. It also waits here. To upload certificates that are approved right away, or if you want to upload several at once, use the **Bulk Certificate Upload** ([chapter 19](19-bulk-upload.md)).
+> **Good to know:** if you upload a certificate as a manager, it is not approved automatically. It also waits here. To upload certificates that are approved right away, or if you want to upload several at once, use the **Bulk Certificate Upload**.

@@ -1,6 +1,4 @@
-# 20. Roles and permissions
-
-[← Previous: Bulk certificate upload](19-bulk-upload.md) · [Table of Contents](README.md) · [Next: Orders and invoices →](21-orders.md)
+# Roles and permissions
 
 **Who can use it:** managers with the permission *Configure roles and permissions* (menu **Roles and Permissions**). People without this permission do not see the menu item.
 
@@ -12,9 +10,9 @@ UAS …: the same roles for drone operations.
 
 ## What it is for
 
-A **role** such as *Pilot* or *NPCT* is a bundle of **permissions**. The permissions decide which menu items and functions a person sees. The full list of permissions is in the [permissions reference](appendix-permissions.md).
+A **role** such as *Pilot* or *NPCT* is a bundle of **permissions**. The permissions decide which menu items and functions a person sees.
 
-**Roles themselves cannot be changed here.** They are created and given to people in the NGFT admin. Which roles a person has, you see in [Members](11-members.md). Here you only decide **which permissions a role has in your company**.
+**Roles themselves cannot be changed here.** They are created and given to people in the NGFT admin. Which roles a person has, you see in **Members**. Here you only decide **which permissions a role has in your company**.
 
 ## Step by step
 

@@ -1,6 +1,4 @@
-# Appendix: Good to know
-
-[← Table of Contents](README.md)
+# Good to know
 
 ## Operations
 
@@ -19,7 +17,7 @@ Some operations need a short explanation.
 
 **Copilot.** The second pilot in the cockpit gets the role **Copilot**.
 
-**PICUS** (pilot in command under supervision). Use the settings of the aircraft operation: switch on **Under Supervision** and add **Limitations**, for example for visibility or wind. You set both on the member's page ([chapter 12](12-member-edit.md)). The dots in the Aircraft Overview show them ([chapter 13](13-overviews.md)).
+**PICUS** (pilot in command under supervision). Use the settings of the aircraft operation: switch on **Under Supervision** and add **Limitations**, for example for visibility or wind. You set both on the member's page. The dots in the Aircraft Overview show them.
 
 ## Personal documents
 
@@ -27,10 +25,10 @@ You can track personal documents of your crew, for example an ID, a personal dat
 
 NGFT provides two of them for all companies: **ID - Passport** and **Personal Data Sheet**. Check first whether the one you need is among them:
 
-1. Open the **Relations Tree** ([chapter 17](17-relations-tree.md)) and choose the role (for example Pilot).
+1. Open the **Relations Tree** and choose the role (for example Pilot).
 2. Search under **Courses / Certificates** and add the document to the tree.
 3. If you cannot find it, **search again with other words or ask NGFT (support@ngft.com) before you create your own**. The same document should exist only once, so please avoid duplicates.
-4. Only if it really does not exist, create a custom certificate ([chapter 15](15-company-courses.md)) and add it to the tree (see **Add your own certificate** in [chapter 17](17-relations-tree.md)).
+4. Only if it really does not exist, create a custom certificate (**Company Custom Courses → Add Custom Certificate**) and add it to the tree.
 
 ### Psychological assessment
 
@@ -42,10 +40,10 @@ EASA does not require proof of ESET (Emergency and Safety Equipment) or First Ai
 
 If your company trains its TSOPs anyway and issues certificates, you can add them to the tree:
 
-1. Open the **Relations Tree** ([chapter 17](17-relations-tree.md)).
+1. Open the **Relations Tree**.
 2. Choose the role **Task Specialist Operator (TSOP)** and the certificate (**ESET annually**, **ESET triennial** or **First Aid**).
 3. Click **Add**.
 
 That is all.
 
-> **Careful:** the certificate applies to **all** TSOPs of your company at once, and they all turn red until they have a valid certificate. Have the documents ready first and upload them ([chapter 19](19-bulk-upload.md)) before you add the certificate to the tree.
+> **Careful:** the certificate applies to **all** TSOPs of your company at once, and they all turn red until they have a valid certificate. Have the documents ready first and upload them with **Bulk Certificate Upload** before you add the certificate to the tree.

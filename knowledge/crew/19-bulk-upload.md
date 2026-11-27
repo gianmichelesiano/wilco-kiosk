@@ -1,6 +1,4 @@
-# 19. Bulk certificate upload
-
-[← Previous: Approving uploaded certificates](18-approve-courses.md) · [Table of Contents](README.md) · [Next: Roles and permissions →](20-roles-and-permissions.md)
+# Bulk certificate upload
 
 **Who can use it:** managers with the permission *Bulk upload certificates* (menu **Bulk Certificate Upload**).
 
@@ -14,7 +12,7 @@ UAS …: the same roles for drone operations.
 
 ## What it is for
 
-Upload a certificate **for several members at once**, for example after an in-house training day, or several certificates **for one member**. You do the upload yourself, so the certificates are **approved right away**. They do not wait in **Approve Courses** ([chapter 18](18-approve-courses.md)).
+Upload a certificate **for several members at once**, for example after an in-house training day, or several certificates **for one member**. You do the upload yourself, so the certificates are **approved right away**. They do not wait in **Approve Courses**.
 
 | Menu entry | Use it when |
 |---|---|

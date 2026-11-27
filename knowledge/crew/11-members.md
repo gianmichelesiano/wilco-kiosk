@@ -1,6 +1,4 @@
-# 11. Members: manage your crew
-
-[← Previous: Setting up a new member](10-new-member.md) · [Table of Contents](README.md) · [Next: Editing a member: properties and aircraft →](12-member-edit.md)
+# Members: manage your crew
 
 **Who can use it:** managers with the permission *See training data of crew members* (menu **Members**).
 
@@ -23,5 +21,5 @@ The **Members List** shows everyone in your company with their roles. From here 
    ![Members list](screenshots/10-01-members.png)
 
 2. Find a person with **Search** (**1**). **Show only incomplete profiles** (**2**) lists members whose setup is not finished. A warning triangle next to a name marks them too.
-3. The four icons (**3**) open the member's courses by position, operation, aircraft, and all certificates, just as the member sees them ([chapter 4](04-my-courses.md)).
-4. The person icon (**4**) edits the member ([chapter 12](12-member-edit.md)).
+3. The four icons (**3**) open the member's courses by position, operation, aircraft, and all certificates, just as the member sees them.
+4. The person icon (**4**) edits the member.

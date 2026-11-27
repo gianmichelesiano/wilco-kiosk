@@ -1,6 +1,4 @@
-# 17. Relations tree
-
-[← Previous: Company aircraft and limitations](16-aircraft-and-limitations.md) · [Table of Contents](README.md) · [Next: Approving uploaded certificates →](18-approve-courses.md)
+# Relations tree
 
 **Who can use it:** managers with the permission *Configure courses* (menu **Relations Tree**).
 
@@ -16,7 +14,7 @@ UAS …: the same roles for drone operations.
 
 The Relations Tree is the **rulebook of NGFT Crew**. It says which courses and certificates are required for whom. According to EASA every role, position and operation needs specific courses. NGFT delivers a standard set, and here you see it and adjust it for your company.
 
-Everything depends on this tree: what a member sees in **My Courses**, the colours in the reports ([chapter 13](13-overviews.md)), and what is required for each person you set up in [chapter 12](12-member-edit.md). If a course is missing or too much for someone, look here first.
+Everything depends on this tree: what a member sees in **My Courses**, the colours in the reports, and what is required for each member, based on their role, position and operation. If a course is missing or too much for someone, look here first.
 
 ### How the tree is built
 
@@ -30,7 +28,7 @@ The tree goes from role to position to operation. Aircraft types can sit below a
 | ![Aircraft](screenshots/icons/tree-aircraft.svg) | **Aircraft** type (below a role, position or operation) | A109 |
 | ![Course](screenshots/icons/tree-course.svg) | **Course or certificate** on that level | (280) Aviation Security - Initial |
 
-In front of a course name you see its number: a plain number is an NGFT course, **cc_** a custom certificate of your company ([chapter 15](15-company-courses.md)), **g_** a group: the yearly versions of one course, for example *Accident / Incident Review*. The latest certificate of any course in the group counts for the whole group, and no Initial is needed first.
+In front of a course name you see its number: a plain number is an NGFT course, **cc_** a custom certificate of your company, **g_** a group: the yearly versions of one course, for example *Accident / Incident Review*. The latest certificate of any course in the group counts for the whole group, and no Initial is needed first.
 
 ### The icons behind a course
 
@@ -54,7 +52,7 @@ In front of a course name you see its number: a plain number is an NGFT course, 
 
 ### Add an existing course
 
-You can only add courses that already exist. You cannot create a new course here. To create your own certificate, see [chapter 15](15-company-courses.md).
+You can only add courses that already exist. You cannot create a new course here. To create your own certificate, use **Company Custom Courses → Add Custom Certificate**.
 
 1. In the form at the top choose where the course applies (see the numbers):
 
@@ -74,12 +72,12 @@ You can only add courses that already exist. You cannot create a new course here
 
 ### Add your own certificate
 
-1. First create the certificate: **Company Custom Courses → Add Custom Certificate** ([chapter 15](15-company-courses.md)).
+1. First create the certificate: **Company Custom Courses → Add Custom Certificate**.
 2. Then add it here like any other existing course. Custom certificates are in the list with **cc_** before their number.
 
 ### Add your own LMS course
 
-1. First create the course: **Company Custom Courses → Add LMS Company Course** ([chapter 15](15-company-courses.md)).
+1. First create the course: **Company Custom Courses → Add LMS Company Course**.
 2. Then add it here like any other existing course. Your LMS courses are in the list with their number only, without **cc_**. Until you do, your members do not see the course.
 
 ### Hide or remove a course
@@ -90,4 +88,4 @@ You can only add courses that already exist. You cannot create a new course here
 
   ![Hidden course](screenshots/16-04-hidden-course.png)
 
-> **Important:** a change applies to **all** members with that role or position. Check the result in the reports ([chapter 13](13-overviews.md)).
+> **Important:** a change applies to **all** members with that role or position. Check the result in the reports.

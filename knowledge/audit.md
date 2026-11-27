@@ -14,7 +14,7 @@
   5. manage findings with Root Cause Analysis (RCA), Corrective Action Plan (CAP), approval and closure;
   6. open a Change Management project starting from a finding;
   7. follow the indicators in the Audit Cockpit.
-- **Requirements Sources:** «Regulations» (RegVault: for example CH-SR, EASA, G+, HeliOffshore, IOGP, TW-CAA) and «DocGen» (company documents divided by operating group: AOC, CAMO, MO, SPO, ATO, NCC, UAS). Staging.
+- **Requirements Sources:** «Regulations» (RegVault: for example CH-SR, EASA, G+, HeliOffshore, IOGP, TW-CAA) and «DocGen» (company documents divided by operating group: AOC, CAMO, MO, SPO, ATO, NCC, UAS).
 
 ### 1.3 Roles and visible modules
 
@@ -26,8 +26,8 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 |---|---|---|
 | My Modules (home) and Audit Cockpit widget | All the roles above. The Cockpit widget appears only for SM, Auditor, AM and the three CMMs. | – |
 | Create Audit, Audit Planning | SM, Auditor, AM, CMM, CMM CAMO, CMM Maintenance | Same roles to create audits. |
-| All Audits, Findings | Roles above, plus NGFT Administrator and NGFT Support | The audit list of the backend does not include the NGFT roles: see section 6. |
-| Change Management | Like All Audits | The backend only accepts AM, Auditor and the three CMMs: see section 6. |
+| All Audits, Findings | Roles above, plus NGFT Administrator and NGFT Support | The audit list of the backend does not include the NGFT roles. |
+| Change Management | Like All Audits | The backend only accepts AM, Auditor and the three CMMs. |
 | Library | AM, the three CMMs, NGFT Administrator, NGFT Support | Audit templates can be changed only by CMM, AM or NGFT Administrator. |
 | Configuration | Only the three CMMs | Saving is accepted only for CMM, AM and NGFT Administrator. |
 
@@ -37,7 +37,7 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 - **Auditee:** the manager of the audited area. Responds to findings with analysis, corrective actions and reports. Chosen among: AI Manager, Safety Manager, NPFO, NPCT, NPGO, the three CMMs, Accountable Manager, NPCA, Project Manager, Head of Training, CTKI, CFI.
 - **External auditee(s):** users with role «Subcontractor / Supplier», plus free names for unregistered people.
 
-**Verification.** Sources; on Staging the test account sees all tabs.
+**Verification.** Sources; the test account sees all tabs.
 
 ### 1.4 Who sees what data
 
@@ -53,7 +53,7 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 
 **Context**
 - Role: Safety Manager, Auditor, Accountable Manager or one of the three CMMs.
-- Device: desktop. On tablet the page follows the responsive layout (not verified on staging).
+- Device: desktop. On tablet the page follows the responsive layout (not verified).
 - Initial screen: «Create Audit» tab, or the «Create Audit» card › «Open» on the home page.
 - Prerequisites: correct organization selected in the home. For DocGen, the organization must have loaded documents.
 
@@ -68,7 +68,7 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 8. Press «Proceed with creation». While saving, the button says «Creating...».
 
 **Result**
-- The page «Audit XX-REG-001» opens (or «XX-DOC-…» for DocGen). The number is made of the first two letters of the organization, the source and a sequential number. On staging you can see for example example and example.
+- The page «Audit XX-REG-001» opens (or «XX-DOC-…» for DocGen). The number is made of the first two letters of the organization, the source and a sequential number.
 - The audit is in the «Plan» step with «New» status. Team Lead is you and the date is the current month.
 - It appears in All Audits and in the Audit Planning timeline.
 - Team Lead receives the email «AuditCreated», if the email is active.
@@ -79,7 +79,7 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 - DocGen shows «0 documents»: the organization has no DocGen documents.
 - Possible error messages: «Failed to create audit. Please try again.» or «Company not found. Please refresh the page.».
 
-**Verification.** Staging: Page, Regulations and DocGen tabs, DocGen Regulations and Groups list, «Create from template» button. The creation was not performed.
+**Verification.** Observed in the app: Page, Regulations and DocGen tabs, DocGen Regulations and Groups list, «Create from template» button. The creation was not performed.
 
 ### 3.2 How do I plan audits and see which requirements remain unchecked? (Audit Planning)
 
@@ -120,7 +120,7 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 - The date of a block does not change: the audit has already passed the Plan step.
 - There is no recurring planning. Each audit is individually planned.
 
-**Verification.** Staging: tabs, views, horizons, regulation list, Gap Analysis card with total, covered and gaps, text «coming soon».
+**Verification.** Observed in the app: tabs, views, horizons, regulation list, Gap Analysis card with total, covered and gaps, text «coming soon».
 
 ### 3.3 How do I create an audit from a template? (Create from template, Audit Templates)
 
@@ -143,9 +143,9 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 **If a button or result is missing**
 - «Create Template» does not appear: the audit is not closed.
 - «Audit Templates» shows «No audit templates found»: no template has yet been saved.
-- A CMM CAMO or CMM Maintenance may receive an error when saving or deleting a template, because the backend only accepts CMM, AM and NGFT Administrator (section 6).
+- A CMM CAMO or CMM Maintenance may receive an error when saving or deleting a template, because the backend only accepts CMM, AM and NGFT Administrator.
 
-**Verification.** Staging: «Create from template» button, menu item «Create Template» present only on audits at the Close step, tab «Audit Templates» blank.
+**Verification.** Observed in the app: «Create from template» button, menu item «Create Template» present only on audits at the Close step, tab «Audit Templates» blank.
 
 ### 3.4 How do I set the audit team, auditee and questions before an audit? (Audit › Plan and Prepare)
 
@@ -176,13 +176,13 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 - Added auditors receive email «AuditorAssignedToAudit». The auditee receives «AuditeeAssignedToAudit» at each change, if the email is active.
 
 **If a button or result is missing**
-- A person does not appear in «Auditee»: his role is not among those admitted as an auditee (section 1.3).
+- A person does not appear in «Auditee»: his role is not among those admitted as an auditee.
 - «Next» does not proceed: the auditee is missing, or an article is without questions (neither «Use Law» nor others).
 - Possible validation messages: «Year is required», «Month is required», «At least one audit type must be selected», «At least one audit objective must be selected», «Team lead is required», «No regulation selected. Please select a regulation from the Create Audit page to continue.».
 - The «Move to Perform step?» window also lists the auditee among the locked fields, but the auditee remains editable until the end of the audit (Sources, backend rule «update the auditee at any step except closed»).
 - Supporting auditors and description are locked only after the opening meeting is confirmed.
 
-**Verification.** Staging: Plan screens («Audit Details», «Selected Regulations», «Edit Selection») and Prepare («Supporting Auditor(s)», «Auditee», «Detailed description of audit objectives») on test audits. No modifications performed.
+**Verification.** Observed in the app: Plan screens («Audit Details», «Selected Regulations», «Edit Selection») and Prepare («Supporting Auditor(s)», «Auditee», «Detailed description of audit objectives») on test audits. No modifications performed.
 
 ### 3.5 How do I conduct the audit: opening meeting, questions and closing meeting? (Audit › Perform)
 
@@ -203,7 +203,7 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 
 **Steps: Questions**
 1. Each card shows «Question X of N», «Regulation Reference», «Legal Reference Text» and «Question».
-2. Choose the rating in «Evaluation» and complete the fields (details in tutorial 3.6).
+2. Choose the rating in «Evaluation» and complete the fields.
 3. Attach the evidence with «Upload Evidence» › «Upload». If the evidence arrives later use «Mark as pending».
 4. You can leave with «Save & exit» or download the questionnaire with «Download Questionnaire».
 5. Press «Proceed to closing meeting» and confirm «Proceed to closing meeting?».
@@ -222,7 +222,7 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 - An external user does not appear: the role «Subcontractor / Supplier» is needed.
 - Point 6 of the closing does not appear: there are unconfirmed findings.
 
-**Verification.** Staging: opening meeting with sections, checklists and buttons «Confirm», «Confirmed», «Check all», «Confirm meeting completed». No confirmation performed.
+**Verification.** Observed in the app: opening meeting with sections, checklists and buttons «Confirm», «Confirmed», «Check all», «Confirm meeting completed». No confirmation performed.
 
 ### 3.6 How do I record a finding during an audit? (Audit › Perform › Questions)
 
@@ -255,7 +255,7 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 - Message «Finding Description is required for this finding level»: the description is missing.
 - The finding does not appear in the Findings list: check that the selected organization is that of the audit and that you participate in the audit (this applies to those who are not CMM).
 
-**Verification.** Staging: Findings list shows finding with «Level 2 - Safety Relevant» level and status «Open».
+**Verification.** Observed in the app: Findings list shows finding with «Level 2 - Safety Relevant» level and status «Open».
 
 ### 3.7 How do I prepare and finalize the audit report? (Audit › Reports)
 
@@ -284,9 +284,9 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 - «Next» is disabled in this step: to advance you use «Finalize Report».
 - «Finalize Report» fails: a chapter is empty. Each chapter must have content.
 - The report is not created: there are unconfirmed findings, or you are not CMM, Team Lead or auditor of the audit.
-- A Safety Manager may be unable to load the report: reading is allowed only to Auditor, AM and CMM (section 6).
+- A Safety Manager may be unable to load the report: reading is allowed only to Auditor, AM and CMM.
 
-**Verification.** Staging: header and report sections on an audit at step Reports. No save performed.
+**Verification.** Observed in the app: header and report sections on an audit at step Reports. No save performed.
 
 ### 3.8 How do I find a finding and check deadlines? (Findings)
 
@@ -313,9 +313,9 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 **If a button or result is missing**
 - The column «ASSIGNEE» shows the auditee: there is no separate person responsible for the finding.
 - The deadlines are set by hand and do not generate reminders.
-- The detail shows «Failed to fetch finding»: on staging this happens to the migrated findings of one organization, because the related question is not found ( Error 404 «Question not found»). Also check that you have selected the right organization.
+- The detail shows «Failed to fetch finding»: this can happen to migrated findings of an organization, because the related question is not found ( Error 404 «Question not found»). Also check that you have selected the right organization.
 
-**Verification.** Staging: tabs, columns, «Export», «Columns», ⋮ › «View», link «Source», tablet card at 1024 px.
+**Verification.** Observed in the app: tabs, columns, «Export», «Columns», ⋮ › «View», link «Source», tablet card at 1024 px.
 
 ### 3.9 How do I analyze the root cause of a finding? (Finding › Analyze and Perform RCA)
 
@@ -351,9 +351,9 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 - No analysis button: the audit is not yet in the Findings step, or the finding status does not allow it.
 - «Analyze» is not there: a gap analysis or an RCA already exist. Use «Edit» on «Gap Analysis Results» or «View RCA Results».
 - Message «No finding detected»: according to the AI the answer of the audit is compliant. Reread the finding description.
-- You can't open the page from the email link: your role may not give access to the app (section 6).
+- You can't open the page from the email link: your role may not give access to the app.
 
-**Verification.** Staging: on a finding in «RCA & CAP Submitted» are visible «RCA Analysis Result» (method «QUICK_AI», confidences for AREA, TYPE and PRIMARY FACTOR) and «Gap Analysis Results». The analysis was not carried out.
+**Verification.** Observed in the app: on a finding in «RCA & CAP Submitted» are visible «RCA Analysis Result» (method «QUICK_AI», confidences for AREA, TYPE and PRIMARY FACTOR) and «Gap Analysis Results». The analysis was not carried out.
 
 ### 3.10 How do I create and send the corrective action plan? (Finding › Create CAP and Submit RCA & CAP)
 
@@ -376,7 +376,7 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 **Result**
 - Message «RCA & CAP submitted successfully». The state becomes «RCA & CAP Submitted».
 - The Team Lead and all CMMs of the organization receive the email «RcaCapSubmitted», if the email is active.
-- The auditor sees the approval buttons in the audit (tutorial 3.11).
+- The auditor sees the approval buttons in the audit.
 - To replace the plan use «Generate new CAP» and then «Replace CAP».
 
 **If a button or result is missing**
@@ -384,7 +384,7 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 - «Submit RCA & CAP» is not there: RCA or CAP are not saved, or the finding has already been sent.
 - Possible validation messages: «Please enter corrective action details», «No actions to save», «Please select a priority».
 
-**Verification.** Staging: CAP saved visible on the page («Corrective Action Plan», «1 action», «Action 1», priority «MEDIUM»). Generation and sending not performed.
+**Verification.** Observed in the app: CAP saved visible on the page («Corrective Action Plan», «1 action», «Action 1», priority «MEDIUM»). Generation and sending not performed.
 
 ### 3.11 How do I approve or reject RCA & CAP as an auditor? (Audit › Findings)
 
@@ -405,13 +405,13 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 **Result**
 - The state becomes «RCA & CAP Accepted» or «RCA & CAP Rejected».
 - The main auditee and all CMMs receive the email «RcaCapAccepted» or «RcaCapRejected», if the email is active.
-- After approval the auditee sees «Create Report» and «Create Project» (tutorial 3.13 and 3.14).
+- After approval the auditee sees «Create Report» and «Create Project».
 
 **If a button or result is missing**
 - The buttons do not appear on the finding's own page: approval is done only from the audit, at the Findings step.
 - No button: finding is not in «RCA & CAP Submitted».
 
-**Verification.** Staging: on an audit at Findings step are visible «Comments», «Reject» and «Approve RCA & CAP» for a finding in «RCA & CAP Submitted». No pressed button.
+**Verification.** Observed in the app: on an audit at Findings step are visible «Comments», «Reject» and «Approve RCA & CAP» for a finding in «RCA & CAP Submitted». No pressed button.
 
 ### 3.12 How do I discuss a finding with the auditor or auditee? (Finding › Comments)
 
@@ -431,9 +431,9 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 
 **If a button or result is missing**
 - Message «Message cannot be empty»: the text is empty.
-- A Safety Manager, or an auditee without the Auditor role, can write but may be unable to read the conversation, because reading is allowed only to Auditor, AM and CMM (section 6).
+- A Safety Manager, or an auditee without the Auditor role, can write but may be unable to read the conversation, because reading is allowed only to Auditor, AM and CMM.
 
-**Verification.** Staging: «Comments» button visible; the conversation was not opened.
+**Verification.** Observed in the app: «Comments» button visible; the conversation was not opened.
 
 ### 3.13 How do I demonstrate the implementation of the actions and close a finding? (Finding Report and Close Finding)
 
@@ -455,15 +455,14 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 **Result**
 - Message «Finding closed successfully». The state becomes «Closed» and the finding does not change anymore.
 - The auditees and all CMMs receive the email «FindingClosed», if the email is active.
-- When all findings are closed, the audit can switch to closing (tutorial 3.15).
+- When all findings are closed, the audit can switch to closing.
 
 **If a button or result is missing**
 - «Submit Report» is disabled: there are unsaved changes, or both text and attachments are missing.
 - Message «Maximum number of attachments exceeded»: you have exceeded the 5 attachments.
-- «Resubmit Report» may fail for an auditee who is not also auditor or CMM: the backend does not allow the transition from «Report Rejected» to «Report Submitted» for the auditee (section 6).
+- «Resubmit Report» may fail for an auditee who is not also auditor or CMM: the backend does not allow the transition from «Report Rejected» to «Report Submitted» for the auditee.
 
 **Verification.** Sources.
-- Not verified on staging.
 
 ### 3.14 How do I turn a finding into a Change Management project? (Change Management)
 
@@ -497,10 +496,10 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 - «Create Project» is missing: the finding is not in «RCA & CAP Accepted», there is already a finding report, or audit is not in Findings step.
 - «Close Project» is disabled: «To close the project all the tasks should be in evaluation.».
 - «Approve» and «Reject» appear only to the approver. Anyone with another role receives an error.
-- A Safety Manager sees the page but the backend may refuse data (section 6).
+- A Safety Manager sees the page but the backend may refuse data.
 - A rejected project returns to draft with «Move to Drafts».
 
-**Verification.** Staging: list «Change Management» with filters and columns «Name», «Project Type», «Status», «Owner», empty state «No projects found», no creation button.
+**Verification.** Observed in the app: list «Change Management» with filters and columns «Name», «Project Type», «Status», «Owner», empty state «No projects found», no creation button.
 
 ### 3.15 How do I close the audit? (Audit › Close)
 
@@ -525,7 +524,7 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 **If a button or result is missing**
 - «Next» does not proceed: at least one finding is not «Closed».
 
-**Verification.** Staging: status «Audit is closed» and menu ⋮ of a closed audit.
+**Verification.** Observed in the app: status «Audit is closed» and menu ⋮ of a closed audit.
 
 ### 3.16 How do I read the status of audits and findings? (Audit Cockpit)
 
@@ -554,7 +553,7 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 - The choice of «Configure tiles» is valid only for that browser: it is not saved on the account.
 - The widget does not appear in the home: the role is only NGFT Administrator or NGFT Support.
 
-**Verification.** Staging: widget, page, indicators, pipeline, sections, «Configure tiles», period and «Back to dashboard».
+**Verification.** Observed in the app: widget, page, indicators, pipeline, sections, «Configure tiles», period and «Back to dashboard».
 - Documentation: the proposals in `cockpit-proposal/` are made for latest audits, latest findings and finding breakdowns. The regulatory coverage is calculated in the browser and does not use the proposed endpoint.
 
 ### 3.17 How do I export audits, findings, questionnaires and reports? (Export and Download)
@@ -580,9 +579,9 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 - The CSV export includes only visible columns and already loaded rows.
 - In the CSV of findings, the columns «ASSIGNEE» and «SOURCE AUDIT» contain technical identifiers, not names.
 - There is no DOCX or Excel export.
-- No automatic data transfer to other NGFT products is documented. The connection to the rest of the platform is «Back to Cockpit» (tutorial 3.21).
+- No automatic data transfer to other NGFT products is documented. The connection to the rest of the platform is «Back to Cockpit», which opens the NGFT portal.
 
-**Verification.** Staging: buttons «Export» and menu items by step («Plan» and «Prepare»: «Resume» and «Delete»; «Perform»: also «Download Questionnaire»; «Reports»: also «Download Report»; «Close»: also «View» and «Create Template»). Downloads have not been made.
+**Verification.** Observed in the app: buttons «Export» and menu items by step («Plan» and «Prepare»: «Resume» and «Delete»; «Perform»: also «Download Questionnaire»; «Reports»: also «Download Report»; «Close»: also «View» and «Create Template»). Downloads have not been made.
 
 ### 3.18 How do I consult the audits migrated from the previous system? (All Audits › Legacy Audits)
 
@@ -603,9 +602,9 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 
 **If a button or result is missing**
 - You cannot create legacy audits.
-- Legacy findings appear in the Findings list. On staging, for an organization, their detail shows «Failed to fetch finding» (section 6).
+- Legacy findings appear in the Findings list. For an organization, their detail may show «Failed to fetch finding».
 
-**Verification.** Staging: tab and rows with «SOURCE» «Legacy». The view of detail has not been opened.
+**Verification.** Observed in the app: tab and rows with «SOURCE» «Legacy». The view of detail has not been opened.
 
 ### 3.19 How do I configure audit types and objectives? (Configuration)
 
@@ -624,14 +623,14 @@ To enter the app, you need at least one of these roles: NGFT Administrator, NGFT
 
 **Result:** the entry appears in the list with «Active» status or «Inactive» status and, if active, in the fields «Types» and «Objectives» of the Plan step and of planning.
 
-On staging the default types are: Management System Audit, Training Audit, Subcontractor Audit, Interview, Document Evaluation, Observe Practical Training, Observe Operation, Compliance Check.
+The default types are: Management System Audit, Training Audit, Subcontractor Audit, Interview, Document Evaluation, Observe Practical Training, Observe Operation, Compliance Check.
 
 **If a button or result is missing**
 - The tab does not appear: a CMM role is needed.
 - Message «Name is required»: the name is empty.
-- A CMM CAMO or CMM Maintenance sees the page but saving could be refused (section 6).
+- A CMM CAMO or CMM Maintenance sees the page but saving could be refused.
 
-**Verification.** Staging: tabs, lists, columns «Name», «Status», «Actions», buttons «Add Audit Type» and «Add Audit Objective». The entry window has not been opened.
+**Verification.** Observed in the app: tabs, lists, columns «Name», «Status», «Actions», buttons «Add Audit Type» and «Add Audit Objective». The entry window has not been opened.
 
 ### 3.20 How do I manage standard texts and templates? (Library)
 
@@ -647,7 +646,7 @@ On staging the default types are: Management System Audit, Training Audit, Subco
 2. Open the folder and press «Add Prefill»: mandatory title and formatted content.
 3. In the audit report use «Insert from library» to insert the prefill.
 4. In «Report Templates» consult or delete templates saved with «Save as template» in the Reports step.
-5. In «Audit Templates» consult, delete or use templates saved with «Create Template» (tutorial 3.3).
+5. In «Audit Templates» consult, delete or use templates saved with «Create Template» from closed audits.
 
 **Result:** texts and templates reusable by all users of the organization.
 
@@ -656,7 +655,7 @@ On staging the default types are: Management System Audit, Training Audit, Subco
 - Templates are not created from here, but from reports and closed audits.
 - Message «Content is empty»: the prefill has no content.
 
-**Verification.** Staging: tabs, button «Create», empty states.
+**Verification.** Observed in the app: tabs, button «Create», empty states.
 
 ### 3.21 How do I change organization or language, or return to the NGFT portal? (Navigation)
 
@@ -677,26 +676,26 @@ On staging the default types are: Management System Audit, Training Audit, Subco
 
 **If a button or result is missing**
 - After the change of language many screens remain in English. The home, card buttons and change management are translated.
-- Blank lists or pages with error: check the selected organization. On staging, opening an audit of another organization via a link produced errors loading the questions.
+- Blank lists or pages with error: check the selected organization. Opening an audit of another organization via a link can produce errors loading the questions.
 
-**Verification.** Staging: field «Organization», flag, initials, «Back to Cockpit», «Messaging», avatar AI, menu ☰ at 1024 px.
+**Verification.** Observed in the app: field «Organization», flag, initials, «Back to Cockpit», «Messaging», avatar AI, menu ☰ at 1024 px.
 
 ### 3.22 Why don't I see a module, a button or some data? (Quick diagnosis)
 
 **Short answer (Wilco):** It usually depends on three things: your role, the selected organization and the step in which the audit is located. Many finding buttons only appear when the audit is at Findings step.
 
 **Checks in order**
-1. **Role:** the tab is missing from the menu if the role does not allow it (table in 1.3). Page «Access denied»: no access role to the app. Page 403: role without access to that page.
+1. **Role:** the tab is missing from the menu if the role does not allow it. Page «Access denied»: no access role to the app. Page 403: role without access to that page.
 2. **Organization:** check the «Organization» field in the home.
 3. **Participation:** whoever is not CMM sees in Findings and Cockpit only the audits they participate in.
 4. **Audit Step:**
    - Analyze, RCA, CAP, finding reports and project: only with audits at step «Findings».
    - Date change in Audit Planning: only at step «Plan».
    - «Create Template»: only on closed audits.
-5. **Status of finding:** each button requires a precise status (tutorial 3.9–3.14). A finding «Closed» no longer changes.
+5. **Status of finding:** each button requires a precise status. A finding «Closed» no longer changes.
 6. **Features not available:** Topic Analysis, member management, Settings, recurring planning, automatic reminders.
 
-**Verification.** Sources; Staging for modules not available.
+**Verification.** Sources; the modules not available were observed in the app.
 
 ### 5.1 Demo «Regulatory coverage and planning» (Audit Cockpit and Audit Planning)
 
@@ -710,7 +709,7 @@ On staging the default types are: Management System Audit, Training Audit, Subco
   4. «Plan Audit with N articles»: show the filled-in window, then close with «Cancel».
 - **Outcome:** the visitor sees gaps in percentage and how they become a planned audit.
 - **Format:** both. Silent clip of 20–30 s (Cockpit › Gap Analysis › window) and guided demo of 60–90 s.
-- **Data changes:** none, if you don't press «Create Audit». If the audit is created, it is deleted from «All Audits» › ⋮ › «Delete» (logical deletion). The «Delete» entry is verified on staging; the effect is only verified in the source code.
+- **Data changes:** none, if you don't press «Create Audit». If the audit is created, it is deleted from «All Audits» › ⋮ › «Delete» (logical deletion). The «Delete» entry is verified in the app; the effect is only verified in the source code.
 
 ### 5.2 Demo «From finding to corrective action with AI» (Findings, RCA, CAP)
 
