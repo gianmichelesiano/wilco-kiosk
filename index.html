@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; media-src 'self' blob:; object-src 'none'"><title>Wilco · NGFT</title><link rel="stylesheet" href="style.css"></head>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; media-src 'self' blob:; object-src 'none'"><title>Wilco · NGFT</title><link rel="stylesheet" href="style.css"></head>
 <body data-state="standby" data-mode="attract">
 <aside>
   <div class="langrow">
@@ -78,4 +78,4 @@
   </section>
 </main>
 <dialog id="pin" lang="en"><h2>Staff PIN</h2><p id="pin-dots" aria-live="polite"></p><p id="pin-message" role="alert"></p><div id="keys"></div><form method="dialog"><button>Cancel</button></form></dialog>
-<script src="strings.js"></script><script src="ui.js"></script><script src="settings.js"></script></body></html>
+<script src="vendor/mediapipe/vision_bundle.js"></script><script src="presence.js"></script><script src="strings.js"></script><script src="ui.js"></script><script src="settings.js"></script></body></html>

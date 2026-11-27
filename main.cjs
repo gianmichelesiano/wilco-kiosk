@@ -209,7 +209,11 @@ app.whenReady().then(()=>{
   win = new BrowserWindow({width:1440,height:900,minWidth:900,kiosk:process.env.WILCO_DEV!=='1',autoHideMenuBar:true,webPreferences:{autoplayPolicy:'no-user-gesture-required',preload:file('preload.cjs'),sandbox:true,contextIsolation:true,nodeIntegration:false}});
   win.webContents.setWindowOpenHandler(()=>({action:'deny'}));
   win.webContents.on('will-navigate',e=>e.preventDefault());
-  session.defaultSession.setPermissionRequestHandler((wc,p,cb,details)=>cb(wc===win.webContents && wc.getURL()===start && p==='media' && details.mediaTypes?.every(t=>t==='audio')));
+  // Microphone for talking, camera for noticing visitors (presence.js): only the kiosk page, never the live demo.
+  session.defaultSession.setPermissionRequestHandler((wc,p,cb,details)=>cb(wc===win.webContents && wc.getURL()===start && p==='media' && details.mediaTypes?.every(t=>t==='audio'||t==='video')));
+  // The kiosk page works from local files only; OpenAI and ElevenLabs are called from this process.
+  // Second wall after the page CSP: MediaPipe's usage log (and anything else) never leaves the PC.
+  session.defaultSession.webRequest.onBeforeRequest({urls:['http://*/*','https://*/*','ws://*/*','wss://*/*']},(_details,cb)=>cb({cancel:true}));
   handle('catalog',()=>onShow().map(p=>({...p,live:urls.has(p.id)})));
   handle('config',()=>{
     const folder=file('media/attract');

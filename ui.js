@@ -479,4 +479,5 @@ Promise.all([api.catalog(),api.config()]).then(([rows,settings])=>{
   products=rows;config=settings;
   setLanguage(lang);
   setMode(config.idleSeconds?'attract':'visit');
+  Presence.start(); // Webcam presence (presence.js): without a camera the kiosk works by touch.
 });

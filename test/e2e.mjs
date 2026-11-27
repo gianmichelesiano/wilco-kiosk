@@ -227,6 +227,31 @@ test('Quit Wilco: only from Settings, and only with a second tap', async t => {
   await closed;
 });
 
+test('the camera runs with the fake device, and nothing but camera.json is written', async t => {
+  const {page, settings} = await launch(t);
+  await until(page, () => window.Presence?.status === 'working', null, 15000);
+  await page.waitForTimeout(1500);
+  const written = fs.readdirSync(settings, {recursive: true}).map(String).filter(name => !name.startsWith('profile'));
+  assert.ok(!written.some(name => /\.(png|jpe?g|webp|bmp|gif|webm|mp4|y4m|raw)$/i.test(name)), written.join(', '));
+});
+
+test('no camera or no permission: status says so and touch still starts a visit', async t => {
+  const {page} = await launch(t);
+  for (const [error, status] of [['NotFoundError', 'no-camera'], ['NotAllowedError', 'no-permission']]) {
+    await page.evaluate(name => { Presence.stop(); navigator.mediaDevices.getUserMedia = () => Promise.reject(new DOMException('x', name)); return Presence.start(); }, error);
+    assert.equal(await page.evaluate(() => Presence.status), status);
+  }
+  await visit(page, 'en');
+  assert.equal(await mode(page), 'visit');
+});
+
+test('the kiosk window cannot reach the internet, so MediaPipe usage logs never leave the PC', async t => {
+  const {app, page} = await launch(t);
+  const url = 'https://example.com/'; // Stands for MediaPipe's log address: a broken wall must not reach Google from a test.
+  assert.equal(await page.evaluate(u => fetch(u, {method: 'POST'}).then(() => 'sent', () => 'blocked'), url), 'blocked'); // Page CSP.
+  assert.equal(await app.evaluate(({session}, u) => session.defaultSession.fetch(u, {method: 'POST'}).then(() => 'sent', () => 'blocked'), url), 'blocked'); // Session, even without the CSP.
+});
+
 test('Settings opens only with the staff PIN', async t => {
   const {page} = await launch(t);
   await visit(page, 'en'); // Start in English, whatever the question on screen.
