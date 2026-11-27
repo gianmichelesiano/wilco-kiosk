@@ -23,6 +23,8 @@ ditto knowledge "$resources/app/knowledge"
 ditto fonts "$resources/app/fonts"
 ditto vendor "$resources/app/vendor"
 if [[ -d media ]]; then ditto media "$resources/app/media"; fi
+# The commit this app holds: Update-Wilco.command and Settings compare it with the clone.
+git rev-parse HEAD > "$resources/app/commit" 2>/dev/null || true
 rm "$resources/default_app.asar"
 plist="$bundle/Contents/Info.plist"
 for name in CFBundleName CFBundleDisplayName; do plutil -replace "$name" -string Wilco "$plist"; done
