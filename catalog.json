@@ -218,6 +218,7 @@
     "facts": "Evidence on demand: valid courses, expiry dates and who may fly what. Missing courses can be bought in the system.",
     "prompt": "Are my crew compliant?",
     "url": "https://co.staging.ngft.com/",
+    "intro": "media/intro/crew.mp4",
     "overview": "CrewOverview is the NGFT tool for the training, evidence and compliance of your crew in one place. It checks qualifications by crew member and position, each with evidence and expiry date. What each position needs is already set up and can be adjusted. Missing courses are bought right in the system and the certificate is created automatically; external certificates are uploaded and approved. The Pilot Qualification List shows who may fly what, including limitations and supervision. Crew and NPCT are reminded before a course expires. When the authority says “Show me the evidence”: you have everything ready.",
     "overviewFollowUp": "Shall I show you the Pilot Qualification List?",
     "locales": {
