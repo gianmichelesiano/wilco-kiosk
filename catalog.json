@@ -153,6 +153,7 @@
     "facts": "NGFT Safety is the Safety Management System for aviation operators. Collect reports, triage and analyze occurrences, manage risks and mitigations, and track corrective actions and changes.",
     "prompt": "What should we review at our safety meeting?",
     "url": "https://sms.staging.ngft.com/",
+    "intro": "media/intro/sms.mp4",
     "locales": {
       "it": {
         "area": "Safety",
