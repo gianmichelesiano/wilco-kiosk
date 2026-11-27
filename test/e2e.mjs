@@ -123,6 +123,24 @@ for (const [language, greeting] of Object.entries({en:/I’m Wilco/,fr:/je suis 
   });
 }
 
+const pickTexts = {en: 'Tap one of the applications on the right to discover it.', fr: 'Touchez l’une des applications à droite pour la découvrir.', de: 'Tippen Sie rechts auf eine der Anwendungen, um sie zu entdecken.', it: 'Tocca una delle applicazioni a destra per scoprirla.'};
+test('started from a language, the welcome ends by telling the visitor to tap an application on screen', async t => {
+  for (const [language, pick] of Object.entries(pickTexts)) {
+    const {page, calls} = await launch(t);
+    await visit(page, language);
+    assert.ok((await latest(page)).endsWith(' ' + pick), await latest(page));
+    for (let tries = 0; tries < 40 && !(await calls()).lastSpeech?.endsWith(' ' + pick); tries++) await page.waitForTimeout(100);
+    assert.ok((await calls()).lastSpeech.endsWith(' ' + pick), 'said aloud too');
+  }
+  // From the question on show the product opens at once: nothing to pick.
+  const {page} = await launch(t);
+  await until(page, () => document.querySelector('#teaser-question').textContent.trim().length > 0);
+  await page.click('#teaser');
+  await until(page, () => !document.querySelector('article').hidden);
+  const said = await page.$$eval('#transcript .msg.wilco p', nodes => nodes.map(node => node.textContent).join(' '));
+  assert.ok(!Object.values(pickTexts).some(pick => said.includes(pick)), said);
+});
+
 test('touching the question on the attract screen opens that product in that language', async t => {
   const {page, calls} = await launch(t);
   await until(page, () => document.querySelector('#teaser-question').textContent.trim().length > 0);

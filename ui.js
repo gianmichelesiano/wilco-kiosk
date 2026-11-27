@@ -452,18 +452,20 @@ function startVisit(code,id){
   if(!reducedMotion.matches)$('.portrait').animate([
     {transform:'scale(1)'},{transform:'scale(1.05)',offset:.45},{transform:'scale(1)'}
   ],{duration:500,easing:'ease-out'});
+  const product=products.find(p=>p.id===id);
   const welcome=done=>{
     // Never the same welcome twice in a row.
     const others=t('hello').filter(text=>text!==lastHello), hello=lastHello=others[Math.floor(Math.random()*others.length)], token=seq;
+    // Without a product, the applications are on screen: the welcome tells the visitor to tap one.
+    const text=product ? hello : hello+' '+t('pick');
     let finished=false;
     const finish=()=>{
       if(finished || seq!==token)return;
       finished=true;done?.();
     };
-    say('wilco',hello);
-    speak(hello,lang,token,finish,true).catch(finish);
+    say('wilco',text);
+    speak(text,lang,token,finish,true).catch(finish);
   };
-  const product=products.find(p=>p.id===id);
   if(product)choose(local(product),undefined,welcome);
   else welcome();
 }
