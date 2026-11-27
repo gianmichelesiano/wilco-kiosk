@@ -57,6 +57,13 @@ function writeMap(name, data) {
 let overrides = readMap('overrides.json');   // Texts changed in Settings: see knowledge.cjs items().
 let answers = readMap('cache/answers.json'); // Prepared answers: "language|product|question" -> answer.
 let voiceChoice = readMap('voice.json');     // ElevenLabs voice chosen in Settings for a language: {"fr": "<voice id>"}.
+let cameraChoice = readMap('camera.json');   // Webcam presence set in Settings: {"on": true, "near": 0.1, "greet": false}.
+// near: the smallest face width, as a share of the frame, that counts as someone in front of the kiosk.
+const cameraSettings = () => ({
+  on: cameraChoice.on !== false,
+  near: Number.isFinite(cameraChoice.near) && cameraChoice.near >= 0.05 && cameraChoice.near <= 0.30 ? cameraChoice.near : 0.10,
+  greet: cameraChoice.greet === true
+});
 // A language without a choice, or with one that is no voice id, uses the voice of .env.
 const chosenVoice = lang => /^[A-Za-z0-9]{1,64}$/.test(String(voiceChoice[lang] || '')) ? String(voiceChoice[lang]) : '';
 knowledge.load(overrides);
@@ -222,6 +229,7 @@ app.whenReady().then(()=>{
       idleSeconds:Number.isFinite(config.idleSeconds) ? Math.max(0,config.idleSeconds) : 90,
       clips:fs.existsSync(folder) ? fs.readdirSync(folder).filter(name=>/^[^.].*\.(?:mp4|webm)$/i.test(name)).sort().map(name=>'media/attract/'+name) : [],
       settings:!!pin(),
+      camera:cameraSettings(),
       unreadable:setAside
     };
   });

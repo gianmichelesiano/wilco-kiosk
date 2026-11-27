@@ -252,6 +252,64 @@ test('the kiosk window cannot reach the internet, so MediaPipe usage logs never 
   assert.equal(await app.evaluate(({session}, u) => session.defaultSession.fetch(u, {method: 'POST'}).then(() => 'sent', () => 'blocked'), url), 'blocked'); // Session, even without the CSP.
 });
 
+// Presence without a real face: stop the camera and feed what MediaPipe would report, five times a second.
+const presenceNear = page => page.evaluate(() => { Presence.stop(); clearInterval(window.feeding); window.feeding = setInterval(() => Presence.feed([{width: 0.3, x: 0.3}]), 200); });
+const presenceAway = page => page.evaluate(() => { clearInterval(window.feeding); window.feeding = setInterval(() => Presence.feed([]), 200); });
+
+test('a visitor who stops wakes Wilco, who sleeps again when they leave', async t => {
+  const {page} = await launch(t);
+  assert.ok(!(await page.isVisible('#wake')));
+  await presenceNear(page);
+  await until(page, () => document.body.dataset.presence === 'near', null, 3000);
+  assert.equal(await mode(page), 'attract');
+  assert.ok(await page.isVisible('#wake'));
+  await presenceAway(page);
+  await until(page, () => !document.body.dataset.presence, null, 5000);
+});
+
+test('someone in front keeps the visit open past the idle time', async t => {
+  const {page} = await launch(t, {files: {'demo.json': {idleSeconds: 3}}});
+  await visit(page, 'en');
+  await presenceNear(page);
+  await page.waitForTimeout(8000);
+  assert.equal(await mode(page), 'visit');
+});
+
+test('nobody in front for 20 s ends a visit where someone was seen', async t => {
+  const {page} = await launch(t);
+  await visit(page, 'en');
+  await presenceNear(page);
+  await page.waitForTimeout(2000);
+  await presenceAway(page);
+  await page.waitForTimeout(15000);
+  assert.equal(await mode(page), 'visit');
+  await until(page, () => document.body.dataset.mode === 'attract', null, 12000);
+});
+
+test('presence does nothing while Settings are open', async t => {
+  const {page} = await launch(t);
+  await openSettings(page);
+  await presenceNear(page);
+  await page.waitForTimeout(1500);
+  assert.equal(await mode(page), 'settings');
+  assert.ok(!(await page.evaluate(() => document.body.dataset.presence)));
+});
+
+test('spoken hello: never by default, at most once a minute when switched on', async t => {
+  for (const [greet, expected] of [[false, 0], [true, 1]]) {
+    const {page} = await launch(t, {files: greet ? {'camera.json': {greet: true}} : {}});
+    await page.evaluate(() => { window.spoke = 0; new MutationObserver(() => { if (document.body.dataset.state === 'speaking') window.spoke++; }).observe(document.body, {attributes: true, attributeFilter: ['data-state']}); });
+    for (let approach = 0; approach < 2; approach++) {
+      await presenceNear(page);
+      await until(page, () => document.body.dataset.presence === 'near', null, 3000);
+      await page.waitForTimeout(2500);
+      await presenceAway(page);
+      await until(page, () => !document.body.dataset.presence, null, 5000);
+    }
+    assert.equal(await page.evaluate(() => window.spoke), expected, `greet ${greet}`);
+  }
+});
+
 test('Settings opens only with the staff PIN', async t => {
   const {page} = await launch(t);
   await visit(page, 'en'); // Start in English, whatever the question on screen.

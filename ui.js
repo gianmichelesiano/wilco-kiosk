@@ -388,9 +388,12 @@ function setMode(next){
     for(const b of $('#lang').children)b.setAttribute('aria-pressed',b.dataset.lang===lang); // The teaser lit its own language.
   }
   touch();
+  presenceShow();
 }
 let lastHello='';
 function startVisit(code,id){
+  if(state==='speaking')interrupt(); // The spoken hello of the attract screen gives way to the welcome.
+  presenceSeen=false;
   settledAt=performance.now();
   api.greeted();
   setMode('visit');
@@ -472,6 +475,34 @@ const touched=()=>{lastInput=Date.now();touch();};
 for(const type of ['pointerdown','keydown','wheel'])addEventListener(type,touched,{capture:true,passive:true});
 api.onActivity(touched); // Touches inside the live demo.
 
+// ---------- Webcam presence (presence.js) ----------
+// Attract screen: someone stops in front of the kiosk, Wilco wakes up, leans towards them and invites a touch,
+// aloud at most once a minute when Settings allow it. Visit: someone in front counts as a touch; nobody for
+// 20 s ends a visit where the camera, still running since, saw someone. Settings: no effect.
+let presenceSeen=false, presenceStatus='off', lastGreet=-Infinity;
+function presenceShow(){
+  if(mode!=='attract' || !Presence.state.near){delete document.body.dataset.presence;return;}
+  if(Presence.state.face)document.body.style.setProperty('--face-x',((.5-Presence.state.face.x)*2).toFixed(2)); // The camera sees the visitor mirrored.
+  if(document.body.dataset.presence==='near')return;
+  document.body.dataset.presence='near';
+  const code=chosen||teased?.lang||'en', wake=$('#wake');
+  wake.lang=code;wake.textContent=messages[code].wake;
+  if(config.camera?.greet && state==='standby' && performance.now()-lastGreet>60000){
+    lastGreet=performance.now();
+    speak(messages[code].wake,code,seq,null,true).catch(()=>{});
+  }
+}
+function presenceChanged(_state,status){
+  if(status!==presenceStatus){presenceStatus=status;if(status!=='working')presenceSeen=false;} // A new camera run proves nothing about the visitor.
+  presenceShow();
+}
+setInterval(()=>{
+  presenceShow(); // Wilco follows the face on the attract screen.
+  if(mode!=='visit')return;
+  if(Presence.state.near){presenceSeen=true;touched();}
+  else if(presenceSeen && performance.now()-Presence.state.lastNearAt>20000 && quiet())endVisit();
+},1000);
+
 // Stand team: the Settings button asks for the PIN (settings.js).
 $('#settings-open').onclick=()=>askPin();
 
@@ -479,5 +510,7 @@ Promise.all([api.catalog(),api.config()]).then(([rows,settings])=>{
   products=rows;config=settings;
   setLanguage(lang);
   setMode(config.idleSeconds?'attract':'visit');
-  Presence.start(); // Webcam presence (presence.js): without a camera the kiosk works by touch.
+  // Webcam presence (presence.js): without a camera the kiosk works by touch.
+  Presence.threshold=config.camera.near;Presence.onchange=presenceChanged;
+  if(config.camera.on)Presence.start();
 });
