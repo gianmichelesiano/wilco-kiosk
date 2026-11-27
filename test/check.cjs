@@ -123,3 +123,35 @@ test('a product without a guide still lists its card and notes', () => {
   const keys = knowledge.items(catalog, 'efb', 'en').map(item => item.key);
   assert.deepEqual(keys, ['efb/prompt.en', 'efb/facts.en', 'efb/questions.en', 'efb/notes']);
 });
+
+// ---------- Webcam presence (presence.js) ----------
+const {presenceStep} = require('../presence.js');
+const presenceRun = (frames, threshold = 0.10) => frames.reduce((s, [t, faces]) => presenceStep(s, faces, t, threshold), {near: false, since: null, lastNearAt: -Infinity});
+
+test('presence: a face over the threshold for 1 s turns near, a shorter one does not', () => {
+  const face = [{width: 0.2, x: 0.5}];
+  assert.equal(presenceRun([[0, face], [800, face]]).near, false);
+  assert.equal(presenceRun([[0, face], [600, face], [1000, face]]).near, true);
+  assert.equal(presenceRun([[0, face], [600, []], [1000, face]]).near, false); // Interrupted: the second starts again.
+});
+
+test('presence: near ends 3 s after the last near face', () => {
+  const face = [{width: 0.2, x: 0.5}], on = [[0, face], [1000, face]];
+  assert.equal(presenceRun([...on, [3900, []]]).near, true);
+  assert.equal(presenceRun([...on, [4100, []]]).near, false);
+  assert.equal(presenceRun([...on, [3000, face], [5500, []]]).near, true); // Seen again: the 3 s start over.
+});
+
+test('presence: faces under the threshold never count; the biggest face is the one followed', () => {
+  assert.equal(presenceRun([[0, [{width: 0.09, x: 0.5}]], [2000, [{width: 0.09, x: 0.5}]]]).near, false);
+  const two = [{width: 0.12, x: 0.2}, {width: 0.3, x: 0.8}];
+  const s = presenceRun([[0, two], [1000, two]]);
+  assert.deepEqual(s.face, {width: 0.3, x: 0.8});
+  assert.equal(s.lastNearAt, 1000);
+});
+
+test('presence.js never keeps, sends or stores an image', () => {
+  const source = require('node:fs').readFileSync(require('node:path').join(__dirname, '../presence.js'), 'utf8');
+  for (const word of ['toDataURL', 'toBlob', 'getImageData', 'MediaRecorder', 'captureStream', 'fetch(', 'XMLHttpRequest', 'localStorage', 'indexedDB', 'window.wilco', 'api.', 'console.'])
+    assert.ok(!source.includes(word), `presence.js uses ${word}`);
+});
