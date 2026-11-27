@@ -1,6 +1,6 @@
 # Wilco su Windows
 
-Versione pronta: non serve installare niente, né Node.js né altri programmi.
+Non serve Node.js: Electron per Windows è già incluso. Con lo ZIP non serve installare niente. Con `git clone` serve solo Git per Windows.
 
 ## Requisiti
 
@@ -9,7 +9,22 @@ Versione pronta: non serve installare niente, né Node.js né altri programmi.
 - Un microfono, se si usa la voce.
 - Circa 600 MB liberi.
 
-## Installazione
+## Installazione da GitHub (git clone)
+
+1. Installare [Git per Windows](https://git-scm.com/download/win) con le opzioni predefinite. Include Git LFS, che scarica `Wilco.exe`.
+2. Aprire **Prompt dei comandi** e clonare il repository in una cartella dove si può scrivere:
+   ```
+   cd C:\
+   git clone https://github.com/gianmichelesiano/wilco-kiosk.git
+   ```
+   Usare `git clone`, non «Download ZIP» dalla pagina GitHub: quello ZIP non contiene `Wilco.exe`.
+3. Nella cartella `C:\wilco-kiosk` creare il file `.env` come al punto 4 della sezione successiva.
+4. Doppio clic su **Start-Wilco.cmd**. Avvia `windows\Wilco.exe` sul codice della cartella.
+5. Per aggiornare Wilco a una versione nuova: chiudere Wilco, poi nella cartella `C:\wilco-kiosk` eseguire `git pull`.
+
+Senza `cache\` Wilco prepara le risposte e le voci dal vivo, quindi la prima volta è più lento. Per averle subito, copiare la cartella `cache\` da un'installazione esistente in `C:\wilco-kiosk`.
+
+## Installazione dallo ZIP
 
 1. Scaricare `Wilco-windows.zip` dalla pagina Releases del repository.
 2. Clic destro sullo ZIP > **Estrai tutto…**. Scegliere una cartella dove si può scrivere, per esempio `C:\Wilco`. Non usare `C:\Programmi`: Wilco salva nella sua cartella le chiavi, le modifiche e le risposte preparate.
@@ -31,7 +46,9 @@ Versione pronta: non serve installare niente, né Node.js né altri programmi.
 - «Settings» in alto a sinistra apre il tastierino del PIN.
 - Dopo una modifica a `.env`, chiudere e riaprire Wilco.
 
-## File accanto a Wilco.exe
+## File di Wilco
+
+Si trovano accanto a `Wilco.exe` (installazione dallo ZIP) o accanto a `Start-Wilco.cmd` (installazione con git).
 
 | File | Contenuto |
 |---|---|

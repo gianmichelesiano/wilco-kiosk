@@ -1,17 +1,23 @@
 #!/bin/zsh -l
-# Builds dist/Wilco-windows.zip on the Mac: Electron for Windows x64 + the app. On the PC: unzip, open Wilco.exe, no Node.
+# windows/: Electron for Windows x64 (Git LFS). Start-Wilco.cmd runs this folder with it, so the PC needs no Node.
+# Also builds dist/Wilco-windows.zip for the GitHub Release: runtime + a copy of the app, opened with Wilco.exe.
 set -eu
 cd -- "${0:A:h}"
 export PATH="$PATH:/opt/homebrew/bin:/usr/local/bin"
 [[ -d node_modules/@electron/get ]] || npm install --no-audit --no-fund
 version=$(node -p "require('electron/package.json').version")
-# Downloads once, checks the SHA-256 and keeps it in the Electron cache.
-electron_zip=$(node -e "require('@electron/get').downloadArtifact({version:'$version',platform:'win32',arch:'x64',artifactName:'electron'}).then(console.log)")
+if [[ "$(cat windows/version 2>/dev/null)" != "$version" ]]; then
+  # Downloads once, checks the SHA-256 and keeps it in the Electron cache.
+  electron_zip=$(node -e "require('@electron/get').downloadArtifact({version:'$version',platform:'win32',arch:'x64',artifactName:'electron'}).then(console.log)")
+  rm -rf windows
+  ditto -x -k "$electron_zip" windows
+  mv windows/electron.exe windows/Wilco.exe
+  print "windows/ aggiornato a Electron $version: committare windows/"
+fi
 stage=$(mktemp -d)
 trap 'rm -rf -- "$stage"' EXIT
 root="$stage/Wilco"
-ditto -x -k "$electron_zip" "$root"
-mv "$root/electron.exe" "$root/Wilco.exe"
+ditto windows "$root"
 rm "$root/resources/default_app.asar"
 app="$root/resources/app"
 mkdir "$app"

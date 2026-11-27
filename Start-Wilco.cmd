@@ -1,9 +1,11 @@
 @echo off
-cd /d "%~dp0"
-where npm.cmd >nul 2>nul || (echo Install Node.js 24 LTS with npm, then reopen Wilco. & pause & exit /b 1)
-if not exist node_modules\electron\dist\electron.exe (
-  call npm.cmd install
-  if errorlevel 1 (pause & exit /b 1)
-)
-node --env-file-if-exists=.env node_modules\electron\cli.js .
-if errorlevel 1 pause
+rem Opens this folder with the Electron runtime in windows\ (Git LFS): no Node needed. Keys: .env next to this file.
+set "exe=%~dp0windows\Wilco.exe"
+if not exist "%exe%" goto missing
+for %%F in ("%exe%") do if %%~zF LSS 1000000 goto missing
+start "" "%exe%" "%~dp0."
+exit /b
+:missing
+echo windows\Wilco.exe is missing. Install Git for Windows, then run "git lfs pull" in this folder.
+pause
+exit /b 1
