@@ -327,6 +327,78 @@ test('Settings camera: staff only, validated, saved in camera.json, live reading
   await until(page, () => window.Presence.status === 'off');
 });
 
+test('a visitor who keeps touching is not sent away by the camera', async t => {
+  const {page} = await launch(t);
+  await visit(page, 'en');
+  await presenceNear(page);
+  await page.waitForTimeout(2000);
+  await presenceAway(page);
+  for (let second = 0; second < 25; second++) { await page.dispatchEvent('main', 'pointerdown'); await page.waitForTimeout(1000); }
+  assert.equal(await mode(page), 'visit');
+});
+
+test('with idleSeconds 0 the camera never ends a visit either', async t => {
+  const {page} = await launch(t, {files: {'demo.json': {idleSeconds: 0}}});
+  await page.click('#lang [data-lang="fr"]');
+  await until(page, () => document.documentElement.lang === 'fr');
+  await presenceNear(page);
+  await page.waitForTimeout(2000);
+  await presenceAway(page);
+  await page.waitForTimeout(25000);
+  assert.equal(await page.evaluate(() => document.documentElement.lang), 'fr'); // endVisit would go back to English.
+});
+
+test('the camera can be switched off while it starts, and on again', {timeout: 30000}, async t => {
+  const {page} = await launch(t);
+  await until(page, () => window.Presence?.status === 'working', null, 15000);
+  const result = await page.evaluate(async () => {
+    Presence.stop();
+    const play = HTMLMediaElement.prototype.play;
+    HTMLMediaElement.prototype.play = function () { return new Promise(resolve => setTimeout(() => resolve(play.call(this).catch(() => {})), 400)); };
+    const starting = Presence.start();
+    while (!Presence.stream) await new Promise(resolve => setTimeout(resolve, 10)); // The camera is open, the video not yet playing.
+    Presence.stop();
+    await starting;
+    const after = {status: Presence.status, stream: !!Presence.stream};
+    HTMLMediaElement.prototype.play = play;
+    await Presence.start();
+    return {after, again: {status: Presence.status, stream: !!Presence.stream}};
+  });
+  assert.deepEqual(result, {after: {status: 'off', stream: false}, again: {status: 'working', stream: true}});
+});
+
+test('tapping the invitation starts the visit in its language', async t => {
+  const {page} = await launch(t);
+  await until(page, () => document.querySelector('#begin').lang !== 'fr', null, 12000);
+  await until(page, () => document.querySelector('#begin').lang === 'fr', null, 25000); // A fresh five seconds in French.
+  await presenceNear(page);
+  await until(page, () => document.body.dataset.presence === 'near', null, 3000);
+  assert.equal(await page.evaluate(() => document.querySelector('#wake').lang), 'fr');
+  await page.click('#wake');
+  await until(page, () => document.body.dataset.mode === 'visit');
+  assert.equal(await page.evaluate(() => document.documentElement.lang), 'fr');
+});
+
+test('the spoken hello never greets someone who has just ended a visit', async t => {
+  const {page} = await launch(t, {files: {'camera.json': {greet: true}}});
+  await visit(page, 'en');
+  await page.waitForTimeout(2500); // The welcome is over.
+  await presenceNear(page);
+  await page.waitForTimeout(1500);
+  await page.evaluate(() => { window.spoke = 0; new MutationObserver(() => { if (document.body.dataset.state === 'speaking') window.spoke++; }).observe(document.body, {attributes: true, attributeFilter: ['data-state']}); });
+  await page.click('#reset');
+  await until(page, () => document.body.dataset.presence === 'near', null, 3000);
+  await page.waitForTimeout(2000);
+  assert.equal(await page.evaluate(() => window.spoke), 0);
+});
+
+test('a camera that cannot be opened also points the stand team at Windows privacy', async t => {
+  const {page} = await launch(t);
+  await openSettings(page);
+  await page.evaluate(() => { Presence.stop(); navigator.mediaDevices.getUserMedia = () => Promise.reject(new DOMException('x', 'NotReadableError')); return Presence.start(); });
+  await until(page, () => /Privacy & security > Camera/.test(document.querySelector('#camera-state').textContent));
+});
+
 test('Settings opens only with the staff PIN', async t => {
   const {page} = await launch(t);
   await visit(page, 'en'); // Start in English, whatever the question on screen.

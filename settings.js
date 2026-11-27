@@ -73,7 +73,7 @@ async function openSettings(){
 // Webcam presence: the stand team switches it, sets the distance with the live preview, allows the spoken hello.
 // The preview shows the live camera and the size of the biggest face; it records nothing.
 const cameraStates={off:'Camera off.',starting:'Starting the camera…',working:'Camera working.',
-  'no-camera':'No camera found. Wilco tries again every 10 seconds and works by touch meanwhile.',
+  'no-camera':'No camera available: not connected, used by another app, or blocked in Windows Settings > Privacy & security > Camera. Wilco tries again every 10 seconds and works by touch meanwhile.',
   'no-permission':'No permission for the camera: Windows Settings > Privacy & security > Camera > Let desktop apps access your camera, then restart Wilco.',
   unavailable:'Face detection unavailable on this computer: Wilco works by touch.'};
 let cameraWatch;

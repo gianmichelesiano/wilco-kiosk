@@ -62,7 +62,7 @@ var Presence = {
     this.stream = stream;
     presenceVideo ??= Object.assign(document.createElement('video'), {muted: true, playsInline: true});
     presenceVideo.srcObject = stream;
-    await presenceVideo.play().catch(() => {});
+    presenceVideo.play().catch(() => {}); // Not awaited: a stop() meanwhile, or a camera that never sends a frame, must not leave start() hanging. The loop waits for frames.
     for (const track of stream.getTracks()) track.onended = () => {
       if (run !== presenceGeneration) return;
       this.stop();

@@ -422,6 +422,7 @@ function endVisit(){
   if($('#pin').open)$('#pin').close();
   mode='visit'; // Leave Settings before the language changes, so the locked panel is not drawn again.
   chosen=null; // The next visitor starts from the attract screen with all four languages.
+  greetHeld=Presence.state.near; // Whoever ended the visit is not greeted as a newcomer.
   setSide(false);
   setLanguage('en');
   setMode(config.idleSeconds?'attract':'visit');
@@ -444,7 +445,7 @@ function wake(event){
   // A language button only changes the language of the attract screen: nothing starts.
   const button=target.closest('[data-lang]')?.dataset.lang;
   if(button){chosen=button;clearInterval(teaserTimer);teaser();teaserTimer=setInterval(teaser,5000);return;}
-  startVisit(chosen||(target.closest('#teaser, #begin') && teased?.lang)||'en',picked?.id);
+  startVisit(chosen||target.closest('#wake')?.lang||(target.closest('#teaser, #begin') && teased?.lang)||'en',picked?.id);
 }
 // The Settings button belongs to the stand team: a touch on it never starts a visit.
 const staffTouch=event=>!!event.target.closest?.('#settings-open');
@@ -479,7 +480,8 @@ api.onActivity(touched); // Touches inside the live demo.
 // Attract screen: someone stops in front of the kiosk, Wilco wakes up, leans towards them and invites a touch,
 // aloud at most once a minute when Settings allow it. Visit: someone in front counts as a touch; nobody for
 // 20 s ends a visit where the camera, still running since, saw someone. Settings: no effect.
-let presenceSeen=false, presenceStatus='off', lastGreet=-Infinity;
+// greetHeld: the visit just ended with someone in front; no spoken hello until they have gone.
+let presenceSeen=false, presenceStatus='off', lastGreet=-Infinity, greetHeld=false;
 function presenceShow(){
   if(mode!=='attract' || !Presence.state.near){delete document.body.dataset.presence;return;}
   if(Presence.state.face)document.body.style.setProperty('--face-x',((.5-Presence.state.face.x)*2).toFixed(2)); // The camera sees the visitor mirrored.
@@ -487,12 +489,13 @@ function presenceShow(){
   document.body.dataset.presence='near';
   const code=chosen||teased?.lang||'en', wake=$('#wake');
   wake.lang=code;wake.textContent=messages[code].wake;
-  if(config.camera?.greet && state==='standby' && performance.now()-lastGreet>60000){
+  if(config.camera?.greet && !greetHeld && state==='standby' && performance.now()-lastGreet>60000){
     lastGreet=performance.now();
     speak(messages[code].wake,code,seq,null,true).catch(()=>{});
   }
 }
-function presenceChanged(_state,status){
+function presenceChanged(now,status){
+  if(!now.near)greetHeld=false;
   if(status!==presenceStatus){presenceStatus=status;if(status!=='working')presenceSeen=false;} // A new camera run proves nothing about the visitor.
   presenceShow();
 }
@@ -500,7 +503,8 @@ setInterval(()=>{
   presenceShow(); // Wilco follows the face on the attract screen.
   if(mode!=='visit')return;
   if(Presence.state.near){presenceSeen=true;touched();}
-  else if(presenceSeen && performance.now()-Presence.state.lastNearAt>20000 && quiet())endVisit();
+  // Like the idle rule: never with idleSeconds 0, never while the visitor still touches the screen.
+  else if(config.idleSeconds && presenceSeen && performance.now()-Presence.state.lastNearAt>20000 && Date.now()-lastInput>20000 && quiet())endVisit();
 },1000);
 
 // Stand team: the Settings button asks for the PIN (settings.js).
