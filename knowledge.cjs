@@ -225,6 +225,8 @@ function products(catalog) {
       ...(product.clips ? {clips: product.clips.map(clip => clip && fs.existsSync(path.join(__dirname, clip)) ? clip : null)} : {}),
       // "intro": the app's feature tour, played muted when its card opens. A missing file counts as none.
       ...(product.intro ? {intro: fs.existsSync(path.join(__dirname, product.intro)) ? product.intro : null} : {}),
+      // "images": pictures with a caption in each language, shown as thumbnails. A missing file is left out.
+      ...(product.images ? {images: product.images.filter(image => fs.existsSync(path.join(__dirname, image.src)))} : {}),
       ...card(product, 'en'),
       locales: Object.fromEntries(Object.entries(product.locales || {}).map(([lang, values]) => [lang, {...values, ...card(product, lang)}])),
       ...(changed(notes) ? {help: [{source: 'Stand team', notes: paragraphs(overrides[notes])}]} : {})

@@ -37,3 +37,5 @@ const voiceTest={
  fr:'Bonjour, je suis Wilco. Vous m’entendez ?',
  de:'Hallo, ich bin Wilco. Können Sie mich hören?'
 };
+// main.cjs reads the same texts, for the overview question.
+if(typeof module==='object')module.exports=messages;

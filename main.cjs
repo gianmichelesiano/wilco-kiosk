@@ -6,6 +6,7 @@ const {pathToFileURL} = require('node:url');
 const run = require('node:util').promisify(require('node:child_process').execFile);
 const catalog = require('./catalog.json');
 const knowledge = require('./knowledge.cjs');
+const strings = require('./strings.js'); // The overview question the screen asks when a product opens.
 const file = name => path.join(__dirname, name);
 // Wilco.app keeps the Electron executable name, so app.isPackaged is false there: check where the code runs from.
 const bundled = __dirname.startsWith(process.resourcesPath);
@@ -157,6 +158,13 @@ const answerKey = (q,id,lang) => [lang,id||'',String(q).trim()].join('|');
 // What the visitor reads and hears: the answer, then the question that offers the next step.
 const spoken = (answer,greet) => [greet ? greetings[answer.language] : '',answer.text,answer.followUp].filter(Boolean).join('\n\n');
 const turnOf = (q,id) => ({role:'user',content:JSON.stringify({activeProduct:id,question:q})});
+// A product with "overview" in catalog.json introduces itself with that text and its "overviewFollowUp": no model,
+// and the voice is kept on disk. A "yes" to that question shows the product's pictures marked "followUp".
+function fixedOverview(q,id,lang) {
+  const product=onShow().find(p=>p.id===id), local=product && (lang==='en' ? product : product.locales?.[lang]);
+  if(!local?.overview || q.trim()!==strings[lang].overview.replace('{name}',product.name)) return null;
+  return {text:local.overview,followUp:local.overviewFollowUp||defaultFollowUps[lang],language:lang,id,picturesOffered:true};
+}
 function remember(q,id,answer) {
   history=[...history,turnOf(q,id),{role:'assistant',content:JSON.stringify(answer)}].slice(-12);
 }
@@ -265,29 +273,32 @@ app.whenReady().then(()=>{
     const seq=++turn;
     // "Yes" to "Would you like me to show you TechLog?": the kiosk moves at once, with no provider.
     const previous=history.length ? JSON.parse(history.at(-1).content) : {};
-    if(previous.offer && previous.offer!==id && affirmation.test(q.trim().replace(/[,，]/g,'')) && onShow().some(p=>p.id===previous.offer)){
+    const yes=affirmation.test(q.trim().replace(/[,，]/g,''));
+    if(previous.offer && previous.offer!==id && yes && onShow().some(p=>p.id===previous.offer)){
       const answer={text:'',followUp:'',language:previous.language,id:previous.offer,switchTo:previous.offer};
       lastContext={question:q,id,switchTo:previous.offer};
       remember(q,id,answer);
       return answer;
     }
-    const ready=answers[answerKey(q,id,lang)];
+    // "Yes" to the closing question of a fixed overview: the screen shows the pictures while Wilco explains.
+    const pictures=!!previous.picturesOffered && yes;
+    const ready=fixedOverview(q,id,lang)||answers[answerKey(q,id,lang)];
     let answer, greet=false;
     if(ready){
-      // Prepared in Settings: no provider, no waiting.
-      answer={text:ready.text,followUp:ready.followUp,language:ready.language,id:ready.id};
+      // Prepared in Settings or fixed in the catalog: no provider, no waiting.
+      answer={text:ready.text,followUp:ready.followUp,language:ready.language,id:ready.id,...(ready.picturesOffered ? {picturesOffered:true} : {})};
       lastContext={question:q,id,prepared:true};
     }else{
-      if(!process.env.OPENAI_API_KEY) return {text:null,id,offline:true};
+      if(!process.env.OPENAI_API_KEY) return {text:null,id,offline:true,pictures};
       greet=history.length===0 && !greeted;
       answer=await compose(q,id,lang,history,()=>seq===turn);
-      if(!answer) return {text:null,id,offline:true};
+      if(!answer) return {text:null,id,offline:true,pictures};
     }
     // Moving: the kiosk says its own words, so the model's answer is never heard and stays out of the history.
     if(answer.switchTo) Object.assign(answer,{text:'',followUp:''});
     else if(last===true) Object.assign(answer,offerNext(id,answer.language));
     remember(q,id,answer);
-    return {...answer,text:spoken(answer,greet),ready:!!ready};
+    return {...answer,text:spoken(answer,greet),ready:!!ready,pictures};
   });
   handle('listen',async(bytes,lang)=>{
     if(!process.env.OPENAI_API_KEY || !(bytes instanceof Uint8Array) || bytes.length>5e6) throw Error('Microphone service unavailable');

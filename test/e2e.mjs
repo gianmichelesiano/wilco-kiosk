@@ -537,7 +537,7 @@ test('the app tour plays without sound during the overview, and a question takes
   await until(page, () => document.querySelector('#film').hidden);
 });
 
-for (const id of ['techlog', 'audit', 'sms']) {
+for (const id of ['techlog', 'audit', 'sms', 'crew']) {
   test(`each card plays its own app tour: ${id} opens the ${id} tour`, async t => {
     const {page} = await launch(t);
     await visit(page, 'en');
@@ -613,6 +613,50 @@ test('after the last suggested question of a product Wilco offers the next produ
   await latestHas(page, toTechLog);
   assert.equal((await calls()).asked, asked);
 });
+
+// CrewOverview: a fixed introduction (catalog.json "overview") and pictures ("images").
+const crew = catalog.find(product => product.id === 'crew');
+const crewPicturesMissing = crew.images.some(image => !fs.existsSync(path.join(root, image.src)));
+const transcriptHas = (page, part) => until(page, part => document.querySelector('#transcript').textContent.includes(part), part);
+async function openCard(page, id) {
+  await page.click(`#grid .card:nth-child(${visible.findIndex(product => product.id === id) + 1})`);
+}
+
+test('CrewOverview introduces itself with its fixed text, without the model, and offers the Pilot Qualification List', async t => {
+  const {page, calls} = await launch(t);
+  await visit(page, 'de');
+  await openCard(page, 'crew');
+  await transcriptHas(page, crew.locales.de.overview);
+  await transcriptHas(page, crew.locales.de.overviewFollowUp);
+  assert.equal((await calls()).asked, 0);
+  assert.equal(await page.textContent('#facts'), crew.locales.de.facts);
+  await until(page, () => document.querySelectorAll('#topics .topic').length === 6);
+  await page.click('#home');
+  await openCard(page, 'ops');
+  assert.ok(await page.isHidden('#shots'), 'a product without pictures shows no strip');
+});
+
+test('"Ja" to that question shows the list full screen, and each thumbnail opens its picture',
+  {skip: crewPicturesMissing && 'the crew pictures are not in media/crew yet'}, async t => {
+    const {page} = await launch(t);
+    await visit(page, 'de');
+    await openCard(page, 'crew');
+    await transcriptHas(page, crew.locales.de.overviewFollowUp);
+    await page.fill('#question', 'Ja');
+    await page.press('#question', 'Enter');
+    for (const image of crew.images.filter(image => image.followUp)) {
+      await until(page, src => document.querySelector('#shot').open && document.querySelector('#shot img').src.endsWith(src), image.src);
+      assert.equal(await page.textContent('#shot figcaption'), image.caption.de);
+      await page.click('#shot');
+    }
+    await until(page, () => !document.querySelector('#shot').open);
+    assert.equal(await page.locator('#shots .shot').count(), crew.images.length);
+    await page.click('#shots .shot:last-child');
+    await until(page, () => document.querySelector('#shot').open);
+    assert.equal(await page.textContent('#shot figcaption'), crew.images.at(-1).caption.de);
+    await page.click('#shot');
+    await until(page, () => !document.querySelector('#shot').open);
+  });
 
 test('prepared answers play at once and keep working with the network down', async t => {
   const {page, calls, mock, settings} = await launch(t);
