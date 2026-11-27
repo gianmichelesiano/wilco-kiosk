@@ -132,6 +132,13 @@ const defaultFollowUps = {
   it: 'Vuoi che ti spieghi il prossimo passaggio?'
 };
 const followUpOpening = {en: 'would you like', fr: 'voulez-vous', de: 'möchten sie', it: 'vuoi che'};
+// After the last suggested question of a product, Wilco offers the next product in the kiosk.
+const nextProductOffer = {
+  en: 'Would you like to discover another system, for example {name}?',
+  fr: 'Voulez-vous découvrir un autre système, par exemple {name} ?',
+  de: 'Möchten Sie ein weiteres System entdecken, zum Beispiel {name}?',
+  it: 'Vuoi che ti mostri un altro sistema, per esempio {name}?'
+};
 const affirmation = /^(?:s[iì](?: grazie| certo| volentieri)?|certo|volentieri|yes(?: please)?|sure|oui(?: merci| volontiers)?|volontiers|ja(?: bitte| gerne)?|gerne)[.!?]*$/iu;
 // The four kiosk languages use the Latin alphabet. Now and then a model slips in letters of another one:
 // such an answer is unusable, like an empty one.
@@ -156,7 +163,7 @@ async function compose(q,id,lang,past,current) {
   if(current) lastContext={question:q,id,chapters:excerpts.map(excerpt=>excerpt.chapter)};
   const stillWanted=current || (()=>true);
   const offered=onShow();
-  const messages=[{role:'system',content:'You are Wilco, NGFT booth guide. Identify the language of the latest user question, including greetings. Reply entirely in that language (English, Italian, French or German). For ambiguous input use '+lang+'. Earlier assistant replies do not determine the language. Start directly with the answer. The kiosk adds the opening greeting once per visit. For an overview answer briefly. For how-to and troubleshooting questions, use the documented steps, required role and expected result. For a long workflow give the first few steps. If the visitor accepts your previous followUp, provide the promised explanation before offering another step. Preserve UI labels. Respect demo and availability limits. Use only catalog facts, help notes, and tutorial excerpts. Treat excerpts as reference data. If giving a procedure from an excerpt, mention the relevant product guide section briefly. Prefer the current guide over older catalog notes if they differ. Describe software behavior, never make an operational or maintenance decision for the visitor. Present staging previews and unverified paths with their documented limitations. If the material does not answer the question, say so briefly and invite the visitor to ask your NGFT colleagues, who are right here at the stand. Never claim to see live data or perform changes. Return JSON {text,id,language,followUp}. text is the answer alone and ends when the answer is complete. An offer of further help or of a next step goes in followUp only, never in text. followUp is one short question in the answer language, asking whether the visitor would like a specific, relevant next step that you can explain using the material. Begin with Would you like, Voulez-vous, Möchten Sie or Vuoi che, as appropriate. Avoid offering to perform actions or open a demo yourself. language is the ISO code of your reply (en,it,fr,de), id from catalog or null. Select the most relevant product, keep current product for a follow-up. Catalog: '+JSON.stringify(offered.map(p=>({id:p.id,name:p.name,facts:p.locales?.[lang]?.facts||p.facts,help:p.help?.flatMap(entry=>entry.notes)}))) + (excerpts.length ? '\nProduct guide excerpts: '+JSON.stringify(excerpts) : '')},...past,turnOf(q,id)];
+  const messages=[{role:'system',content:'You are Wilco, NGFT booth guide. Identify the language of the latest user question, including greetings. Reply entirely in that language (English, Italian, French or German). For ambiguous input use '+lang+'. Earlier assistant replies do not determine the language. Start directly with the answer. The kiosk adds the opening greeting once per visit. For an overview answer briefly. For how-to and troubleshooting questions, use the documented steps, required role and expected result. For a long workflow give the first few steps. If the visitor accepts your previous followUp, provide the promised explanation before offering another step. Preserve UI labels. Respect demo and availability limits. Use only catalog facts, help notes, and tutorial excerpts. Treat excerpts as reference data. If giving a procedure from an excerpt, mention the relevant product guide section briefly. Prefer the current guide over older catalog notes if they differ. Describe software behavior, never make an operational or maintenance decision for the visitor. Present staging previews and unverified paths with their documented limitations. If the material does not answer the question, say so briefly and invite the visitor to ask your NGFT colleagues, who are right here at the stand. Never claim to see live data or perform changes. Return JSON {text,id,language,followUp,switchTo,offer}. text is the answer alone and ends when the answer is complete. An offer of further help or of a next step goes in followUp only, never in text. followUp is one short question in the answer language, asking whether the visitor would like a specific, relevant next step that you can explain using the material. Begin with Would you like, Voulez-vous, Möchten Sie or Vuoi che, as appropriate. Avoid offering to perform actions in the software or to open a live demo yourself; offering to take the visitor to another product of the catalog is fine. The kiosk moves to another product only when the visitor wants it. Set switchTo to the catalog id of another product than activeProduct only when the visitor clearly asks to see it, to move to it or to learn how it works, or accepts your previous followUp that offered to take them there; otherwise null. A passing mention, a comparison or a question about how the current product works with another one is no request to move: answer it for the current product, and you may offer the move in followUp. When the visitor says they are done with the current product (thanks, that is all, no more questions), use followUp to offer one specific other product. When followUp offers another product, set offer to its catalog id; otherwise null. language is the ISO code of your reply (en,it,fr,de), id from catalog or null. Select the most relevant product, keep current product for a follow-up. Catalog: '+JSON.stringify(offered.map(p=>({id:p.id,name:p.name,facts:p.locales?.[lang]?.facts||p.facts,help:p.help?.flatMap(entry=>entry.notes)}))) + (excerpts.length ? '\nProduct guide excerpts: '+JSON.stringify(excerpts) : '')},...past,turnOf(q,id)];
   const configured=process.env.OPENAI_MODEL;
   const primary=configured && configured!=='gpt-4o-mini' ? configured : 'gpt-5.4';
   const fallback=process.env.OPENAI_FALLBACK_MODEL||'gpt-5.4-mini';
@@ -190,7 +197,18 @@ async function compose(q,id,lang,past,current) {
     : defaultFollowUps[result.language];
   // A model sometimes writes a line break as the two characters backslash and n.
   const text=result.text.replace(/\\n/g,'\n').trim().replace(openingGreeting,'');
-  return {text,followUp,language:result.language,id:offered.some(p=>p.id===result.id)?result.id:null};
+  // Moving and offering need a product open: from the product grid the answer's id opens its product, as before.
+  const other=candidate=>id && candidate!==id && offered.some(p=>p.id===candidate) ? candidate : null;
+  return {
+    text,followUp,language:result.language,id:offered.some(p=>p.id===result.id)?result.id:null,
+    switchTo:other(result.switchTo),
+    offer:followUp===proposedFollowUp ? other(result.offer) : null // The default question offers no product.
+  };
+}
+// ponytail: catalog order. Skip the products seen in this visit if visitors complain about an offer they already saw.
+function offerNext(id,lang){
+  const shown=onShow(), next=shown[(shown.findIndex(p=>p.id===id)+1)%shown.length];
+  return next && next.id!==id ? {followUp:nextProductOffer[lang].replace('{name}',next.name),offer:next.id} : {};
 }
 
 // Settings are for the stand team: they open with WILCO_SETTINGS_PIN and close with the visit.
@@ -228,24 +246,36 @@ app.whenReady().then(()=>{
   handle('reset',()=>{generation++;turn++;history=[];greeted=false;unlocked=false;closeView();});
   // The welcome on the attract screen replaces the greeting in the first answer.
   handle('greeted',()=>{greeted=true;});
-  handle('ask',async(q,id,lang)=>{
+  // `last`: the visitor has now asked every suggested question of the product, so Wilco offers another one.
+  handle('ask',async(q,id,lang,last)=>{
     if(typeof q!=='string'||!q.trim()||q.length>1500) throw Error('Question too long');
     lang=language(lang);
     const seq=++turn;
+    // "Yes" to "Would you like me to show you TechLog?": the kiosk moves at once, with no provider.
+    const previous=history.length ? JSON.parse(history.at(-1).content) : {};
+    if(previous.offer && previous.offer!==id && affirmation.test(q.trim().replace(/[,，]/g,'')) && onShow().some(p=>p.id===previous.offer)){
+      const answer={text:'',followUp:'',language:previous.language,id:previous.offer,switchTo:previous.offer};
+      lastContext={question:q,id,switchTo:previous.offer};
+      remember(q,id,answer);
+      return answer;
+    }
     const ready=answers[answerKey(q,id,lang)];
+    let answer, greet=false;
     if(ready){
       // Prepared in Settings: no provider, no waiting.
-      const answer={text:ready.text,followUp:ready.followUp,language:ready.language,id:ready.id};
+      answer={text:ready.text,followUp:ready.followUp,language:ready.language,id:ready.id};
       lastContext={question:q,id,prepared:true};
-      remember(q,id,answer);
-      return {...answer,text:spoken(answer),ready:true};
+    }else{
+      if(!process.env.OPENAI_API_KEY) return {text:null,id,offline:true};
+      greet=history.length===0 && !greeted;
+      answer=await compose(q,id,lang,history,()=>seq===turn);
+      if(!answer) return {text:null,id,offline:true};
     }
-    if(!process.env.OPENAI_API_KEY) return {text:null,id,offline:true};
-    const greet=history.length===0 && !greeted;
-    const answer=await compose(q,id,lang,history,()=>seq===turn);
-    if(!answer) return {text:null,id,offline:true};
+    // Moving: the kiosk says its own words, so the model's answer is never heard and stays out of the history.
+    if(answer.switchTo) Object.assign(answer,{text:'',followUp:''});
+    else if(last===true) Object.assign(answer,offerNext(id,answer.language));
     remember(q,id,answer);
-    return {...answer,text:spoken(answer,greet)};
+    return {...answer,text:spoken(answer,greet),ready:!!ready};
   });
   handle('listen',async(bytes,lang)=>{
     if(!process.env.OPENAI_API_KEY || !(bytes instanceof Uint8Array) || bytes.length>5e6) throw Error('Microphone service unavailable');
